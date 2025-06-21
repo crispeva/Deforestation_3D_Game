@@ -7,6 +7,7 @@ TagManager:
   - CinemachineTarget
   - Crystal
   - Tree
+  - Machine
   layers:
   - Default
   - TransparentFX

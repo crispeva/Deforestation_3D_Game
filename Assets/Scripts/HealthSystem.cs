@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Deforestation
 {
@@ -12,6 +13,8 @@ namespace Deforestation
 		[SerializeField]
 		private float _maxHealth = 100f;
 		private float _currentHealth;
+        [SerializeField]
+        private RawImage _die;
 
 		private void Awake()
 		{
@@ -46,8 +49,10 @@ namespace Deforestation
 		private void Die()
 		{
 			OnDeath?.Invoke();
-			// Aquí puedes añadir lógica adicional para la muerte, como destruir el objeto.
-		}
+            // Aquí puedes añadir lógica adicional para la muerte, como destruir el objeto.
+            _die.enabled = true;
+
+        }
 	}
 
 }

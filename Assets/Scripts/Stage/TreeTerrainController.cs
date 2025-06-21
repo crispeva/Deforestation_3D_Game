@@ -51,7 +51,10 @@ namespace Deforestation
 
 		void OnDestroy()
 		{
-			_terrain.terrainData.treeInstances = _trees;
+			if (_trees != null)
+			{
+				_terrain.terrainData.treeInstances = _trees;
+			}
 		}
 		#endregion
 
