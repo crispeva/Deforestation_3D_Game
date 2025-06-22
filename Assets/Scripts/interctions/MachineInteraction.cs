@@ -1,5 +1,5 @@
 using UnityEngine;
-using System;
+using System.Collections;
 namespace Deforestation.Interaction
 {
 	public enum MachineInteractionType
@@ -16,14 +16,19 @@ namespace Deforestation.Interaction
 		#region Fields
 		[SerializeField] protected MachineInteractionType _type;
 		[SerializeField] protected Transform _target;
+        Vector3 _originalposition;
 
 		[SerializeField] protected InteractableInfo _interactableInfo;
 
 
-		#endregion
+        #endregion
 
-		#region Public Methods
-		public InteractableInfo GetInfo()
+        #region Public Methods
+        private void Start()
+        {
+            _originalposition = transform.position;
+        }
+        public InteractableInfo GetInfo()
 		{
 			_interactableInfo.Type = _type.ToString();
 			return _interactableInfo;
@@ -33,9 +38,10 @@ namespace Deforestation.Interaction
 		{
 			if (_type == MachineInteractionType.Door)
 			{
-				//Move Door
-				transform.position = _target.position;
-			}
+				StartCoroutine(CloseDoor());
+               
+
+            }
 			if (_type == MachineInteractionType.Stairs)
 			{
 				//Teleport Player
@@ -47,7 +53,15 @@ namespace Deforestation.Interaction
 			}
 		}
 
-		#endregion
-	}
+        private IEnumerator CloseDoor()
+        {
+            //Move Door
+            transform.position = _target.position;
+            yield return new WaitForSeconds(3f);
+            transform.localPosition = new Vector3(0,0,0);
+        }
+
+        #endregion
+    }
 
 }

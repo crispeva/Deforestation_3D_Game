@@ -14,7 +14,7 @@ namespace Deforestation
 		private float _maxHealth = 100f;
 		private float _currentHealth;
         [SerializeField]
-        private RawImage _die;
+        private GameObject _die;
 
 		private void Awake()
 		{
@@ -50,7 +50,7 @@ namespace Deforestation
 		{
 			OnDeath?.Invoke();
             // Aquí puedes añadir lógica adicional para la muerte, como destruir el objeto.
-            _die.enabled = true;
+            _die.active = true;
 
         }
 	}
