@@ -16,6 +16,9 @@ namespace Deforestation.Interaction
 		[SerializeField] float _widthDetector = 1;
 		[SerializeField] float _distanceDetector = 5;
 		[SerializeField] Inventory _inventory;
+
+		public Action MineralSound;
+
 		private bool _interactebleDetected = false;
 		private IInteractable _currentInteraction;
 		#endregion
@@ -30,7 +33,9 @@ namespace Deforestation.Interaction
 				{
 					_inventory.AddRecolectable(recolectable.Type, recolectable.Count);
 					recolectable.Interact();
-				}
+                    MineralSound?.Invoke();
+
+                }
 				//Mahine Interaction
 				if (_currentInteraction is MachineInteraction machineInteraction)
 				{
@@ -51,7 +56,7 @@ namespace Deforestation.Interaction
 					OnShowInteraction.Invoke("E - To " + info.Action + " " + info.Type);
 					_interactebleDetected = true;
 					_currentInteraction = interaction;
-					return;
+                    return;
 				}
 			}
 			_interactebleDetected = false;

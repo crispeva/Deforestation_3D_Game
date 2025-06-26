@@ -1743,7 +1743,7 @@ Transform:
   m_GameObject: {fileID: 589710274290090363}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071069, y: 0.00000011920935, z: 0.70710665, w: -0.00000021478857}
-  m_LocalPosition: {x: 0.0005, y: 0.0012, z: -0.00513}
+  m_LocalPosition: {x: 0.00051, y: -0.001304, z: -0.004998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2580,7 +2580,7 @@ Transform:
   m_GameObject: {fileID: 935673247135045238}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0062, y: -0.0011, z: 0.0004}
+  m_LocalPosition: {x: -0.004257, y: -0.001225, z: 0.000754}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6509,7 +6509,7 @@ GameObject:
   - component: {fileID: 5399328361072198463}
   m_Layer: 0
   m_Name: IK_Cont_Wheel_F_R.001_Front
-  m_TagString: Untagged
+  m_TagString: Machine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6888,7 +6888,7 @@ GameObject:
   - component: {fileID: 7492871236380003851}
   m_Layer: 0
   m_Name: IK_Cont_Wheel_F_R.001_Side_R
-  m_TagString: Untagged
+  m_TagString: Machine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11687,9 +11687,10 @@ GameObject:
   - component: {fileID: 3429908263805911436}
   - component: {fileID: 5625739484875177652}
   - component: {fileID: 2782172101916695108}
+  - component: {fileID: 112900662929233058}
   m_Layer: 0
   m_Name: TheMachine Variant
-  m_TagString: Untagged
+  m_TagString: Machine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11724,7 +11725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb4bf88a35773c949bce3eb21802579c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speedForce: 30000
+  _speedForce: 300000
   _speedRotation: 25
   energyDecayRate: 20
 --- !u!114 &2511575350588810524
@@ -11740,6 +11741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 1000
+  _die: {fileID: 0}
 --- !u!114 &3429908263805911436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11801,6 +11803,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &112900662929233058
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5040180727007795610}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 7.5649962, y: 6.2343464, z: 3.5593834}
+  m_Center: {x: -2.4234803, y: 3.225084, z: 1.2796724}
 --- !u!1 &5041087047175776812
 GameObject:
   m_ObjectHideFlags: 0
@@ -12231,6 +12254,7 @@ GameObject:
   - component: {fileID: 868295312998267743}
   - component: {fileID: 4194227822653532147}
   - component: {fileID: 2092916361114067380}
+  - component: {fileID: 483722024345335988}
   m_Layer: 0
   m_Name: Door.003
   m_TagString: Untagged
@@ -12321,6 +12345,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &483722024345335988
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5288796279111449394}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0039489036, y: 0.0031217367, z: 0.010210978}
+  m_Center: {x: -0.0000000017378139, y: -0.007795776, z: 0.0014302441}
 --- !u!1 &5337513091699953804
 GameObject:
   m_ObjectHideFlags: 0
@@ -18053,7 +18098,7 @@ GameObject:
   - component: {fileID: 2551268451777935228}
   m_Layer: 0
   m_Name: IK_Cont_Wheel_F_R.001_Back_L
-  m_TagString: Untagged
+  m_TagString: Machine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21808,7 +21853,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2123239872511517418}
-  - component: {fileID: 8657916336799759493}
   - component: {fileID: 7813098756346137556}
   m_Layer: 0
   m_Name: IK_Cont_Wheel_F_R.001_Side_L
@@ -21835,27 +21879,6 @@ Transform:
   - {fileID: 7010269025224855922}
   m_Father: {fileID: 6619761741614873478}
   m_LocalEulerAnglesHint: {x: 0.000010064642, y: 0.0000151186105, z: -137.63902}
---- !u!65 &8657916336799759493
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9153425125715388664}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.018, y: 0.018, z: 0.01}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &7813098756346137556
 BoxCollider:
   m_ObjectHideFlags: 0

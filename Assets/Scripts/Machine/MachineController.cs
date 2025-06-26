@@ -11,6 +11,7 @@ namespace Deforestation.Machine
 		public HealthSystem HealthSystem => _health;
 		public WeaponController WeaponController;
 		public Action<bool> OnMachineDriveChange;
+		public Action OnMachineWalking;
 
 		#endregion
 
@@ -63,7 +64,9 @@ namespace Deforestation.Machine
 			_anim.SetTrigger("WakeUp");
 			_anim.SetBool("Move", machineMode);
 			OnMachineDriveChange?.Invoke(true);
-		}
+            OnMachineWalking?.Invoke();
+
+        }
 
 		public void StopMoving()
 		{

@@ -1,19 +1,22 @@
 using UnityEngine;
 using DG.Tweening;
 using System;
+using Deforestation.Interaction;
 
 namespace Deforestation.Audio
 {
 	public class AudioController : MonoBehaviour
 	{
 		const float MAX_VOLUME = 0.1f;
-
-		#region Fields
-		[Header("FX")]
+        [SerializeField] InteractionSystem _interactionSystem;
+        #region Fields
+        [Header("FX")]
 		[SerializeField] private AudioSource _steps;
 		[SerializeField] private AudioSource _machineOn;
 		[SerializeField] private AudioSource _machineOff;
 		[SerializeField] private AudioSource _shoot;
+		[SerializeField] private AudioSource _mineraltaked;
+		[SerializeField] private AudioSource _walk_machine;
 
 		[Space(10)]
 
@@ -31,9 +34,11 @@ namespace Deforestation.Audio
 			GameController.Instance.OnMachineModeChange += SetMachineMusicState;
 			GameController.Instance.MachineController.OnMachineDriveChange += SetMachineDriveEffect;
 			GameController.Instance.MachineController.WeaponController.OnMachineShoot += ShootFX;
-		}		
+            _interactionSystem.MineralSound += TakeMaterialSound;
+            GameController.Instance.MachineController.OnMachineWalking += WalkingMachineSound;
+		}
 
-		private void Start()
+        private void Start()
 		{
 			_musicHuman.Play();
 		}
@@ -68,8 +73,16 @@ namespace Deforestation.Audio
 				_musicMachine.DOFade(0, 3);
 			}
 		}
+        private void TakeMaterialSound()
+        {
+            _mineraltaked.PlayOneShot(_mineraltaked.clip, MAX_VOLUME);
+        }
+		private void WalkingMachineSound()
+        {
+            _mineraltaked.PlayOneShot(_walk_machine.clip, MAX_VOLUME);
+        }
 
-		private void SetMachineDriveEffect(bool startDriving)
+        private void SetMachineDriveEffect(bool startDriving)
 		{
 			if (startDriving)
 				_machineOn.Play();
