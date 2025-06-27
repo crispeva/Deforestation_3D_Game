@@ -2,6 +2,7 @@ using UnityEngine;
 using DG.Tweening;
 using System;
 using Deforestation.Interaction;
+using Deforestation.Machine;
 
 namespace Deforestation.Audio
 {
@@ -9,6 +10,7 @@ namespace Deforestation.Audio
 	{
 		const float MAX_VOLUME = 0.1f;
         [SerializeField] InteractionSystem _interactionSystem;
+        [SerializeField] MachineMovement _machinemovement;
         #region Fields
         [Header("FX")]
 		[SerializeField] private AudioSource _steps;
@@ -34,8 +36,9 @@ namespace Deforestation.Audio
 			GameController.Instance.OnMachineModeChange += SetMachineMusicState;
 			GameController.Instance.MachineController.OnMachineDriveChange += SetMachineDriveEffect;
 			GameController.Instance.MachineController.WeaponController.OnMachineShoot += ShootFX;
-            _interactionSystem.MineralSound += TakeMaterialSound;
-            GameController.Instance.MachineController.OnMachineWalking += WalkingMachineSound;
+            _interactionSystem.OnMineralSound += TakeMaterialSound;
+            _machinemovement.OnMachineWalking += WalkingMachineSound;
+            //GameController.Instance.MachineController.OnMachineWalking += WalkingMachineSound;
 		}
 
         private void Start()
@@ -77,15 +80,31 @@ namespace Deforestation.Audio
         {
             _mineraltaked.PlayOneShot(_mineraltaked.clip, MAX_VOLUME);
         }
-		private void WalkingMachineSound()
+		private void WalkingMachineSound(bool driving)
         {
-            _mineraltaked.PlayOneShot(_walk_machine.clip, MAX_VOLUME);
+            if (driving)
+			{
+                _walk_machine.DOFade(MAX_VOLUME, 3);
+                _walk_machine.Play();
+               // _musicMachine.DOFade(0, 1);
+			}
+			else
+			{
+                _walk_machine.DOFade(0, 0.1f);
+               //_walk_machine.Stop();
+            }
+
+				
+
         }
 
         private void SetMachineDriveEffect(bool startDriving)
 		{
 			if (startDriving)
-				_machineOn.Play();
+			{
+                _machineOn.DOFade(MAX_VOLUME, 3);
+                _machineOn.Play();
+            }
 			else
 				_machineOff.Play();
 

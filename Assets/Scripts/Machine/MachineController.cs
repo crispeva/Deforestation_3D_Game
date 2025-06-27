@@ -64,7 +64,7 @@ namespace Deforestation.Machine
 			_anim.SetTrigger("WakeUp");
 			_anim.SetBool("Move", machineMode);
 			OnMachineDriveChange?.Invoke(true);
-            OnMachineWalking?.Invoke();
+          // OnMachineWalking?.Invoke();
 
         }
 

@@ -50,7 +50,7 @@ namespace Deforestation
 		{
 			OnDeath?.Invoke();
             // Aquí puedes añadir lógica adicional para la muerte, como destruir el objeto.
-            _die.active = true;
+            //_die.active = true;
 
         }
 	}

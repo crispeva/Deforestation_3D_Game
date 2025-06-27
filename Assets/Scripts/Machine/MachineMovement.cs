@@ -1,3 +1,4 @@
+using System;
 using Deforestation.Dinosaurus;
 using Deforestation.Recolectables;
 using UnityEngine;
@@ -8,9 +9,11 @@ namespace Deforestation.Machine
 		#region Fields
 		[SerializeField] private float _speedForce = 50;
 		[SerializeField] private float _speedRotation = 15;
-		private Rigidbody _rb;
+		[SerializeField] private bool _driving = false;
+        private Rigidbody _rb;
 		private Vector3 _movementDirection;
-		private Inventory _inventory => GameController.Instance.Inventory;
+        public Action <bool> OnMachineWalking;
+        private Inventory _inventory => GameController.Instance.Inventory;
 
 		[Header("Energy")]
 		[SerializeField] private float energyDecayRate = 20f;
@@ -39,10 +42,25 @@ namespace Deforestation.Machine
 				if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
 				{
 					energyTimer += Time.deltaTime;
-					if (energyTimer >= energyDecayRate)
+
+					if (!_driving)
+					{
+                        OnMachineWalking?.Invoke(_driving = true);
+                    }
+                  
+
+
+                    if (energyTimer >= energyDecayRate)
 						_inventory.UseResource(RecolectableType.HyperCrystal);
-				}
-			}
+                }
+                else
+                {
+
+                    OnMachineWalking?.Invoke(_driving = false);
+
+                }
+
+            }
 			else
 			{
 				GameController.Instance.MachineController.StopMoving();
@@ -88,7 +106,7 @@ namespace Deforestation.Machine
 		{
 			//Hacemos daño por contacto a los Stegasaurus
 			HealthSystem target = collision.gameObject.GetComponent<HealthSystem>();
-			if (target != null)
+			if (target != null & !collision.gameObject.CompareTag("Player"))
 			{
 				target.TakeDamage(10);
 			}

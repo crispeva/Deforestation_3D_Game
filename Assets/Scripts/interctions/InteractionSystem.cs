@@ -17,7 +17,7 @@ namespace Deforestation.Interaction
 		[SerializeField] float _distanceDetector = 5;
 		[SerializeField] Inventory _inventory;
 
-		public Action MineralSound;
+		public Action OnMineralSound;
 
 		private bool _interactebleDetected = false;
 		private IInteractable _currentInteraction;
@@ -33,7 +33,7 @@ namespace Deforestation.Interaction
 				{
 					_inventory.AddRecolectable(recolectable.Type, recolectable.Count);
 					recolectable.Interact();
-                    MineralSound?.Invoke();
+                    OnMineralSound?.Invoke();
 
                 }
 				//Mahine Interaction
