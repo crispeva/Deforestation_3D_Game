@@ -16,8 +16,9 @@ namespace Deforestation.UI
 		#region Fields
 		private Inventory _inventory => GameController.Instance.Inventory;		
 		private InteractionSystem _interactionSystem => GameController.Instance.InteractionSystem;
+        private HealthSystem _healthSystem => GameController.Instance.HealthSystem;
 
-		[Header("Settings")]
+        [Header("Settings")]
 		[SerializeField] private AudioMixer _mixer;
 		[SerializeField] private Button _settingsButton;
 		[SerializeField] private GameObject _settingsPanel;
@@ -32,8 +33,9 @@ namespace Deforestation.UI
 		[Header("Live")]
 		[SerializeField] private Slider _machineSlider;
 		[SerializeField] private Slider _playerSlider;
-
-		private bool _settingsOn = false;
+		[Header("Events")]
+        [SerializeField] private GameObject _diePanel;
+        private bool _settingsOn = false;
 		private
 		#endregion
 
@@ -51,7 +53,8 @@ namespace Deforestation.UI
 			_settingsButton.onClick.AddListener(SwitchSettings);
 			_musicSlider.onValueChanged.AddListener(MusicVolumeChange);
 			_fxSlider.onValueChanged.AddListener(FXVolumeChange);
-		}		
+            _healthSystem.OnDeath += ShowDiePanel;
+        }		
 
 		private void SwitchSettings()
 		{
@@ -76,7 +79,11 @@ namespace Deforestation.UI
 		{
 			_interactionPanel.Show(message);
 		}
-		public void HideInteraction()
+        public void ShowDiePanel()
+        {
+            _diePanel.active = true;
+        }
+        public void HideInteraction()
 		{
 			_interactionPanel.Hide();
 

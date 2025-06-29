@@ -13,13 +13,14 @@ namespace Deforestation
 		[SerializeField]
 		private float _maxHealth = 100f;
 		private float _currentHealth;
-        [SerializeField]
         private GameObject _die;
 
 		private void Awake()
 		{
 			_currentHealth = _maxHealth;
-		}
+            _die = GetComponent<GameObject>();
+
+        }
 
 		public void TakeDamage(float damage)
 		{
@@ -50,7 +51,6 @@ namespace Deforestation
 		{
 			OnDeath?.Invoke();
             // Aquí puedes añadir lógica adicional para la muerte, como destruir el objeto.
-            //_die.active = true;
 
         }
 	}

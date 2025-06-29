@@ -15,6 +15,7 @@ namespace Deforestation
 		public Inventory Inventory => _inventory;
 		public InteractionSystem InteractionSystem => _interactionSystem;
 		public TreeTerrainController TerrainController => _terrainController;
+		public HealthSystem HealthSystem => _playerHealth;
 		public Camera MainCamera;
 
 		//Events

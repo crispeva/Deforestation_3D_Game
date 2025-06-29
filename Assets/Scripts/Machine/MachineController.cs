@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using Deforestation.Machine.Weapon;
+using System.Collections;
 
 namespace Deforestation.Machine
 {
@@ -13,10 +14,14 @@ namespace Deforestation.Machine
 		public Action<bool> OnMachineDriveChange;
 		public Action OnMachineWalking;
 
-		#endregion
+		[Header("Spawn_Player")]
+        [SerializeField] private Transform _targetSpawn;
+        [SerializeField] private Transform _playerTransform;
 
-		#region Fields
-		private HealthSystem _health;
+        #endregion
+
+        #region Fields
+        private HealthSystem _health;
 		private MachineMovement _movement;
 		private Animator _anim;
 
@@ -39,11 +44,6 @@ namespace Deforestation.Machine
 		// Update is called once per frame
 		void Update()
 		{
-			//TODO: Mover a Input System
-			if (Input.GetKeyUp(KeyCode.Escape))
-			{
-				StopDriving();
-			}
 		}		
 
 		#endregion
@@ -51,11 +51,11 @@ namespace Deforestation.Machine
 		#region Public Methods
 		public void StopDriving()
 		{
-			GameController.Instance.MachineMode(false);
-			StopMoving();
-			OnMachineDriveChange?.Invoke(false);
+            StopMoving();
+            StartCoroutine(WaitMachineModeChange());
+            OnMachineDriveChange?.Invoke(false);
 
-		}
+        }
 
 		public void StartDriving(bool machineMode)
 		{
@@ -64,7 +64,6 @@ namespace Deforestation.Machine
 			_anim.SetTrigger("WakeUp");
 			_anim.SetBool("Move", machineMode);
 			OnMachineDriveChange?.Invoke(true);
-          // OnMachineWalking?.Invoke();
 
         }
 
@@ -72,11 +71,18 @@ namespace Deforestation.Machine
 		{
 			_movement.enabled = false;
 			_anim.SetBool("Move", false);
-		}
-		#endregion
+            _playerTransform.position = _targetSpawn.position;
+        }
+        #endregion
 
-		#region Private Methods
-		#endregion
-	}
+        #region Private Methods
+        private IEnumerator WaitMachineModeChange()
+        {
+            yield return new WaitForSeconds(7f); // Espera para realizar la animacion
+            GameController.Instance.MachineMode(false);
+
+        }
+        #endregion
+    }
 
 }
