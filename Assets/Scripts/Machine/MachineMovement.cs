@@ -8,8 +8,11 @@ namespace Deforestation.Machine
 	{
 		#region Fields
 		[SerializeField] private float _speedForce = 50;
+		[SerializeField] private float _jumpForce = 2;
+		[SerializeField] private Vector3 _jumpMovement ;
 		[SerializeField] private float _speedRotation = 15;
 		[SerializeField] private bool _driving = false;
+        private bool _isGrounded;
         private Rigidbody _rb;
 		private Vector3 _movementDirection;
         public Action <bool> OnMachineWalking;
@@ -27,7 +30,8 @@ namespace Deforestation.Machine
 		private void Awake()
 		{
 			_rb = GetComponent<Rigidbody>();
-		}
+            _isGrounded = false;
+        }
 
 		private void Update()
 		{
@@ -65,7 +69,16 @@ namespace Deforestation.Machine
 			{
 				GameController.Instance.MachineController.StopMoving();
 			}
+			if (_inventory.HasResource(RecolectableType.MegaCrystal))
+			{
+				if (Input.GetKey(KeyCode.Space)){
 
+                    _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+                    _inventory.UseResource(RecolectableType.MegaCrystal);
+                    _isGrounded = false;
+					GameController.Instance.MachineController.JumpMachine();
+                }
+			}
 			CheckGround();
 		}
 
@@ -110,7 +123,12 @@ namespace Deforestation.Machine
 			{
 				target.TakeDamage(10);
 			}
-		}
+            // Considera grounded si toca el suelo (ajusta el tag/layer según tu juego)
+            if (collision.gameObject.CompareTag("Terrain"))
+            {
+                _isGrounded = true;
+            }
+        }
 
 		#endregion
 

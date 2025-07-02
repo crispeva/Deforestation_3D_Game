@@ -73,6 +73,10 @@ namespace Deforestation.Machine
 			_anim.SetBool("Move", false);
             _playerTransform.position = _targetSpawn.position;
         }
+        public void JumpMachine()
+        {
+            _anim.SetTrigger("Jump");
+        }
         #endregion
 
         #region Private Methods
