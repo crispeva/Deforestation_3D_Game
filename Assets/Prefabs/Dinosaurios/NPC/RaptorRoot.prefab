@@ -1,0 +1,177 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3849839530449288209
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6714879466598706320}
+  - component: {fileID: 5008194619983248779}
+  - component: {fileID: 1627324955239987460}
+  m_Layer: 0
+  m_Name: RaptorRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6714879466598706320
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3849839530449288209}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.055771846, y: -0.7185807, z: 0.010708103, w: -0.69312096}
+  m_LocalPosition: {x: 1807.616, y: 73.628, z: 792.158}
+  m_LocalScale: {x: 1, y: 1.0844787, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1568396276421365440}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: -3.55, y: -267.764, z: -5.462}
+--- !u!114 &5008194619983248779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3849839530449288209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31b369717d10ef64dbd8fb027f86d3af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _distanceDetection: 36
+  _attackDistance: 2
+  _attackTime: 2
+  _attackDamage: 5
+  _positionRaptor: 0
+--- !u!195 &1627324955239987460
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3849839530449288209}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!1001 &1689093789976336340
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6714879466598706320}
+    m_Modifications:
+    - target: {fileID: 195006911706274068, guid: 2acbb5ac17de44948bb04c5f7d99f9d1,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9979958
+      objectReference: {fileID: 0}
+    - target: {fileID: 195006911706274068, guid: 2acbb5ac17de44948bb04c5f7d99f9d1,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.81522757
+      objectReference: {fileID: 0}
+    - target: {fileID: 195006911706274068, guid: 2acbb5ac17de44948bb04c5f7d99f9d1,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.9993982
+      objectReference: {fileID: 0}
+    - target: {fileID: 195006911706274068, guid: 2acbb5ac17de44948bb04c5f7d99f9d1,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.018338762
+      objectReference: {fileID: 0}
+    - target: {fileID: 195006911706274068, guid: 2acbb5ac17de44948bb04c5f7d99f9d1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.053651433
+      objectReference: {fileID: 0}
+    - target: {fileID: 195006911706274068, guid: 2acbb5ac17de44948bb04c5f7d99f9d1,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.015186996
+      objectReference: {fileID: 0}
+    - target: {fileID: 195006911706274068, guid: 2acbb5ac17de44948bb04c5f7d99f9d1,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.038188368
+      objectReference: {fileID: 0}
+    - target: {fileID: 195006911706274068, guid: 2acbb5ac17de44948bb04c5f7d99f9d1,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.048726767
+      objectReference: {fileID: 0}
+    - target: {fileID: 195006911706274068, guid: 2acbb5ac17de44948bb04c5f7d99f9d1,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.9976556
+      objectReference: {fileID: 0}
+    - target: {fileID: 195006911706274068, guid: 2acbb5ac17de44948bb04c5f7d99f9d1,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.029169586
+      objectReference: {fileID: 0}
+    - target: {fileID: 195006911706274068, guid: 2acbb5ac17de44948bb04c5f7d99f9d1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 195006911706274068, guid: 2acbb5ac17de44948bb04c5f7d99f9d1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -83.549
+      objectReference: {fileID: 0}
+    - target: {fileID: 195006911706274068, guid: 2acbb5ac17de44948bb04c5f7d99f9d1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2725964813130233776, guid: 2acbb5ac17de44948bb04c5f7d99f9d1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814430240934554375, guid: 2acbb5ac17de44948bb04c5f7d99f9d1,
+        type: 3}
+      propertyPath: m_Name
+      value: Raptor_Animated_LODG_Blue
+      objectReference: {fileID: 0}
+    - target: {fileID: 5736542559275229074, guid: 2acbb5ac17de44948bb04c5f7d99f9d1,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 4463548795011509652, guid: d5fc5c00a022dfa49a2e5f12fc1bd1d0,
+        type: 2}
+    m_RemovedComponents:
+    - {fileID: 2341545899010514168, guid: 2acbb5ac17de44948bb04c5f7d99f9d1, type: 3}
+    - {fileID: 1239791673621630514, guid: 2acbb5ac17de44948bb04c5f7d99f9d1, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2acbb5ac17de44948bb04c5f7d99f9d1, type: 3}
+--- !u!4 &1568396276421365440 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 195006911706274068, guid: 2acbb5ac17de44948bb04c5f7d99f9d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1689093789976336340}
+  m_PrefabAsset: {fileID: 0}

@@ -74,6 +74,14 @@ namespace Deforestation
             }
             trees.RemoveAt(index);
 			_terrain.terrainData.treeInstances = trees.ToArray();
+
+            // Elimina el detector correspondiente
+            if (index < transform.childCount)
+            {
+                Destroy(transform.GetChild(index).gameObject);
+            }
+
+            // Reasigna los índices de los detectores restantes
             for (int i = 0; i < transform.childCount; i++)
             {
                 Tree tree = transform.GetChild(i).GetComponent<Tree>();
