@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3849839530449288209}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.055771846, y: -0.7185807, z: 0.010708103, w: -0.69312096}
+  m_LocalRotation: {x: 0.055772435, y: -0.71858174, z: 0.010711656, w: -0.69311976}
   m_LocalPosition: {x: 1807.616, y: 73.628, z: 792.158}
   m_LocalScale: {x: 1, y: 1.0844787, z: 1}
   m_ConstrainProportionsScale: 0
@@ -47,10 +47,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _distanceDetection: 36
-  _attackDistance: 2
+  _attackDistance: 3
   _attackTime: 2
   _attackDamage: 5
-  _positionRaptor: 0
+  _radiusMovement: 100
 --- !u!195 &1627324955239987460
 NavMeshAgent:
   m_ObjectHideFlags: 0

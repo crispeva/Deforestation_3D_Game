@@ -12,22 +12,22 @@ namespace Deforestation
 
 		[SerializeField]
 		private float _maxHealth = 100f;
-		private float _currentHealth;
+		public float CurrentHealth { get; set; }
         private GameObject _die;
 
 		private void Awake()
 		{
-			_currentHealth = _maxHealth;
+			CurrentHealth = _maxHealth;
             _die = GetComponent<GameObject>();
 
         }
 
 		public void TakeDamage(float damage)
 		{
-			_currentHealth -= damage;
-			OnHealthChanged?.Invoke(_currentHealth);
+			CurrentHealth -= damage;
+			OnHealthChanged?.Invoke(CurrentHealth);
 
-			if (_currentHealth <= 0)
+			if (CurrentHealth <= 0)
 			{
 				Die();
 			}
@@ -35,16 +35,16 @@ namespace Deforestation
 
 		public void Heal(float amount)
 		{
-			_currentHealth += amount;
-			_currentHealth = Mathf.Min(_currentHealth, _maxHealth);
-			OnHealthChanged?.Invoke(_currentHealth);
+			CurrentHealth += amount;
+			CurrentHealth = Mathf.Min(CurrentHealth, _maxHealth);
+			OnHealthChanged?.Invoke(CurrentHealth);
 		}
 
 		public void SetHealth(float value)
 		{
-			_currentHealth = value;
-			_currentHealth = Mathf.Min(_currentHealth, _maxHealth);
-			OnHealthChanged?.Invoke(_currentHealth);
+			CurrentHealth = value;
+			CurrentHealth = Mathf.Min(CurrentHealth, _maxHealth);
+			OnHealthChanged?.Invoke(CurrentHealth);
 		}
 
 		private void Die()
