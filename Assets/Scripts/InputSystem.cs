@@ -33,13 +33,12 @@ public class InputSystem : MonoBehaviour
     #region Private Methods
     private void Escape()
     {
-        if (Input.GetKeyUp(KeyCode.Escape) & GameController.Instance.MachineModeOn == true)//Se podria agregar si todavia esta con la animacion estandar no se meta
+        if (Input.GetKeyUp(KeyCode.Escape) && GameController.Instance.MachineModeOn == true)//Se podria agregar si todavia esta con la animacion estandar no se meta
         {
             // If the player is in machine mode, stop driving and reset the player position
             if (GameController.Instance.MachineModeOn)
             {
                 _machineController.StopDriving();
-                GameController.Instance.MachineMode(false);
             }
             else
             {

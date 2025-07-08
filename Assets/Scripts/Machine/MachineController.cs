@@ -71,7 +71,7 @@ namespace Deforestation.Machine
 		{
 			_movement.enabled = false;
 			_anim.SetBool("Move", false);
-            _playerTransform.position = _targetSpawn.position;
+
         }
         public void JumpMachine()
         {
@@ -83,6 +83,7 @@ namespace Deforestation.Machine
         private IEnumerator WaitMachineModeChange()
         {
             yield return new WaitForSeconds(7f); // Espera para realizar la animacion
+            _playerTransform.position = _targetSpawn.position;
             GameController.Instance.MachineMode(false);
 
         }
