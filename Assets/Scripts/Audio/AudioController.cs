@@ -91,7 +91,7 @@ namespace Deforestation.Audio
 			else
 			{
                 _walk_machine.DOFade(0, 0.1f);
-               //_walk_machine.Stop();
+                //_walk_machine.Stop();
             }
 
 				

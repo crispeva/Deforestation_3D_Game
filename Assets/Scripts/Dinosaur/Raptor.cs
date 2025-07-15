@@ -18,7 +18,6 @@ namespace Deforestation.Dinosaurus
             _health = GetComponentInChildren<HealthSystem>();
             _anim = GetComponentInChildren<Animator>();
             _agent = GetComponent<NavMeshAgent>();
-            Debug.Log("Animator en objeto: " + _anim?.gameObject.name); 
             if (_health != null)
                 _health.OnDeath += Die;
         }

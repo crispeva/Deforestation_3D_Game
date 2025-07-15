@@ -16,20 +16,29 @@ namespace Deforestation.Dinosaurus
         #region Unity Callbacks	
         protected override void Start()
 		{
-			base.Start();
-			_attackDamage = 5;
+            _attackColdDown = _attackTime;
+            _attackDamage = 5;
             _attackTime = 2;
             _attackDistance = 10;
             _distanceDetection = 100;
         }
 
 
-		#endregion
+        #endregion
 
-		#region Private Methods
-		
-		#endregion
+        #region Private Methods
+        protected override void DinosaurAttack()
+        {
+            //Atack damage
+            _attackColdDown -= Time.deltaTime;
+            if (_attackColdDown <= 0)
+            {
+                _attackColdDown = _attackTime;
+                GameController.Instance.MachineController.HealthSystem.TakeDamage(_attackDamage);
+            }
+        }
+        #endregion
 
-	}
+    }
 
 }

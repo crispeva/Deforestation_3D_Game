@@ -17,6 +17,7 @@ namespace Deforestation
 		public InteractionSystem InteractionSystem => _interactionSystem;
 		public TreeTerrainController TerrainController => _terrainController;
 		public HealthSystem HealthSystem => _playerHealth;
+		//public HealthSystem HealthSystemMachine => _machineHealth;
 		public Camera MainCamera;
 
 		//Events
@@ -50,6 +51,7 @@ namespace Deforestation
 
 		[Header("Machine")]
 		[SerializeField] protected MachineController _machine;
+		//[SerializeField] protected HealthSystem _machineHealth;
 		[Header("UI")]
 		[SerializeField] protected UIGameController _uiController;
 		[Header("Trees Terrain")]

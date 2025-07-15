@@ -67,7 +67,8 @@ namespace Deforestation.Machine
             }
 			else
 			{
-				GameController.Instance.MachineController.StopMoving();
+                OnMachineWalking?.Invoke(_driving = false);
+                GameController.Instance.MachineController.StopMoving();
 			}
 			if (_inventory.HasResource(RecolectableType.MegaCrystal))
 			{
@@ -138,9 +139,6 @@ namespace Deforestation.Machine
 		#region Public Methods
 
 		#endregion
-		private void OnDrawGizmos()
-		{
-		}
 	}
 	
 }
