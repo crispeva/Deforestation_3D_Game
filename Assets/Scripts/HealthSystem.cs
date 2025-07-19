@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,12 +14,11 @@ namespace Deforestation
 		[SerializeField]
 		private float _maxHealth = 100f;
 		public float CurrentHealth { get; set; }
-        private GameObject _die;
-
-		private void Awake()
+		[SerializeField]private float delayDeath = 2f;
+		private GameObject _livingBeing;
+        private void Awake()
 		{
 			CurrentHealth = _maxHealth;
-            _die = GetComponent<GameObject>();
 
         }
 
@@ -49,10 +49,21 @@ namespace Deforestation
 
 		private void Die()
 		{
-			OnDeath?.Invoke();
+			if(gameObject.name== "PlayerFPS")
+			{
+                StartCoroutine(DelayedDeath(delayDeath));
+                OnDeath?.Invoke();
+            }
             // Aquí puedes añadir lógica adicional para la muerte, como destruir el objeto.
 
         }
-	}
+        IEnumerator DelayedDeath(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            Time.timeScale = 0;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+    }
 
 }

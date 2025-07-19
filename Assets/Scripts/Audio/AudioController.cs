@@ -3,6 +3,7 @@ using DG.Tweening;
 using System;
 using Deforestation.Interaction;
 using Deforestation.Machine;
+using UnityEngine.Audio;
 
 namespace Deforestation.Audio
 {
@@ -25,21 +26,28 @@ namespace Deforestation.Audio
 		[Header("Music")]
 		[SerializeField] private AudioSource _musicMachine;
 		[SerializeField] private AudioSource _musicHuman;
-		#endregion
+		[SerializeField] private AudioSource _musicDiePanel;
 
-		#region Properties
-		#endregion
+        [Space(10)]
 
-		#region Unity Callbacks	
-		private void Awake()
+        [Header("Master")]
+        [SerializeField] private AudioMixer _audioMixer;
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Unity Callbacks	
+        private void Awake()
 		{
 			GameController.Instance.OnMachineModeChange += SetMachineMusicState;
 			GameController.Instance.MachineController.OnMachineDriveChange += SetMachineDriveEffect;
 			GameController.Instance.MachineController.WeaponController.OnMachineShoot += ShootFX;
             _interactionSystem.OnMineralSound += TakeMaterialSound;
             _machinemovement.OnMachineWalking += WalkingMachineSound;
+			GameController.Instance.HealthSystem.OnDeath += DieMusic;
             //GameController.Instance.MachineController.OnMachineWalking += WalkingMachineSound;
-		}
+        }
 
         private void Start()
 		{
@@ -86,16 +94,11 @@ namespace Deforestation.Audio
 			{
                 _walk_machine.DOFade(MAX_VOLUME, 3);
                 _walk_machine.Play();
-               // _musicMachine.DOFade(0, 1);
 			}
 			else
 			{
                 _walk_machine.DOFade(0, 0.1f);
-                //_walk_machine.Stop();
             }
-
-				
-
         }
 
         private void SetMachineDriveEffect(bool startDriving)
@@ -113,11 +116,29 @@ namespace Deforestation.Audio
 		{
 			_shoot.Play();
 		}
-		#endregion
+        private void DieMusic()
+        {
+            _musicHuman.DOFade(0, 3);
+            _musicMachine.DOFade(0, 3);
+			
+            _musicDiePanel.DOFade(MAX_VOLUME, 3);
+            _musicDiePanel.Play();
+			MuteMaster();
+        }
+        public void MuteMaster()
+        {
+            _audioMixer.SetFloat("FXVolume", -80f);
+        }
 
-		#region Public Methods
-		#endregion
+        public void UnmuteMaster()
+        {
+            _audioMixer.SetFloat("FXVolume", 0f);
+        }
+        #endregion
 
-	}
+        #region Public Methods
+        #endregion
+
+    }
 
 }
