@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using Deforestation;
 using Deforestation.Machine;
+using StarterAssets;
 using UnityEngine;
 
 public class InputSystem : MonoBehaviour
@@ -11,6 +14,7 @@ public class InputSystem : MonoBehaviour
 
     #region Fields
     private MachineController _machineController;
+    public Action _onActiveMenu;
     #endregion
 
     #region Unity Callbacks
@@ -22,8 +26,10 @@ public class InputSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Escape();
+        EscapeMachine();
+       PauseGame();
     }
+
     #endregion
 
     #region Public Methods
@@ -31,9 +37,9 @@ public class InputSystem : MonoBehaviour
     #endregion
 
     #region Private Methods
-    private void Escape()
+    private void EscapeMachine()
     {
-        if (Input.GetKeyUp(KeyCode.Escape) && GameController.Instance.MachineModeOn == true)//Se podria agregar si todavia esta con la animacion estandar no se meta
+        if (Input.GetKeyUp(KeyCode.Q) && GameController.Instance.MachineModeOn == true)//Se podria agregar si todavia esta con la animacion estandar no se meta
         {
             // If the player is in machine mode, stop driving and reset the player position
             if (GameController.Instance.MachineModeOn)
@@ -45,7 +51,15 @@ public class InputSystem : MonoBehaviour
                 GameController.Instance.MachineMode(true);
                 _machineController.StartDriving(true);
             }
-            
+
+
+        }
+    } 
+    private void PauseGame()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            _onActiveMenu?.Invoke();
 
         }
     }

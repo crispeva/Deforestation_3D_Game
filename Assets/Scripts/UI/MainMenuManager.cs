@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class DIEMenuManager : MonoBehaviour
+public class MainMenuManager : MonoBehaviour
 {
     #region Properties
     #endregion
@@ -13,6 +13,7 @@ public class DIEMenuManager : MonoBehaviour
     #region Fields
     [SerializeField] Button _startGameButton;
     [SerializeField] Button _exitGameButton;
+
     #endregion
 
     #region Unity Callbacks
@@ -39,6 +40,7 @@ public class DIEMenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("Main Scene");
     }
+
     private void ExitGame()
     {
         Application.Quit();

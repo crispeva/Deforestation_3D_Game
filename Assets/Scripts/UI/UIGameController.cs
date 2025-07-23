@@ -5,6 +5,7 @@ using System;
 using Deforestation.Interaction;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using StarterAssets;
 
 namespace Deforestation.UI
 {
@@ -16,6 +17,8 @@ namespace Deforestation.UI
 		#region Fields
 		private Inventory _inventory => GameController.Instance.Inventory;		
 		private InteractionSystem _interactionSystem => GameController.Instance.InteractionSystem;
+		[SerializeField] private InputSystem _intputSystem;
+		[SerializeField] private GameMenuManager _gameMenuManager;
         private HealthSystem _healthSystem => GameController.Instance.HealthSystem;
 
         [Header("Settings")]
@@ -36,6 +39,9 @@ namespace Deforestation.UI
 		[SerializeField] private Slider _playerSlider;
 		[Header("Events")]
         [SerializeField] private GameObject _diePanel;
+        [SerializeField] private GameObject _pausePanel;
+        [SerializeField] private FirstPersonController FirstPersonController;
+       // private bool cameraLocked = false;
         private bool _settingsOn = false;
 		private
 		#endregion
@@ -55,6 +61,8 @@ namespace Deforestation.UI
 			_musicSlider.onValueChanged.AddListener(MusicVolumeChange);
 			_fxSlider.onValueChanged.AddListener(FXVolumeChange);
             _healthSystem.OnDeath += ShowDiePanel;
+            _intputSystem._onActiveMenu += ShowPausePanel;
+            _gameMenuManager._onActivePauseMen += HidePausePanel;
         }		
 
 		private void SwitchSettings()
@@ -82,7 +90,23 @@ namespace Deforestation.UI
 		}
         public void ShowDiePanel()
         {
-            _diePanel.active = true;
+            _diePanel.SetActive(true);
+        }
+        public void ShowPausePanel()
+        {
+            Time.timeScale = 0f; // Pausa el juego
+			FirstPersonController.enabled = false; // Desactiva el input provider de Cinemachine
+            Cursor.visible = true; // Muestra el cursor
+            Cursor.lockState = CursorLockMode.None; // Desbloquea el cursor
+            _pausePanel.SetActive(true);
+        }
+        public void HidePausePanel()
+        {
+            Time.timeScale = 1f; // Continúa el juego
+            FirstPersonController.enabled = true;
+            _pausePanel.SetActive(false);
+            Cursor.visible = false; // Muestra el cursor
+            Cursor.lockState = CursorLockMode.Locked; // Desbloquea el cursor
         }
         public void HideInteraction()
 		{

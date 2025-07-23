@@ -70,9 +70,9 @@ namespace Deforestation.Machine
                 OnMachineWalking?.Invoke(_driving = false);
                 GameController.Instance.MachineController.StopMoving();
 			}
-			if (_inventory.HasResource(RecolectableType.MegaCrystal))
+			if (_inventory.HasResource(RecolectableType.MegaCrystal) && _isGrounded)
 			{
-				if (Input.GetKey(KeyCode.Space)){
+				if (Input.GetKeyDown(KeyCode.Space)){
 
                     _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
                     _inventory.UseResource(RecolectableType.MegaCrystal);

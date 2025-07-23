@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class DieMenuManager : MonoBehaviour
+public class GameMenuManager : MonoBehaviour
 {
     #region Properties
     #endregion
@@ -13,6 +13,9 @@ public class DieMenuManager : MonoBehaviour
     #region Fields
     [SerializeField] Button _retryGameButton;
     [SerializeField] Button _exitGameButton;
+    [SerializeField] Button _continueGameButton;
+
+    public  Action _onActivePauseMen;
     #endregion
 
     #region Unity Callbacks
@@ -20,6 +23,7 @@ public class DieMenuManager : MonoBehaviour
     {
         _retryGameButton.onClick.AddListener(RetryGame);
         _exitGameButton.onClick.AddListener(ExitGame);
+        _continueGameButton.onClick.AddListener(ContinueGame);
     }
 
 
@@ -43,6 +47,14 @@ public class DieMenuManager : MonoBehaviour
     private void ExitGame()
     {
         Application.Quit();
+    }
+    private void ContinueGame()
+    {
+        _onActivePauseMen?.Invoke(); // Llama al evento para pausar el juego
+    }
+    private void MenuPause()
+    {
+        Time.timeScale = 1f; // Continúa el juego
     }
     #endregion
 }
