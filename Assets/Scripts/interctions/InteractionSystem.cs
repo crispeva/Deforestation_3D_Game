@@ -53,14 +53,14 @@ namespace Deforestation.Interaction
 				if (interaction != null)
 				{
 					InteractableInfo info = interaction.GetInfo();
-					OnShowInteraction.Invoke("E - To " + info.Action + " " + info.Type);
+					OnShowInteraction?.Invoke("E - To " + info.Action + " " + info.Type);
 					_interactebleDetected = true;
 					_currentInteraction = interaction;
                     return;
 				}
 			}
 			_interactebleDetected = false;
-			OnHideInteraction.Invoke();
+			OnHideInteraction?.Invoke();
 			
 		}
 		#endregion

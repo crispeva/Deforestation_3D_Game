@@ -13,7 +13,7 @@ namespace Deforestation.Dinosaurus
         protected Animator _anim;
 		protected NavMeshAgent _agent;
 		protected HealthSystem _health;
-        protected virtual Vector3 _targetPosition => GameController.Instance.CharacterController.transform.position;
+       protected virtual Vector3 _targetPosition => GameController.Instance.CharacterController.transform.position;
 
         [SerializeField] protected float _distanceDetection = 50;
         [SerializeField] protected float _attackDistance = 10;
@@ -37,7 +37,6 @@ namespace Deforestation.Dinosaurus
 			_health = GetComponent<HealthSystem>();
 			_anim = GetComponent<Animator>();
 			_agent = GetComponent<NavMeshAgent>();
-
 			_health.OnDeath += Die;
 		}
         protected virtual void Start()

@@ -27,7 +27,7 @@ public class InputSystem : MonoBehaviour
     void Update()
     {
         EscapeMachine();
-       PauseGame();
+        PauseGame();
     }
 
     #endregion
@@ -57,10 +57,10 @@ public class InputSystem : MonoBehaviour
     } 
     private void PauseGame()
     {
-        if (Input.GetKeyUp(KeyCode.Escape))
+        if (Input.GetKeyUp(KeyCode.Escape) & GameController.Instance.HealthSystem.CurrentHealth >0)
         {
             _onActiveMenu?.Invoke();
-
+            
         }
     }
     #endregion

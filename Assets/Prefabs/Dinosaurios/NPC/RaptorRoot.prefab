@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6714879466598706320}
   - component: {fileID: 5008194619983248779}
   - component: {fileID: 1627324955239987460}
+  - component: {fileID: 4793888829995538896}
   m_Layer: 0
   m_Name: RaptorRoot
   m_TagString: Untagged
@@ -61,7 +62,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -73,6 +74,20 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &4793888829995538896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3849839530449288209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f4360ec04653ff4a97ccfa15b9b1f29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 100
+  delayDeath: 0.5
 --- !u!1001 &1689093789976336340
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -165,6 +180,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 2341545899010514168, guid: 2acbb5ac17de44948bb04c5f7d99f9d1, type: 3}
     - {fileID: 1239791673621630514, guid: 2acbb5ac17de44948bb04c5f7d99f9d1, type: 3}
+    - {fileID: 8842177692822383993, guid: 2acbb5ac17de44948bb04c5f7d99f9d1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

@@ -6,6 +6,8 @@ using Deforestation.Interaction;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 using StarterAssets;
+using System.Collections;
+using UnityEngine.Events;
 
 namespace Deforestation.UI
 {
@@ -23,16 +25,18 @@ namespace Deforestation.UI
 
         [Header("Settings")]
 		[SerializeField] private AudioMixer _mixer;
-		[SerializeField] private Button _settingsButton;
-		[SerializeField] private GameObject _settingsPanel;
 		[SerializeField] private Slider _musicSlider;
 		[SerializeField] private Slider _fxSlider;
+		[SerializeField] private Button _lowQuality;
+		[SerializeField] private Button _mediumQuality;
+		[SerializeField] private Button _highQuality;
+		[SerializeField] private Button _closeButton;
 
 		[Header("Inventory")]
 		[SerializeField] private TextMeshProUGUI _crystal1Text;
 		[SerializeField] private TextMeshProUGUI _crystal2Text;
 		[SerializeField] private TextMeshProUGUI _crystal3Text;
-		[Header("Interacytion")]
+		[Header("Interaction")]
 		[SerializeField] private InteractionPanel _interactionPanel;
 		[Header("Live")]
 		[SerializeField] private Slider _machineSlider;
@@ -40,38 +44,56 @@ namespace Deforestation.UI
 		[Header("Events")]
         [SerializeField] private GameObject _diePanel;
         [SerializeField] private GameObject _pausePanel;
+        [SerializeField] private GameObject _settingsPanel;
         [SerializeField] private FirstPersonController FirstPersonController;
        // private bool cameraLocked = false;
         private bool _settingsOn = false;
-		private
-		#endregion
+        public CanvasGroup canvasGroup;
+        public float duration = 1f;
+        #endregion
 
-		#region Unity Callbacks
-		// Start is called before the first frame update
-		void Start()
+        #region Unity Callbacks
+        // Start is called before the first frame update
+        void Start()
 		{
-			_settingsPanel.SetActive(false);
 
 			//My Events
 			_inventory.OnInventoryUpdated += UpdateUIInventory;
 			_interactionSystem.OnShowInteraction += ShowInteraction;
 			_interactionSystem.OnHideInteraction += HideInteraction;
 			//Settings events
-			_settingsButton.onClick.AddListener(SwitchSettings);
 			_musicSlider.onValueChanged.AddListener(MusicVolumeChange);
 			_fxSlider.onValueChanged.AddListener(FXVolumeChange);
+            _lowQuality.onClick.AddListener(() => SetQuality(0));
+            _mediumQuality.onClick.AddListener(() => SetQuality(1));
+            _highQuality.onClick.AddListener(() => SetQuality(2));
+            _closeButton.onClick.AddListener(CloseSettings);
             _healthSystem.OnDeath += ShowDiePanel;
             _intputSystem._onActiveMenu += ShowPausePanel;
-            _gameMenuManager._onActivePauseMen += HidePausePanel;
-        }		
+            _gameMenuManager._onActivePauseMenu += HidePausePanel;
+			_gameMenuManager._onActiveSettingsMenu += ShowSettingsPanel;
 
-		private void SwitchSettings()
-		{
-			_settingsOn = !_settingsOn;
-			_settingsPanel.SetActive(_settingsOn);
-		}
+            // Initialize UI
+            canvasGroup.alpha = 0f;
+            canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
+        }
 
-		internal void UpdateMachineHealth(float value)
+        private void CloseSettings()
+        {
+            _settingsOn = !_settingsOn;
+            _settingsPanel.SetActive(_settingsOn);
+            _pausePanel.SetActive(true);
+
+        }
+
+        private void Awake()
+        {
+            Cursor.visible = false; // No muestra el cursor
+            Cursor.lockState = CursorLockMode.Locked; // Bloquea el cursor     
+        }
+
+        internal void UpdateMachineHealth(float value)
 		{
 			_machineSlider.value = value;
 		}
@@ -88,25 +110,51 @@ namespace Deforestation.UI
 		{
 			_interactionPanel.Show(message);
 		}
+		public void ShowSettingsPanel()
+		{
+            _settingsOn = !_settingsOn;
+            _settingsPanel.SetActive(_settingsOn);
+            _pausePanel.SetActive(false);
+        }
+
         public void ShowDiePanel()
         {
-            _diePanel.SetActive(true);
+            StartCoroutine(FadeIn());
+        }
+        IEnumerator FadeIn()
+        {
+            float t = 0f;
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+
+            while (t < duration)
+            {
+                canvasGroup.alpha = Mathf.Lerp(0f, 1f, t / duration);
+                t += Time.deltaTime;
+                yield return null;
+            }
+
+            canvasGroup.alpha = 1f;
         }
         public void ShowPausePanel()
         {
-            Time.timeScale = 0f; // Pausa el juego
-			FirstPersonController.enabled = false; // Desactiva el input provider de Cinemachine
-            Cursor.visible = true; // Muestra el cursor
-            Cursor.lockState = CursorLockMode.None; // Desbloquea el cursor
-            _pausePanel.SetActive(true);
-        }
+			if (_settingsPanel.active == false)
+			{
+                Time.timeScale = 0f; // Pausa el juego
+                FirstPersonController.enabled = false; // Desactiva el input provider de Cinemachine
+                Cursor.visible = true; // Muestra el cursor
+                Cursor.lockState = CursorLockMode.None; // Desbloquea el cursor
+                _pausePanel.SetActive(true);
+            }
+
+        } 
         public void HidePausePanel()
         {
             Time.timeScale = 1f; // Continúa el juego
             FirstPersonController.enabled = true;
             _pausePanel.SetActive(false);
-            Cursor.visible = false; // Muestra el cursor
-            Cursor.lockState = CursorLockMode.Locked; // Desbloquea el cursor
+            Cursor.visible = false; // No muestra el cursor
+            Cursor.lockState = CursorLockMode.Locked; // Bloquea el cursor
         }
         public void HideInteraction()
 		{
@@ -143,7 +191,14 @@ namespace Deforestation.UI
 			_mixer.SetFloat("MusicVolume", Mathf.Lerp(-60f, 0f, value));
 
 		}
-		#endregion
-	}
+        public void SetQuality(int index)
+        {
+            QualitySettings.SetQualityLevel(index, true);
+            Debug.Log("Nivel de calidad cambiado a: " + QualitySettings.names[index]);
+        }
+
+
+        #endregion
+    }
 
 }
