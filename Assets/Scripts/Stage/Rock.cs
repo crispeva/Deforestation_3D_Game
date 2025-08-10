@@ -32,7 +32,7 @@ namespace Deforestation
 		void Awake()
 		{
 			_health = GetComponent<HealthSystem>();
-			_health.OnDeath += DestroyRock;
+			_health.OnDestroy += DestroyRock;
 		}
 
 

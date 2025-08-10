@@ -12,6 +12,7 @@ namespace Deforestation
 	{
 		public event Action<float> OnHealthChanged;
 		public event Action OnDeath;
+		public event Action OnDestroy;
 
 		[SerializeField]
 		private float _maxHealth = 100f;
@@ -52,16 +53,18 @@ namespace Deforestation
 
 		private void Die()
 		{
-			if(gameObject.name== "PlayerFPS" & _isdeath==false)
+			if(gameObject.name== "PlayerFPS" || gameObject.name == "TheMachine" & _isdeath==false )
 			{
                 _isdeath=true;
 
                 StartCoroutine(DelayedDeath(delayDeath));
                 OnDeath?.Invoke();
+                Debug.Log("OnDeath invocado en: " + gameObject.name);
             }
 			else
 			{
-				return;
+                OnDestroy?.Invoke();
+                //return;
             }
 
         }

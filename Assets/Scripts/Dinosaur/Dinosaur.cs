@@ -37,7 +37,7 @@ namespace Deforestation.Dinosaurus
 			_health = GetComponent<HealthSystem>();
 			_anim = GetComponent<Animator>();
 			_agent = GetComponent<NavMeshAgent>();
-			_health.OnDeath += Die;
+			_health.OnDestroy += Die;
 		}
         protected virtual void Start()
         {

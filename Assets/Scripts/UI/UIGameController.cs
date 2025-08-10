@@ -21,7 +21,8 @@ namespace Deforestation.UI
 		private InteractionSystem _interactionSystem => GameController.Instance.InteractionSystem;
 		[SerializeField] private InputSystem _intputSystem;
 		[SerializeField] private GameMenuManager _gameMenuManager;
-        private HealthSystem _healthSystem => GameController.Instance.HealthSystem;
+        private HealthSystem _healthSystemPlayer => GameController.Instance.HealthSystem;
+        private HealthSystem _healthSystemMachine => GameController.Instance.MachineController.HealthSystem;
 
         [Header("Settings")]
 		[SerializeField] private AudioMixer _mixer;
@@ -68,11 +69,12 @@ namespace Deforestation.UI
             _mediumQuality.onClick.AddListener(() => SetQuality(1));
             _highQuality.onClick.AddListener(() => SetQuality(2));
             _closeButton.onClick.AddListener(CloseSettings);
-            _healthSystem.OnDeath += ShowDiePanel;
             _intputSystem._onActiveMenu += ShowPausePanel;
             _gameMenuManager._onActivePauseMenu += HidePausePanel;
 			_gameMenuManager._onActiveSettingsMenu += ShowSettingsPanel;
-
+            //Die Panels
+            _healthSystemPlayer.OnDeath += ShowDiePanel;
+            _healthSystemMachine.OnDeath += ShowDiePanel;
             // Initialize UI
             canvasGroup.alpha = 0f;
             canvasGroup.interactable = false;
