@@ -23,6 +23,7 @@ namespace Deforestation.UI
 		[SerializeField] private GameMenuManager _gameMenuManager;
         private HealthSystem _healthSystemPlayer => GameController.Instance.HealthSystem;
         private HealthSystem _healthSystemMachine => GameController.Instance.MachineController.HealthSystem;
+        private DistanceEvents _distanceEvents => GameController.Instance.DistanceEvents;
 
         [Header("Settings")]
 		[SerializeField] private AudioMixer _mixer;
@@ -47,9 +48,9 @@ namespace Deforestation.UI
         [SerializeField] private GameObject _pausePanel;
         [SerializeField] private GameObject _settingsPanel;
         [SerializeField] private FirstPersonController FirstPersonController;
-       // private bool cameraLocked = false;
         private bool _settingsOn = false;
-        public CanvasGroup canvasGroup;
+        public CanvasGroup canvasGroupDie;
+        public CanvasGroup canvasGroupDialog;
         public float duration = 1f;
         #endregion
 
@@ -58,12 +59,15 @@ namespace Deforestation.UI
         void Start()
 		{
 
-			//My Events
-			_inventory.OnInventoryUpdated += UpdateUIInventory;
+            //My Events 
+            //Health events
+            _inventory.OnInventoryUpdated += UpdateUIInventory;
 			_interactionSystem.OnShowInteraction += ShowInteraction;
 			_interactionSystem.OnHideInteraction += HideInteraction;
-			//Settings events
-			_musicSlider.onValueChanged.AddListener(MusicVolumeChange);
+            //Events and Dialog
+            _distanceEvents.OnEventVillage += ShowEventsAndDialog;
+            //Settings events
+            _musicSlider.onValueChanged.AddListener(MusicVolumeChange);
 			_fxSlider.onValueChanged.AddListener(FXVolumeChange);
             _lowQuality.onClick.AddListener(() => SetQuality(0));
             _mediumQuality.onClick.AddListener(() => SetQuality(1));
@@ -76,9 +80,9 @@ namespace Deforestation.UI
             _healthSystemPlayer.OnDeath += ShowDiePanel;
             _healthSystemMachine.OnDeath += ShowDiePanel;
             // Initialize UI
-            canvasGroup.alpha = 0f;
-            canvasGroup.interactable = false;
-            canvasGroup.blocksRaycasts = false;
+            canvasGroupDie.alpha = 0f;
+            canvasGroupDie.interactable = false;
+            canvasGroupDie.blocksRaycasts = false;
         }
 
         private void CloseSettings()
@@ -112,7 +116,16 @@ namespace Deforestation.UI
 		{
 			_interactionPanel.Show(message);
 		}
-		public void ShowSettingsPanel()
+        public void ShowEventsAndDialog()
+        {
+                StartCoroutine(FadeIn(canvasGroupDialog, duration));
+        }
+        public void HideDialog()
+        {
+
+                StartCoroutine(FadeOut(canvasGroupDialog, duration));
+        }
+        public void ShowSettingsPanel()
 		{
             _settingsOn = !_settingsOn;
             _settingsPanel.SetActive(_settingsOn);
@@ -121,22 +134,36 @@ namespace Deforestation.UI
 
         public void ShowDiePanel()
         {
-            StartCoroutine(FadeIn());
+            StartCoroutine(FadeIn(canvasGroupDie, duration));
         }
-        IEnumerator FadeIn()
+        IEnumerator FadeIn(CanvasGroup group, float duration)
         {
             float t = 0f;
-            canvasGroup.interactable = true;
-            canvasGroup.blocksRaycasts = true;
+            group.interactable = true;
+            group.blocksRaycasts = true;
 
             while (t < duration)
             {
-                canvasGroup.alpha = Mathf.Lerp(0f, 1f, t / duration);
+                group.alpha = Mathf.Lerp(0f, 1f, t / duration);
                 t += Time.deltaTime;
                 yield return null;
             }
 
-            canvasGroup.alpha = 1f;
+            group.alpha = 1f;
+        }
+        public IEnumerator FadeOut(CanvasGroup group, float duration)
+        {
+            float t = 0f;
+            group.interactable = false;
+            group.blocksRaycasts = false;
+
+            while (t < duration)
+            {
+                group.alpha = Mathf.Lerp(1f, 0f, t / duration);
+                t += Time.deltaTime;
+                yield return null;
+            }
+            group.alpha = 0f;
         }
         public void ShowPausePanel()
         {
@@ -197,6 +224,11 @@ namespace Deforestation.UI
         {
             QualitySettings.SetQualityLevel(index, true);
             Debug.Log("Nivel de calidad cambiado a: " + QualitySettings.names[index]);
+        }
+
+        internal void ShowEventVillage()
+        {
+            ShowEventsAndDialog();
         }
 
 

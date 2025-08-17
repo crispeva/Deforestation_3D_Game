@@ -17,11 +17,13 @@ namespace Deforestation
 		public InteractionSystem InteractionSystem => _interactionSystem;
 		public TreeTerrainController TerrainController => _terrainController;
 		public HealthSystem HealthSystem => _playerHealth;
-		//public HealthSystem HealthSystemMachine => _machineHealth;
-		public Camera MainCamera;
+		public DistanceEvents DistanceEvents => _distanceEvents;
+        //public HealthSystem HealthSystemMachine => _machineHealth;
+        public Camera MainCamera;
 
 		//Events
 		public Action<bool> OnMachineModeChange;
+		public Action OnEventVillage;
 
 		public bool MachineModeOn
 		{
@@ -56,24 +58,29 @@ namespace Deforestation
 		[SerializeField] protected UIGameController _uiController;
 		[Header("Trees Terrain")]
 		[SerializeField] protected TreeTerrainController _terrainController;
+		[Header("Village")]
+        [SerializeField] protected DistanceEvents _distanceEvents;
+		[SerializeField] protected GameObject _villageEvent;
+        private bool _machineModeOn;
+        #endregion
 
-		private bool _machineModeOn;
-		#endregion
-
-		#region Unity Callbacks
-		// Start is called before the first frame update
-		void Start()
+        #region Unity Callbacks
+        // Start is called before the first frame update
+        void Start()
 		{
 			//UI Update
 			_playerHealth.OnHealthChanged += _uiController.UpdatePlayerHealth;
 			_machine.HealthSystem.OnHealthChanged += _uiController.UpdateMachineHealth;
-			MachineModeOn = false;
+			_machine.HealthSystem.OnHealthChanged += _uiController.UpdateMachineHealth;
+            _distanceEvents.OnEventVillage += ShowEventVillage;
+            MachineModeOn = false;
 		}
 
 		// Update is called once per frame
 		void Update()
 		{
-		}
+
+        }
 		#endregion
 
 		#region Public Methods
@@ -122,10 +129,16 @@ namespace Deforestation
 			}
 			Cursor.visible = machineMode;
 		}
-		#endregion
+		public void ShowEventVillage()
+		{
+            _villageEvent.SetActive(true);
 
-		#region Private Methods
-		#endregion
-	}
+
+        }
+        #endregion
+
+        #region Private Methods
+        #endregion
+    }
 
 }
