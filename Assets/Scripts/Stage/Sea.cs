@@ -42,7 +42,9 @@ public class Sea : MonoBehaviour
             {
                 _damageCoroutine = StartCoroutine(ApplyIncreasingDamage(health));
             }
-
+            RenderSettings.fog = true;
+            RenderSettings.fogColor = new Color(0f, 0.4f, 0.7f, 0.6f); // azul verdoso
+            RenderSettings.fogDensity = 0.08f;
         }
         
     }
@@ -58,6 +60,7 @@ public class Sea : MonoBehaviour
         {
             StopCoroutine(_damageCoroutine);
             _damageCoroutine = null;
+            RenderSettings.fog = false;
         }
        
         if (_seaTransform.position.y > other.transform.position.y)

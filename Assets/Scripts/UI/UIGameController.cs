@@ -21,6 +21,7 @@ namespace Deforestation.UI
 		private InteractionSystem _interactionSystem => GameController.Instance.InteractionSystem;
 		[SerializeField] private InputSystem _intputSystem;
 		[SerializeField] private GameMenuManager _gameMenuManager;
+		[SerializeField] private WinEvent _winEvent;
         private HealthSystem _healthSystemPlayer => GameController.Instance.HealthSystem;
         private HealthSystem _healthSystemMachine => GameController.Instance.MachineController.HealthSystem;
         private DistanceEvents _distanceEvents => GameController.Instance.DistanceEvents;
@@ -51,6 +52,7 @@ namespace Deforestation.UI
         private bool _settingsOn = false;
         public CanvasGroup canvasGroupDie;
         public CanvasGroup canvasGroupDialog;
+        public CanvasGroup canvasGroupWin;
         public float duration = 1f;
         #endregion
 
@@ -65,7 +67,9 @@ namespace Deforestation.UI
 			_interactionSystem.OnShowInteraction += ShowInteraction;
 			_interactionSystem.OnHideInteraction += HideInteraction;
             //Events and Dialog
-            _distanceEvents.OnEventVillage += ShowEventsAndDialog;
+            _distanceEvents.OnEventVillage += ShowEventDialog;
+            _distanceEvents.OnExitEventVillage += HideEventDialog;
+            _winEvent.OnWin += ShowPanelWin;
             //Settings events
             _musicSlider.onValueChanged.AddListener(MusicVolumeChange);
 			_fxSlider.onValueChanged.AddListener(FXVolumeChange);
@@ -83,6 +87,11 @@ namespace Deforestation.UI
             canvasGroupDie.alpha = 0f;
             canvasGroupDie.interactable = false;
             canvasGroupDie.blocksRaycasts = false;
+        }
+
+        private void ShowPanelWin()
+        {
+            StartCoroutine(FadeIn(canvasGroupWin, duration));
         }
 
         private void CloseSettings()
@@ -116,11 +125,11 @@ namespace Deforestation.UI
 		{
 			_interactionPanel.Show(message);
 		}
-        public void ShowEventsAndDialog()
+        public void ShowEventDialog()
         {
                 StartCoroutine(FadeIn(canvasGroupDialog, duration));
         }
-        public void HideDialog()
+        public void HideEventDialog()
         {
 
                 StartCoroutine(FadeOut(canvasGroupDialog, duration));
@@ -224,11 +233,6 @@ namespace Deforestation.UI
         {
             QualitySettings.SetQualityLevel(index, true);
             Debug.Log("Nivel de calidad cambiado a: " + QualitySettings.names[index]);
-        }
-
-        internal void ShowEventVillage()
-        {
-            ShowEventsAndDialog();
         }
 
 

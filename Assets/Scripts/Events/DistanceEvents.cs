@@ -10,10 +10,12 @@ public class DistanceEvents : MonoBehaviour
 
     // Events
     public event Action OnEventVillage;
+    public event Action OnExitEventVillage;
     #endregion
 
     #region Fields
     [SerializeField] private Transform _player;
+    private bool _isPlayerInTrigger = false;
     #endregion
 
     #region Unity Callbacks
@@ -29,10 +31,19 @@ public class DistanceEvents : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform == _player)
+        if (other.CompareTag("Player") || other.CompareTag("Machine"))
         {
+           // _isPlayerInTrigger = true;
             Debug.Log("Evento lanzado");
             OnEventVillage?.Invoke();
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player") || other.CompareTag("Machine"))
+        {
+            Debug.Log("Evento de vuelta");
+            OnExitEventVillage?.Invoke();
         }
     }
     #endregion
