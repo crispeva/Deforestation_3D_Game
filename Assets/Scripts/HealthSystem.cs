@@ -53,11 +53,11 @@ namespace Deforestation
 
 		private void Die()
 		{
-			if(gameObject.name== "PlayerFPS" || gameObject.name == "TheMachine" & _isdeath==false )
+			if(gameObject.name== "PlayerFPS" || gameObject.name == "TheMachine" && _isdeath==false )
 			{
                 _isdeath=true;
-
-                StartCoroutine(DelayedDeath(delayDeath));
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
                 OnDeath?.Invoke();
                 Debug.Log("OnDeath invocado en: " + gameObject.name);
             }
@@ -66,13 +66,6 @@ namespace Deforestation
                 OnDestroy?.Invoke();
                 //return;
             }
-
-        }
-        IEnumerator DelayedDeath(float delay)
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-            yield return new WaitForSeconds(delay);
 
         }
     }

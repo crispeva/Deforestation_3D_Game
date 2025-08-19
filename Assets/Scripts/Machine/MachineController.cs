@@ -1,7 +1,8 @@
-using UnityEngine;
 using System;
-using Deforestation.Machine.Weapon;
 using System.Collections;
+using Deforestation.Machine.Weapon;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Deforestation.Machine
 {
@@ -13,10 +14,9 @@ namespace Deforestation.Machine
 		public WeaponController WeaponController;
 		public Action<bool> OnMachineDriveChange;
 		public Action OnMachineWalking;
+        [Header("Spawn_Player")]
+        [SerializeField] Transform _machineSpawn;
 
-		[Header("Spawn_Player")]
-        [SerializeField] private Transform _targetSpawn;
-        [SerializeField] private Transform _playerTransform;
 
         #endregion
 
@@ -38,12 +38,15 @@ namespace Deforestation.Machine
 		// Start is called before the first frame update
 		void Start()
 		{
-			_movement.enabled = false;
+
+			GameController.Instance.InputSystem._onExitMachine += PlayerExitMachine;
+            _movement.enabled = false;
 		}
 
 		// Update is called once per frame
 		void Update()
 		{
+
 		}		
 
 		#endregion
@@ -52,7 +55,7 @@ namespace Deforestation.Machine
 		public void StopDriving()
 		{
             StopMoving();
-            StartCoroutine(WaitMachineModeChange());
+            
             OnMachineDriveChange?.Invoke(false);
 
         }
@@ -77,16 +80,32 @@ namespace Deforestation.Machine
         {
             _anim.SetTrigger("Jump");
         }
-        #endregion
+        public void PlayerExitMachine()
+        {
+            if (_movement.enabled == true)
+			{
+                StartCoroutine(WaitMachineModeChange());
+                GameController.Instance.MachineController.StopDriving();
 
-        #region Private Methods
+            }
+			else
+			{
+                GameController.Instance.TeleportPlayer(_machineSpawn.position);
+                GameController.Instance.MachineMode(false);
+            }
+
+        }
         private IEnumerator WaitMachineModeChange()
         {
-            yield return new WaitForSeconds(7f); // Espera para realizar la animacion
-            _playerTransform.position = _targetSpawn.position;
+            yield return new WaitForSeconds(8f); // Espera para realizar la animacion
+            GameController.Instance.TeleportPlayer(_machineSpawn.position);
             GameController.Instance.MachineMode(false);
 
         }
+        #endregion
+
+        #region Private Methods
+
         #endregion
     }
 

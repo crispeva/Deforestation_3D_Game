@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Deforestation.Dinosaurus;
 using Deforestation.Recolectables;
 using UnityEngine;
@@ -12,6 +13,8 @@ namespace Deforestation.Machine
 		[SerializeField] private Vector3 _jumpMovement ;
 		[SerializeField] private float _speedRotation = 15;
 		[SerializeField] private bool _driving = false;
+        [SerializeField] private Transform _playerTransform;
+        [SerializeField] private Transform _targetSpawn;
         private bool _isGrounded;
         private Rigidbody _rb;
 		private Vector3 _movementDirection;
@@ -35,7 +38,8 @@ namespace Deforestation.Machine
 
 		private void Update()
 		{
-			if (_inventory.HasResource(RecolectableType.HyperCrystal))
+
+            if (_inventory.HasResource(RecolectableType.HyperCrystal))
 			{
 				//Movement
 				_movementDirection = new Vector3(Input.GetAxis("Vertical"), 0, 0);
@@ -57,7 +61,7 @@ namespace Deforestation.Machine
                     if (energyTimer >= energyDecayRate)
 					{
                         energyTimer=0f;
-                    _inventory.UseResource(RecolectableType.HyperCrystal);
+						_inventory.UseResource(RecolectableType.HyperCrystal);
 
 					}
                 }
@@ -84,7 +88,8 @@ namespace Deforestation.Machine
 					GameController.Instance.MachineController.JumpMachine();
                 }
 			}
-			CheckGround();
+
+            CheckGround();
 		}
 
 		private void FixedUpdate()
@@ -135,14 +140,14 @@ namespace Deforestation.Machine
             }
         }
 
-		#endregion
+        #endregion
 
-		#region Private Methods
-		#endregion
+        #region Private Methods
+        #endregion
 
-		#region Public Methods
+        #region Public Methods
 
-		#endregion
-	}
+        #endregion
+    }
 	
 }

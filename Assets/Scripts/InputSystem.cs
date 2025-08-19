@@ -13,20 +13,20 @@ public class InputSystem : MonoBehaviour
     #endregion
 
     #region Fields
-    private MachineController _machineController;
+    private MachineMovement _machineMovement;
     public Action _onActiveMenu;
+    public Action _onExitMachine;
     #endregion
 
     #region Unity Callbacks
     void Start()
     {
-        _machineController = GameController.Instance.MachineController;
     }
 
     // Update is called once per frame
     void Update()
     {
-        EscapeMachine();
+        ExitMachine();
         PauseGame();
     }
 
@@ -37,30 +37,21 @@ public class InputSystem : MonoBehaviour
     #endregion
 
     #region Private Methods
-    private void EscapeMachine()
-    {
-        if (Input.GetKeyUp(KeyCode.Q) && GameController.Instance.MachineModeOn == true)//Se podria agregar si todavia esta con la animacion estandar no se meta
-        {
-            // If the player is in machine mode, stop driving and reset the player position
-            if (GameController.Instance.MachineModeOn)
-            {
-                _machineController.StopDriving();
-            }
-            else
-            {
-                GameController.Instance.MachineMode(true);
-                _machineController.StartDriving(true);
-            }
-
-
-        }
-    } 
+ 
     private void PauseGame()
     {
         if (Input.GetKeyUp(KeyCode.Escape) & GameController.Instance.HealthSystem.CurrentHealth >0)
         {
             _onActiveMenu?.Invoke();
             
+        }
+    }
+    private void ExitMachine()
+    {
+        if (GameController.Instance.MachineModeOn && Input.GetKeyUp(KeyCode.Q))
+        {
+            Debug.Log("Q detectada en MachineMovement");
+            _onExitMachine?.Invoke();
         }
     }
     #endregion

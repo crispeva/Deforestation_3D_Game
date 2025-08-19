@@ -1,10 +1,11 @@
-using UnityEngine;
-using Deforestation.Machine;
-using Deforestation.UI;
-using Deforestation.Recolectables;
-using Deforestation.Interaction;
-using Cinemachine;
 using System;
+using Cinemachine;
+using Deforestation.Interaction;
+using Deforestation.Machine;
+using Deforestation.Recolectables;
+using Deforestation.UI;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Deforestation
 {
@@ -18,7 +19,7 @@ namespace Deforestation
 		public TreeTerrainController TerrainController => _terrainController;
 		public HealthSystem HealthSystem => _playerHealth;
 		public DistanceEvents DistanceEvents => _distanceEvents;
-        //public HealthSystem HealthSystemMachine => _machineHealth;
+		public InputSystem InputSystem => _inputSystem;
         public Camera MainCamera;
 
 		//Events
@@ -45,6 +46,7 @@ namespace Deforestation
 		[SerializeField] protected HealthSystem _playerHealth;
 		[SerializeField] protected Inventory _inventory;
 		[SerializeField] protected InteractionSystem _interactionSystem;
+		[SerializeField] protected InputSystem _inputSystem;
 
 		[Header("Camera")]
 		[SerializeField] protected CinemachineVirtualCamera _virtualCamera;
@@ -53,7 +55,6 @@ namespace Deforestation
 
 		[Header("Machine")]
 		[SerializeField] protected MachineController _machine;
-		//[SerializeField] protected HealthSystem _machineHealth;
 		[Header("UI")]
 		[SerializeField] protected UIGameController _uiController;
 		[Header("Trees Terrain")]
@@ -72,7 +73,9 @@ namespace Deforestation
 			_playerHealth.OnHealthChanged += _uiController.UpdatePlayerHealth;
 			_machine.HealthSystem.OnHealthChanged += _uiController.UpdateMachineHealth;
 			_machine.HealthSystem.OnHealthChanged += _uiController.UpdateMachineHealth;
+			//Event
             _distanceEvents.OnEventVillage += ShowEventVillage;
+			//Inputs
             MachineModeOn = false;
 		}
 
@@ -133,8 +136,9 @@ namespace Deforestation
 		{
             _villageEvent.SetActive(true);
 
-
+			
         }
+
         #endregion
 
         #region Private Methods

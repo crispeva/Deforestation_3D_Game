@@ -83,10 +83,7 @@ namespace Deforestation.UI
             //Die Panels
             _healthSystemPlayer.OnDeath += ShowDiePanel;
             _healthSystemMachine.OnDeath += ShowDiePanel;
-            // Initialize UI
-            canvasGroupDie.alpha = 0f;
-            canvasGroupDie.interactable = false;
-            canvasGroupDie.blocksRaycasts = false;
+
         }
 
         private void ShowPanelWin()
