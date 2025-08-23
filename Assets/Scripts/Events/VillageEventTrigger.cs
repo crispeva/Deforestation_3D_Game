@@ -4,24 +4,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
-public class DistanceEvents : MonoBehaviour
+public class VillageEventTrigger : MonoBehaviour
 {
     #region Properties
 
     // Events
-    public event Action OnEventVillage;
-    public event Action OnExitEventVillage;
+    public event Action<CanvasGroup> OnEventVillage;
+    public event Action  OnEventVillagePanel;
+    public event Action<CanvasGroup> OnExitEventVillage;
     #endregion
 
     #region Fields
-    [SerializeField] private Transform _player;
-    private bool _isPlayerInTrigger = false;
+    [SerializeField] private CanvasGroup _canvasGroup;
     #endregion
 
     #region Unity Callbacks
     void Start()
     {
-        
+       // _canvasGroup = GetComponent<CanvasGroup>();
     }
 
     // Update is called once per frame
@@ -35,7 +35,7 @@ public class DistanceEvents : MonoBehaviour
         {
            // _isPlayerInTrigger = true;
             Debug.Log("Evento lanzado");
-            OnEventVillage?.Invoke();
+            OnEventVillage?.Invoke(_canvasGroup);
         }
     }
     private void OnTriggerExit(Collider other)
@@ -43,7 +43,8 @@ public class DistanceEvents : MonoBehaviour
         if (other.CompareTag("Player") || other.CompareTag("Machine"))
         {
             Debug.Log("Evento de vuelta");
-            OnExitEventVillage?.Invoke();
+            OnExitEventVillage?.Invoke(_canvasGroup);
+            OnEventVillagePanel?.Invoke();
         }
     }
     #endregion

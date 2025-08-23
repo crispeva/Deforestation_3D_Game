@@ -12,7 +12,6 @@ namespace Deforestation.Machine
 		[SerializeField] private float _jumpForce = 2;
 		[SerializeField] private Vector3 _jumpMovement ;
 		[SerializeField] private float _speedRotation = 15;
-		[SerializeField] private bool _driving = false;
         [SerializeField] private Transform _playerTransform;
         [SerializeField] private Transform _targetSpawn;
         private bool _isGrounded;
@@ -24,13 +23,14 @@ namespace Deforestation.Machine
 		[Header("Energy")]
 		[SerializeField] private float energyDecayRate = 20f;
 		private float energyTimer = 0f;
-		#endregion
+        #endregion
 
-		#region Properties
-		#endregion
+        #region Properties
+        public bool driving = false;
+        #endregion
 
-		#region Unity Callbacks	
-		private void Awake()
+        #region Unity Callbacks	
+        private void Awake()
 		{
 			_rb = GetComponent<Rigidbody>();
             _isGrounded = false;
@@ -51,9 +51,9 @@ namespace Deforestation.Machine
 				{
 					energyTimer += Time.deltaTime;
 
-					if (!_driving)
+					if (!driving)
 					{
-                        OnMachineWalking?.Invoke(_driving = true);
+                        OnMachineWalking?.Invoke(driving = true);
                     }
                   
 
@@ -68,14 +68,14 @@ namespace Deforestation.Machine
                 else
                 {
 
-                    OnMachineWalking?.Invoke(_driving = false);
+                    OnMachineWalking?.Invoke(driving = false);
 
                 }
 
             }
 			else
 			{
-                OnMachineWalking?.Invoke(_driving = false);
+                OnMachineWalking?.Invoke(driving = false);
                 GameController.Instance.MachineController.StopMoving();
 			}
 			if (_inventory.HasResource(RecolectableType.MegaCrystal) & _isGrounded==true)

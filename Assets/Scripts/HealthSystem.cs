@@ -49,11 +49,12 @@ namespace Deforestation
 			CurrentHealth = value;
 			CurrentHealth = Mathf.Min(CurrentHealth, _maxHealth);
 			OnHealthChanged?.Invoke(CurrentHealth);
-		}
+        }
 
 		private void Die()
 		{
-			if(gameObject.name== "PlayerFPS" || gameObject.name == "TheMachine" && _isdeath==false )
+            if (_isdeath) return;
+            if (gameObject.name== "PlayerFPS" || gameObject.name == "TheMachine"  )
 			{
                 _isdeath=true;
                 Cursor.visible = true;

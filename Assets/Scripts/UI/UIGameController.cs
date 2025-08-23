@@ -22,9 +22,10 @@ namespace Deforestation.UI
 		[SerializeField] private InputSystem _intputSystem;
 		[SerializeField] private GameMenuManager _gameMenuManager;
 		[SerializeField] private WinEvent _winEvent;
+		[SerializeField] private ForestEvent _forestEvent;
         private HealthSystem _healthSystemPlayer => GameController.Instance.HealthSystem;
         private HealthSystem _healthSystemMachine => GameController.Instance.MachineController.HealthSystem;
-        private DistanceEvents _distanceEvents => GameController.Instance.DistanceEvents;
+        private VillageEventTrigger _distanceEvents => GameController.Instance.DistanceEvents;
 
         [Header("Settings")]
 		[SerializeField] private AudioMixer _mixer;
@@ -51,8 +52,6 @@ namespace Deforestation.UI
         [SerializeField] private FirstPersonController FirstPersonController;
         private bool _settingsOn = false;
         public CanvasGroup canvasGroupDie;
-        public CanvasGroup canvasGroupDialog;
-        public CanvasGroup canvasGroupWin;
         public float duration = 1f;
         #endregion
 
@@ -69,7 +68,8 @@ namespace Deforestation.UI
             //Events and Dialog
             _distanceEvents.OnEventVillage += ShowEventDialog;
             _distanceEvents.OnExitEventVillage += HideEventDialog;
-            _winEvent.OnWin += ShowPanelWin;
+            _forestEvent.OnForestEvent += ShowEventDialog;
+            _winEvent.OnWin += ShowEventDialog;
             //Settings events
             _musicSlider.onValueChanged.AddListener(MusicVolumeChange);
 			_fxSlider.onValueChanged.AddListener(FXVolumeChange);
@@ -84,11 +84,6 @@ namespace Deforestation.UI
             _healthSystemPlayer.OnDeath += ShowDiePanel;
             _healthSystemMachine.OnDeath += ShowDiePanel;
 
-        }
-
-        private void ShowPanelWin()
-        {
-            StartCoroutine(FadeIn(canvasGroupWin, duration));
         }
 
         private void CloseSettings()
@@ -122,14 +117,15 @@ namespace Deforestation.UI
 		{
 			_interactionPanel.Show(message);
 		}
-        public void ShowEventDialog()
+        //Events and Dialogs
+        public void ShowEventDialog(CanvasGroup canvasGroup)
         {
-                StartCoroutine(FadeIn(canvasGroupDialog, duration));
+                StartCoroutine(FadeIn(canvasGroup, duration));
         }
-        public void HideEventDialog()
+        public void HideEventDialog(CanvasGroup canvasGroup)
         {
 
-                StartCoroutine(FadeOut(canvasGroupDialog, duration));
+                StartCoroutine(FadeOut(canvasGroup, duration));
         }
         public void ShowSettingsPanel()
 		{

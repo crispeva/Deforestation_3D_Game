@@ -35,18 +35,21 @@ public class Sea : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player")|| other.CompareTag("Machine"))
         {
             HealthSystem health = other.GetComponent<HealthSystem>();
             if (health != null)
             {
                 _damageCoroutine = StartCoroutine(ApplyIncreasingDamage(health));
             }
+        }
+        if (other.CompareTag("Player"))
+        {
             RenderSettings.fog = true;
             RenderSettings.fogColor = new Color(0f, 0.4f, 0.7f, 0.6f); // azul verdoso
             RenderSettings.fogDensity = 0.08f;
         }
-        
+
     }
     private void InstaKill(Collider other) {
        HealthSystem health= other.GetComponent<HealthSystem>();

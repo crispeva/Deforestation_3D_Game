@@ -85,7 +85,8 @@ namespace Deforestation.Machine
             if (_movement.enabled == true)
 			{
                 StartCoroutine(WaitMachineModeChange());
-                GameController.Instance.MachineController.StopDriving();
+				GameController.Instance.MachineController.StopDriving();
+				_movement.driving = false;
 
             }
 			else

@@ -10,8 +10,6 @@ namespace Deforestation.Audio
 	public class AudioController : MonoBehaviour
 	{
 		const float MAX_VOLUME = 0.1f;
-        [SerializeField] InteractionSystem _interactionSystem;
-        [SerializeField] MachineMovement _machinemovement;
         #region Fields
         [Header("FX")]
 		[SerializeField] private AudioSource _steps;
@@ -27,6 +25,7 @@ namespace Deforestation.Audio
 		[SerializeField] private AudioSource _musicMachine;
 		[SerializeField] private AudioSource _musicHuman;
 		[SerializeField] private AudioSource _musicDiePanel;
+		[SerializeField] private AudioSource _musicWinPanel;
 
         [Space(10)]
 
@@ -43,15 +42,17 @@ namespace Deforestation.Audio
 			GameController.Instance.OnMachineModeChange += SetMachineMusicState;
 			GameController.Instance.MachineController.OnMachineDriveChange += SetMachineDriveEffect;
 			GameController.Instance.MachineController.WeaponController.OnMachineShoot += ShootFX;
-            _interactionSystem.OnMineralSound += TakeMaterialSound;
-            _machinemovement.OnMachineWalking += WalkingMachineSound;
-			GameController.Instance.HealthSystem.OnDeath += DieMusic;
+            GameController.Instance.InteractionSystem.OnMineralSound += TakeMaterialSound;
+            GameController.Instance.MachineMovement.OnMachineWalking += WalkingMachineSound;
+            GameController.Instance.WinEvent.OnWinMusic += WinMusic;
             //GameController.Instance.MachineController.OnMachineWalking += WalkingMachineSound;
         }
 
         private void Start()
 		{
-			_musicHuman.Play();
+            GameController.Instance.CharacterController.GetComponent<HealthSystem>().OnDeath += DieMusic;
+            GameController.Instance.MachineController.HealthSystem.OnDeath += DieMusic;
+            _musicHuman.Play();
 		}
 
 		private void Update()
@@ -123,6 +124,15 @@ namespace Deforestation.Audio
 			
             _musicDiePanel.DOFade(MAX_VOLUME, 3);
             _musicDiePanel.Play();
+			MuteMaster();
+        }
+        private void WinMusic()
+        {
+            _musicHuman.DOFade(0, 3);
+            _musicMachine.DOFade(0, 3);
+
+            _musicWinPanel.DOFade(MAX_VOLUME, 3);
+            _musicWinPanel.Play();
 			MuteMaster();
         }
         public void MuteMaster()

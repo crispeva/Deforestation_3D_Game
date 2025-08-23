@@ -18,8 +18,10 @@ namespace Deforestation
 		public InteractionSystem InteractionSystem => _interactionSystem;
 		public TreeTerrainController TerrainController => _terrainController;
 		public HealthSystem HealthSystem => _playerHealth;
-		public DistanceEvents DistanceEvents => _distanceEvents;
+		public VillageEventTrigger DistanceEvents => _distanceEvents;
 		public InputSystem InputSystem => _inputSystem;
+		public MachineMovement MachineMovement => _machinemovement;
+		public WinEvent WinEvent => _winEvent;
         public Camera MainCamera;
 
 		//Events
@@ -48,20 +50,23 @@ namespace Deforestation
 		[SerializeField] protected InteractionSystem _interactionSystem;
 		[SerializeField] protected InputSystem _inputSystem;
 
-		[Header("Camera")]
+
+        [Header("Camera")]
 		[SerializeField] protected CinemachineVirtualCamera _virtualCamera;
 		[SerializeField] protected Transform _playerFollow;
 		[SerializeField] protected Transform _machineFollow;
 
 		[Header("Machine")]
 		[SerializeField] protected MachineController _machine;
-		[Header("UI")]
+        [SerializeField] protected MachineMovement _machinemovement;
+        [Header("UI")]
 		[SerializeField] protected UIGameController _uiController;
 		[Header("Trees Terrain")]
 		[SerializeField] protected TreeTerrainController _terrainController;
 		[Header("Village")]
-        [SerializeField] protected DistanceEvents _distanceEvents;
+        [SerializeField] protected VillageEventTrigger _distanceEvents;
 		[SerializeField] protected GameObject _villageEvent;
+		[SerializeField] protected WinEvent _winEvent;
         private bool _machineModeOn;
         #endregion
 
@@ -72,9 +77,8 @@ namespace Deforestation
 			//UI Update
 			_playerHealth.OnHealthChanged += _uiController.UpdatePlayerHealth;
 			_machine.HealthSystem.OnHealthChanged += _uiController.UpdateMachineHealth;
-			_machine.HealthSystem.OnHealthChanged += _uiController.UpdateMachineHealth;
 			//Event
-            _distanceEvents.OnEventVillage += ShowEventVillage;
+            _distanceEvents.OnEventVillagePanel += ShowEventVillage;
 			//Inputs
             MachineModeOn = false;
 		}
