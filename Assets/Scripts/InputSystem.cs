@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Cinemachine;
 using Deforestation;
 using Deforestation.Machine;
+using Deforestation.Recolectables;
 using StarterAssets;
 using UnityEngine;
 
@@ -13,9 +14,9 @@ public class InputSystem : MonoBehaviour
     #endregion
 
     #region Fields
-    private MachineMovement _machineMovement;
     public Action _onActiveMenu;
     public Action _onExitMachine;
+    public Action _onShootMachine;
     #endregion
 
     #region Unity Callbacks
@@ -27,7 +28,8 @@ public class InputSystem : MonoBehaviour
     void Update()
     {
         ExitMachine();
-        PauseGame();
+        PauseGame(); 
+        ShootBullet();
     }
 
     #endregion
@@ -44,6 +46,13 @@ public class InputSystem : MonoBehaviour
         {
             _onActiveMenu?.Invoke();
             
+        }
+    }
+    private void ShootBullet()
+    {
+        if (Input.GetMouseButtonUp(0) && GameController.Instance.MachineModeOn && GameController.Instance.Inventory.UseResource(Deforestation.Recolectables.RecolectableType.SuperCrystal)&&GameController.Instance.UIGameController.Ispaused==false)
+        {
+            _onShootMachine?.Invoke();
         }
     }
     private void ExitMachine()

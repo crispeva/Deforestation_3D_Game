@@ -8,6 +8,8 @@ using UnityEngine.Audio;
 using StarterAssets;
 using System.Collections;
 using UnityEngine.Events;
+using Deforestation.Machine;
+using Deforestation.Machine.Weapon;
 
 namespace Deforestation.UI
 {
@@ -53,7 +55,8 @@ namespace Deforestation.UI
         [SerializeField] private FirstPersonController FirstPersonController;
         private bool _settingsOn = false;
         public CanvasGroup canvasGroupDie;
-        public float duration = 1f;
+        public float Duration = 1f;
+        public bool Ispaused = false;
         #endregion
 
         #region Unity Callbacks
@@ -94,7 +97,7 @@ namespace Deforestation.UI
             _settingsOn = !_settingsOn;
             _settingsPanel.SetActive(_settingsOn);
             _pausePanel.SetActive(true);
-
+            
         }
         public void CloseIntructions()
         {
@@ -130,23 +133,24 @@ namespace Deforestation.UI
         //Events and Dialogs
         public void ShowEventDialog(CanvasGroup canvasGroup)
         {
-                StartCoroutine(FadeIn(canvasGroup, duration));
+                StartCoroutine(FadeIn(canvasGroup, Duration));
         }
         public void HideEventDialog(CanvasGroup canvasGroup)
         {
 
-                StartCoroutine(FadeOut(canvasGroup, duration));
+                StartCoroutine(FadeOut(canvasGroup, Duration));
         }
         public void ShowSettingsPanel()
 		{
             _settingsOn = !_settingsOn;
             _settingsPanel.SetActive(_settingsOn);
             _pausePanel.SetActive(false);
+            Ispaused= true;
         }
 
         public void ShowDiePanel()
         {
-            StartCoroutine(FadeIn(canvasGroupDie, duration));
+            StartCoroutine(FadeIn(canvasGroupDie, Duration));
         }
         IEnumerator FadeIn(CanvasGroup group, float duration)
         {
@@ -194,8 +198,12 @@ namespace Deforestation.UI
             Time.timeScale = 1f; // Continúa el juego
             FirstPersonController.enabled = true;
             _pausePanel.SetActive(false);
-            Cursor.visible = false; // No muestra el cursor
-            Cursor.lockState = CursorLockMode.Locked; // Bloquea el cursor
+            if (GameController.Instance.MachineMovement.enabled==false)
+            {
+                Cursor.visible = false; // No muestra el cursor
+                Cursor.lockState = CursorLockMode.Locked; // Bloquea el cursor
+            }
+            Ispaused = false;
         }
         public void HideInteraction()
 		{

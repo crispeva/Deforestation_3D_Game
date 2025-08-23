@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class VillageEventTrigger : MonoBehaviour
 {
@@ -21,7 +20,6 @@ public class VillageEventTrigger : MonoBehaviour
     #region Unity Callbacks
     void Start()
     {
-       // _canvasGroup = GetComponent<CanvasGroup>();
     }
 
     // Update is called once per frame
@@ -33,7 +31,6 @@ public class VillageEventTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player") || other.CompareTag("Machine"))
         {
-           // _isPlayerInTrigger = true;
             Debug.Log("Evento lanzado");
             OnEventVillage?.Invoke(_canvasGroup);
         }

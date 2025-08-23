@@ -21,6 +21,7 @@ namespace Deforestation
 		public VillageEventTrigger DistanceEvents => _distanceEvents;
 		public InputSystem InputSystem => _inputSystem;
 		public MachineMovement MachineMovement => _machinemovement;
+		public UIGameController UIGameController => _uiController;
 		public WinEvent WinEvent => _winEvent;
         public Camera MainCamera;
 

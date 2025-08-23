@@ -57,7 +57,7 @@ namespace UnityEditor.PostProcessing
 
                 // Shutter angle graph
                 var discCenter = center - new Vector2(k_Height * 2.4f, 0f);
-                // - exposure duration indicator
+                // - exposure Duration indicator
                 DrawDisc(discCenter, k_Height * Mathf.Lerp(0.5f, 0.38f, zeroWhenFull), m_ColorGray);
                 // - shutter disc
                 DrawDisc(discCenter, k_Height * 0.16f * zeroWhenFull, m_ColorDark);

@@ -175,6 +175,7 @@ namespace Deforestation.Dinosaurus
         protected void DinosaurFlight()
         {
             //Huida 
+
             Vector3 destinoAleatorio = UnityEngine.Random.insideUnitSphere * _radiusMovement;
             destinoAleatorio += transform.position;
             UnityEngine.AI.NavMeshHit hit;

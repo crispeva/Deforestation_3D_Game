@@ -137,7 +137,7 @@ namespace Deforestation.Machine
             if (collision.gameObject.CompareTag("Terrain"))
             {
                 _isGrounded = true;
-            }
+			}
         }
 
         #endregion

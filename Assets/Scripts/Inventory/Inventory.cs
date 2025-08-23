@@ -30,7 +30,7 @@ namespace Deforestation.Recolectables
 		}
 		public bool UseResource (RecolectableType type, int count = 1)
 		{
-			if (HasResource(type, count))
+			if (HasResource(type, count) && GameController.Instance.UIGameController.Ispaused==false)
 			{
 				InventoryStack[type] -= count;
 				OnInventoryUpdated?.Invoke();
