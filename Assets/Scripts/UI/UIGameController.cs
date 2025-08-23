@@ -35,8 +35,9 @@ namespace Deforestation.UI
 		[SerializeField] private Button _mediumQuality;
 		[SerializeField] private Button _highQuality;
 		[SerializeField] private Button _closeButton;
-
-		[Header("Inventory")]
+        [Header("Intructions")]
+        [SerializeField] private GameObject _intructionsPanel;
+        [Header("Inventory")]
 		[SerializeField] private TextMeshProUGUI _crystal1Text;
 		[SerializeField] private TextMeshProUGUI _crystal2Text;
 		[SerializeField] private TextMeshProUGUI _crystal3Text;
@@ -83,7 +84,9 @@ namespace Deforestation.UI
             //Die Panels
             _healthSystemPlayer.OnDeath += ShowDiePanel;
             _healthSystemMachine.OnDeath += ShowDiePanel;
-
+            Cursor.visible = true; // Muestra el cursor
+            Cursor.lockState = CursorLockMode.None; // Desbloquea el cursor
+            FirstPersonController.enabled = false;
         }
 
         private void CloseSettings()
@@ -93,7 +96,14 @@ namespace Deforestation.UI
             _pausePanel.SetActive(true);
 
         }
+        public void CloseIntructions()
+        {
+            _intructionsPanel.SetActive(false);
+            Cursor.visible = false; // No muestra el cursor
+            Cursor.lockState = CursorLockMode.Locked; // Bloquea el cursor
+            FirstPersonController.enabled = true;
 
+        }
         private void Awake()
         {
             Cursor.visible = false; // No muestra el cursor
