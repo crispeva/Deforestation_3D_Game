@@ -73,6 +73,7 @@ namespace Deforestation.UI
             _distanceEvents.OnEventVillage += ShowEventDialog;
             _distanceEvents.OnExitEventVillage += HideEventDialog;
             _forestEvent.OnForestEvent += ShowEventDialog;
+            _forestEvent.OnExitForestEvent += HideEventDialog;
             _winEvent.OnWin += ShowEventDialog;
             //Settings events
             _musicSlider.onValueChanged.AddListener(MusicVolumeChange);

@@ -3923,10 +3923,10 @@ Terrain:
   serializedVersion: 6
   m_TerrainData: {fileID: 15600000, guid: 32a065fc41c860e46858365d0acfcab9, type: 2}
   m_TreeDistance: 2000
-  m_TreeBillboardDistance: 50
-  m_TreeCrossFadeLength: 5
+  m_TreeBillboardDistance: 347
+  m_TreeCrossFadeLength: 32.5
   m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 103
+  m_DetailObjectDistance: 363
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 1
   m_SplatMapDistance: 2000
@@ -5197,7 +5197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _retryGameButton: {fileID: 5593064533527785519}
-  _exitGameButton: {fileID: 4159054295463361650}
+  _exitGameButton: {fileID: 1408632796}
   _continueGameButton: {fileID: 702348820}
   _settingsButton: {fileID: 1732167786}
 --- !u!1001 &549991656
@@ -27225,18 +27225,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e32facbabe123743a8ff3446e6c2f25, type: 3}
---- !u!114 &4159054295463361650 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2901384868497136840, guid: 4e32facbabe123743a8ff3446e6c2f25,
-    type: 3}
-  m_PrefabInstance: {fileID: 4159054295463361649}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &4860288575712028213
 PrefabInstance:
   m_ObjectHideFlags: 0

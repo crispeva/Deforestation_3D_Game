@@ -12,7 +12,7 @@ namespace Deforestation.Machine.Weapon
 		#region Fields
 		[SerializeField] private Transform _towerWeapon;
 		[SerializeField] private Transform _spawnPoint;
-		[SerializeField] private float _speedRotation = 5f;
+		[SerializeField] private float _speedRotation = 1f;
 		[SerializeField] private Bullet _bulletPrefab;
 		[SerializeField] private GameObject _smokeShoot1;
 		[SerializeField] private GameObject _smokeShoot2;
