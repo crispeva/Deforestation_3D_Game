@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using Deforestation.Machine.Weapon;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Deforestation.Machine
 {
@@ -24,11 +23,17 @@ namespace Deforestation.Machine
         private HealthSystem _health;
 		private MachineMovement _movement;
 		private Animator _anim;
+        [Tooltip("Ángulo máximo permitido antes de considerar que ha volcado")]
+        private float maxTiltAngle = 60f;
 
-		#endregion
+        [Tooltip("Tiempo que debe estar volcado antes de activar muerte")]
+        private float tiempoParaMorir = 2f;
 
-		#region Unity Callbacks
-		private void Awake()
+        private float tiempoVolcado = 0f;
+        #endregion
+
+        #region Unity Callbacks
+        private void Awake()
 		{
 			_health = GetComponent<HealthSystem>();
 			_movement = GetComponent<MachineMovement>();
@@ -46,8 +51,9 @@ namespace Deforestation.Machine
 		// Update is called once per frame
 		void Update()
 		{
+            FallMachine();
 
-		}		
+        }		
 
 		#endregion
 
@@ -102,7 +108,32 @@ namespace Deforestation.Machine
             GameController.Instance.TeleportPlayer(_machineSpawn.position);
             GameController.Instance.MachineMode(false);
 
+        }private void FallMachine()
+		{
+            // Calcula el ángulo entre el 'arriba' del objeto y el 'arriba' global
+            float angulo = Vector3.Angle(transform.up, Vector3.up);
+
+            if (angulo > maxTiltAngle)
+            {
+                // Está inclinado más de lo permitido
+                tiempoVolcado += Time.deltaTime;
+
+                if (tiempoVolcado >= tiempoParaMorir)
+                {
+                    // Aquí pones la lógica de "pantalla de muerte"
+                    Debug.Log("¡La máquina ha volcado! Mostrar pantalla de muerte.");
+                    // Ejemplo:
+                   _health.TakeDamage(9999);
+                }
+            }
+            else
+            {
+                // Se resetea el contador si vuelve a estar estable
+                tiempoVolcado = 0f;
+            }
         }
+    }
+
         #endregion
 
         #region Private Methods
@@ -110,4 +141,3 @@ namespace Deforestation.Machine
         #endregion
     }
 
-}

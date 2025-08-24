@@ -1,8 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+namespace Deforestation.Events
+{ 
 public class VillageEventTrigger : MonoBehaviour
 {
     #region Properties
@@ -51,4 +50,5 @@ public class VillageEventTrigger : MonoBehaviour
 
     #region Private Methods
     #endregion
+}
 }

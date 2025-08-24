@@ -1,11 +1,11 @@
 using System;
 using Cinemachine;
+using Deforestation.Events;
 using Deforestation.Interaction;
 using Deforestation.Machine;
 using Deforestation.Recolectables;
 using Deforestation.UI;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Deforestation
 {

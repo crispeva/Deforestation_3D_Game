@@ -1,51 +1,52 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-public class ForestEvent : MonoBehaviour
+namespace Deforestation.Events
 {
-    #region Properties
-    public event Action<CanvasGroup> OnForestEvent;
-    public event Action<CanvasGroup> OnExitForestEvent;
-    #endregion
 
-    #region Fields
-    [SerializeField] private CanvasGroup _canvasGroup;
-    #endregion
-
-    #region Unity Callbacks
-    void Start()
+    public class ForestEvent : MonoBehaviour
     {
-        _canvasGroup= GetComponent<CanvasGroup>();
-    }
+        #region Properties
+        public event Action<CanvasGroup> OnForestEvent;
+        public event Action<CanvasGroup> OnExitForestEvent;
+        #endregion
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    #endregion
+        #region Fields
+        [SerializeField] private CanvasGroup _canvasGroup;
+        #endregion
 
-    #region Public Methods
-    #endregion
-
-    #region Private Methods
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player") || other.CompareTag("Machine"))
+        #region Unity Callbacks
+        void Start()
         {
-            Debug.Log("Evento de forest lanzado");
-            OnForestEvent?.Invoke(_canvasGroup);
+            _canvasGroup = GetComponent<CanvasGroup>();
         }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player") || other.CompareTag("Machine"))
+
+        // Update is called once per frame
+        void Update()
         {
-            Debug.Log("Evento de vuelta");
-            OnExitForestEvent?.Invoke(_canvasGroup);
+
         }
+        #endregion
+
+        #region Public Methods
+        #endregion
+
+        #region Private Methods
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player") || other.CompareTag("Machine"))
+            {
+                Debug.Log("Evento de forest lanzado");
+                OnForestEvent?.Invoke(_canvasGroup);
+            }
+        }
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("Player") || other.CompareTag("Machine"))
+            {
+                Debug.Log("Evento de vuelta");
+                OnExitForestEvent?.Invoke(_canvasGroup);
+            }
+        }
+        #endregion
     }
-    #endregion
 }

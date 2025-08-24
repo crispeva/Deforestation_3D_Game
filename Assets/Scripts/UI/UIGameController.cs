@@ -10,6 +10,7 @@ using System.Collections;
 using UnityEngine.Events;
 using Deforestation.Machine;
 using Deforestation.Machine.Weapon;
+using Deforestation.Events;
 
 namespace Deforestation.UI
 {
