@@ -28,7 +28,7 @@ namespace Deforestation.UI
 		[SerializeField] private ForestEvent _forestEvent;
         private HealthSystem _healthSystemPlayer => GameController.Instance.HealthSystem;
         private HealthSystem _healthSystemMachine => GameController.Instance.MachineController.HealthSystem;
-        private VillageEventTrigger _distanceEvents => GameController.Instance.DistanceEvents;
+        private VillageEventTrigger _distanceEvents => GameController.Instance.VillageEvents;
 
         [Header("Settings")]
 		[SerializeField] private AudioMixer _mixer;
@@ -58,24 +58,32 @@ namespace Deforestation.UI
         public CanvasGroup canvasGroupDie;
         public float Duration = 1f;
         public bool Ispaused = false;
+        bool isMultiplayer = false;
         #endregion
 
         #region Unity Callbacks
         // Start is called before the first frame update
         void Start()
 		{
-
+            isMultiplayer = GetComponent<UINetwork>() != null;
             //My Events 
-            //Health events
-            _inventory.OnInventoryUpdated += UpdateUIInventory;
+            if (!isMultiplayer)
+            {
+                //Events and Dialog
+                _distanceEvents.OnEventVillage += ShowEventDialog;
+                _distanceEvents.OnExitEventVillage += HideEventDialog;
+                _forestEvent.OnForestEvent += ShowEventDialog;
+                _forestEvent.OnExitForestEvent += HideEventDialog;
+                _winEvent.OnWin += ShowEventDialog;
+                //Die Panels
+                _healthSystemPlayer.OnDeath += ShowDiePanel;
+                _healthSystemMachine.OnDeath += ShowDiePanel;
+            }
+                //Health events
+                _inventory.OnInventoryUpdated += UpdateUIInventory;
 			_interactionSystem.OnShowInteraction += ShowInteraction;
 			_interactionSystem.OnHideInteraction += HideInteraction;
-            //Events and Dialog
-            _distanceEvents.OnEventVillage += ShowEventDialog;
-            _distanceEvents.OnExitEventVillage += HideEventDialog;
-            _forestEvent.OnForestEvent += ShowEventDialog;
-            _forestEvent.OnExitForestEvent += HideEventDialog;
-            _winEvent.OnWin += ShowEventDialog;
+
             //Settings events
             _musicSlider.onValueChanged.AddListener(MusicVolumeChange);
 			_fxSlider.onValueChanged.AddListener(FXVolumeChange);
@@ -86,9 +94,7 @@ namespace Deforestation.UI
             _intputSystem._onActiveMenu += ShowPausePanel;
             _gameMenuManager._onActivePauseMenu += HidePausePanel;
 			_gameMenuManager._onActiveSettingsMenu += ShowSettingsPanel;
-            //Die Panels
-            _healthSystemPlayer.OnDeath += ShowDiePanel;
-            _healthSystemMachine.OnDeath += ShowDiePanel;
+        
             Cursor.visible = true; // Muestra el cursor
             Cursor.lockState = CursorLockMode.None; // Desbloquea el cursor
             FirstPersonController.enabled = false;

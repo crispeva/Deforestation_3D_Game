@@ -44,8 +44,7 @@ namespace Deforestation.Audio
 			GameController.Instance.MachineController.WeaponController.OnMachineShoot += ShootFX;
             GameController.Instance.InteractionSystem.OnMineralSound += TakeMaterialSound;
             GameController.Instance.MachineMovement.OnMachineWalking += WalkingMachineSound;
-            GameController.Instance.WinEvent.OnWinMusic += WinMusic;
-            //GameController.Instance.MachineController.OnMachineWalking += WalkingMachineSound;
+  
         }
 
         private void Start()

@@ -18,7 +18,7 @@ namespace Deforestation
 		public InteractionSystem InteractionSystem => _interactionSystem;
 		public TreeTerrainController TerrainController => _terrainController;
 		public HealthSystem HealthSystem => _playerHealth;
-		public VillageEventTrigger DistanceEvents => _distanceEvents;
+		public VillageEventTrigger VillageEvents => _villageEvent;
 		public InputSystem InputSystem => _inputSystem;
 		public MachineMovement MachineMovement => _machinemovement;
 		public UIGameController UIGameController => _uiController;
@@ -65,8 +65,8 @@ namespace Deforestation
 		[Header("Trees Terrain")]
 		[SerializeField] protected TreeTerrainController _terrainController;
 		[Header("Village")]
-        [SerializeField] protected VillageEventTrigger _distanceEvents;
-		[SerializeField] protected GameObject _villageEvent;
+        [SerializeField] protected VillageEventTrigger _villageEvent;
+		[SerializeField] protected GameObject _objetcsVillageEvent;
 		[SerializeField] protected WinEvent _winEvent;
         private bool _machineModeOn;
         #endregion
@@ -79,7 +79,7 @@ namespace Deforestation
 			_playerHealth.OnHealthChanged += _uiController.UpdatePlayerHealth;
 			_machine.HealthSystem.OnHealthChanged += _uiController.UpdateMachineHealth;
 			//Event
-            _distanceEvents.OnEventVillagePanel += ShowEventVillage;
+            _villageEvent.OnEventVillagePanel += ShowEventVillage;
 			//Inputs
             MachineModeOn = false;
 		}
@@ -139,7 +139,7 @@ namespace Deforestation
 		}
 		public void ShowEventVillage()
 		{
-            _villageEvent.SetActive(true);
+            _objetcsVillageEvent.SetActive(true);
 
 			
         }
