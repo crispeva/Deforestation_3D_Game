@@ -26,16 +26,17 @@ namespace Deforestation.Machine.Weapon
         private void Start()
         {
 
-            GameController.Instance.InputSystem._onShootMachine += Shoot;
+           // GameController.Instance.GameInputController._onShootMachine += Shoot;
         }
         void Update()
 		{
             //Si no estamos conduciendo no controlamos esto. 
-
             if (!GameController.Instance.MachineModeOn)
                 return;
+
             Ray ray = GameController.Instance.MainCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
+
             if (Physics.Raycast(ray, out hit))
             {
                 Vector3 direccion = hit.point - transform.position;
@@ -44,26 +45,30 @@ namespace Deforestation.Machine.Weapon
                 Quaternion rotacionObjetivo = Quaternion.LookRotation(direccion);
                 _towerWeapon.rotation = Quaternion.Slerp(transform.rotation, rotacionObjetivo, _speedRotation * Time.deltaTime);
             }
-            transform.LookAt(hit.point);
+
+            if (Input.GetMouseButtonUp(0) && GameController.Instance.MachineModeOn && GameController.Instance.Inventory.UseResource(Recolectables.RecolectableType.SuperCrystal))
+            {
+                Shoot(hit.point);
+            }
 
 
         }
 
-		public void Shoot()
-		{
+        public void Shoot(Vector3 lookAtPoint)
+        {
+            transform.LookAt(lookAtPoint);
+            Instantiate(_bulletPrefab, _spawnPoint.transform.position, _spawnPoint.transform.rotation);
+            _smokeShoot1.SetActive(true);
+            _smokeShoot2.SetActive(true);
+            OnMachineShoot?.Invoke();
+        }
+        #endregion
 
-			Instantiate(_bulletPrefab, _spawnPoint.transform.position, _spawnPoint.transform.rotation);
-			_smokeShoot1.SetActive(true);
-			_smokeShoot2.SetActive(true);
-			OnMachineShoot?.Invoke();
-		}
-		#endregion
+        #region Public Methods
+        #endregion
 
-		#region Public Methods
-		#endregion
-
-		#region Private Methods
-		#endregion
-	}
+        #region Private Methods
+        #endregion
+    }
 
 }

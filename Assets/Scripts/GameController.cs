@@ -5,6 +5,7 @@ using Deforestation.Interaction;
 using Deforestation.Machine;
 using Deforestation.Recolectables;
 using Deforestation.UI;
+using Deforestation.Inputs;
 using UnityEngine;
 
 namespace Deforestation
@@ -19,7 +20,7 @@ namespace Deforestation
 		public TreeTerrainController TerrainController => _terrainController;
 		public HealthSystem HealthSystem => _playerHealth;
 		public VillageEventTrigger VillageEvents => _villageEvent;
-		public InputSystem InputSystem => _inputSystem;
+		public GameInputController InputSystem => _inputSystem;
 		public MachineMovement MachineMovement => _machinemovement;
 		public UIGameController UIGameController => _uiController;
 		public WinEvent WinEvent => _winEvent;
@@ -49,7 +50,7 @@ namespace Deforestation
 		[SerializeField] protected HealthSystem _playerHealth;
 		[SerializeField] protected Inventory _inventory;
 		[SerializeField] protected InteractionSystem _interactionSystem;
-		[SerializeField] protected InputSystem _inputSystem;
+		[SerializeField] protected GameInputController _inputSystem;
 
 
         [Header("Camera")]

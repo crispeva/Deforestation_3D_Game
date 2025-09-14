@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4654916247014994996}
   - component: {fileID: 105465628552408948}
+  - component: {fileID: 6064248703745186318}
   - component: {fileID: 5663708039760799762}
   - component: {fileID: 8241995507752419301}
   - component: {fileID: 1639490518592797957}
@@ -50,8 +51,6 @@ GameObject:
   - component: {fileID: 8801361943699679601}
   - component: {fileID: 5441452416129335392}
   - component: {fileID: 6346100861995077906}
-  - component: {fileID: 3472965232114299548}
-  - component: {fileID: 3907548530397425083}
   m_Layer: 2
   m_Name: PlayerFPS_Multiplayer
   m_TagString: Player
@@ -73,6 +72,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1462442912748134985}
+  - {fileID: 481486405943017139}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -4.605, y: 165.699, z: 0}
 --- !u!114 &105465628552408948
@@ -89,6 +89,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 100
   delayDeath: 3
+--- !u!114 &6064248703745186318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5053055132476332328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe05b02804daab44a9e8ee98a702aaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: {fileID: 105465628552408948}
+  _inventory: {fileID: 5663708039760799762}
+  _interactions: {fileID: 8241995507752419301}
+  _controller: {fileID: 1639490518592797957}
+  _fps: {fileID: 6550696209028303786}
+  _inputs: {fileID: 6988941112986416432}
+  _inputsPlayer: {fileID: 8801361943699679601}
+  _3dAvatar: {fileID: 1001283429332542473}
+  _playerFollow: {fileID: 1462442912748134985}
 --- !u!114 &5663708039760799762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,7 +152,7 @@ CharacterController:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Height: 2
   m_Radius: 0.5
@@ -147,7 +168,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5053055132476332328}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55919ac34a26952479f3fc91f777b2fa, type: 3}
   m_Name: 
@@ -324,7 +345,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 6346100861995077906}
-  - {fileID: 3472965232114299548}
+  - {fileID: 4527201382151614800}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -344,13 +365,120 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &3472965232114299548
+--- !u!1001 &82239246476564824
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4654916247014994996}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: b444fbb74dad04f449b884dad672b8c2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b444fbb74dad04f449b884dad672b8c2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b444fbb74dad04f449b884dad672b8c2,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b444fbb74dad04f449b884dad672b8c2,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b444fbb74dad04f449b884dad672b8c2,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b444fbb74dad04f449b884dad672b8c2,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b444fbb74dad04f449b884dad672b8c2,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b444fbb74dad04f449b884dad672b8c2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b444fbb74dad04f449b884dad672b8c2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b444fbb74dad04f449b884dad672b8c2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b444fbb74dad04f449b884dad672b8c2,
+        type: 3}
+      propertyPath: m_Name
+      value: Ely By K.Atienza
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b444fbb74dad04f449b884dad672b8c2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: b444fbb74dad04f449b884dad672b8c2,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 2f8135182b6dcb149a2b99c420bd04ed, type: 2}
+    - target: {fileID: 5866666021909216657, guid: b444fbb74dad04f449b884dad672b8c2,
+        type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
+        'mixamorig:LeftHandThumb2'\n\tTransform 'mixamorig:LeftHandIndex1'\n\tTransform
+        'mixamorig:LeftHandPinky2'\n\tTransform 'mixamorig:RightHandRing2'\n\tTransform
+        'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform 'mixamorig:LeftHandThumb3'\n\tTransform
+        'mixamorig:RightArm'\n\tand more ...\n\tFrom animation clip 'Slow Run'\n\tFrom
+        animation clip 'Jump'\n\tFrom animation clip 'Rib Hit'\n\tFrom animation
+        clip 'Flying Back Death'"
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b444fbb74dad04f449b884dad672b8c2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4527201382151614800}
+  m_SourcePrefab: {fileID: 100100000, guid: b444fbb74dad04f449b884dad672b8c2, type: 3}
+--- !u!4 &481486405943017139 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b444fbb74dad04f449b884dad672b8c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 82239246476564824}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1001283429332542473 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b444fbb74dad04f449b884dad672b8c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 82239246476564824}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4527201382151614800
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5053055132476332328}
+  m_GameObject: {fileID: 1001283429332542473}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
@@ -358,26 +486,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 1
-  m_SynchronizeParameters: []
-  m_SynchronizeLayers: []
---- !u!95 &3907548530397425083
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5053055132476332328}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 1
+    Name: Run
+  - Type: 9
+    SynchronizeType: 1
+    Name: Die
+  - Type: 9
+    SynchronizeType: 1
+    Name: Hit
+  - Type: 9
+    SynchronizeType: 1
+    Name: Jump
+  m_SynchronizeLayers:
+  - SynchronizeType: 1
+    LayerIndex: 0

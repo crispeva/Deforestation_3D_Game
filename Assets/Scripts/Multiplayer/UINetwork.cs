@@ -7,9 +7,11 @@ public class UINetwork : MonoBehaviour
 {
     #region Properties
     [SerializeField] private GameObject _connectingPanel;
+
     #endregion
 
     #region Fields
+    public GameObject EndGamePanel;
     #endregion
 
     #region Unity Callbacks

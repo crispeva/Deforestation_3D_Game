@@ -16,11 +16,15 @@ public class NetworkController : MonoBehaviourPunCallbacks //Debe de heredar de 
         //Master
         [SerializeField] private List<Transform> _spawnPoints;
         private int _indexSpawns;
+        //UI
         [SerializeField] private UINetwork _ui;
         [SerializeField] private UIGameController _uIGameController;
+        //Client
         private bool _waitingForSpawn=false;
+        //Objects
         private GameObject _machine;
         private GameObject _player;
+        [SerializeField] private GameObject _explosionPrefab;
         #endregion
 
         #region Unity Callbacks
@@ -97,32 +101,32 @@ public class NetworkController : MonoBehaviourPunCallbacks //Debe de heredar de 
                 SpawnMe(spawnPos);
             }
         }
-        //private void MachineDie()
-        //{
-        //    if (GameController.Instance.MachineModeOn)
-        //    {
-        //        GameController.Instance.MachineMode(false);
-        //        _player.GetComponent<HealthSystem>().TakeDamage(1000);
-        //    }
+        private void MachineDie()
+        {
+            if (GameController.Instance.MachineModeOn)
+            {
+                GameController.Instance.MachineMode(false);
+                _player.GetComponent<HealthSystem>().TakeDamage(1000);
+            }
 
-        //    DestroyImmediate(_machine);
-        //    SpawnExplosions(_machine.transform.position + Vector3.up * 4, 5, 5);
-        //}
-        //public void SpawnExplosions(Vector3 centerPoint, int numberOfExplosions = 4, float maxDistance = 5f)
-        //{
-        //    for (int i = 0; i < numberOfExplosions; i++)
-        //    {
-        //        Vector3 randomDirection = Random.insideUnitSphere;
-        //        Vector3 spawnPosition = centerPoint + randomDirection.normalized * Random.Range(0f, maxDistance);
-        //        Instantiate(_explosionPrefab, spawnPosition, Quaternion.identity);
-        //    }
-        //}
-        //private void PlayerDie()
-        //{
-        //    Cursor.lockState = CursorLockMode.None;
-        //    Cursor.visible = true;
-        //    _ui.EndGamePanel.SetActive(true);
-        //}
+            DestroyImmediate(_machine);
+            SpawnExplosions(_machine.transform.position + Vector3.up * 4, 5, 5);
+        }
+        public void SpawnExplosions(Vector3 centerPoint, int numberOfExplosions = 4, float maxDistance = 5f)
+        {
+            for (int i = 0; i < numberOfExplosions; i++)
+            {
+                Vector3 randomDirection = UnityEngine.Random.insideUnitSphere;
+                Vector3 spawnPosition = centerPoint + randomDirection.normalized * UnityEngine.Random.Range(0f, maxDistance);
+                Instantiate(_explosionPrefab, spawnPosition, Quaternion.identity);
+            }
+        }
+        private void PlayerDie()
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            _ui.EndGamePanel.SetActive(true);
+        }
         #endregion
     }
 

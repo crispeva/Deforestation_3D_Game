@@ -10,6 +10,7 @@ using System.Collections;
 using UnityEngine.Events;
 using Deforestation.Machine;
 using Deforestation.Machine.Weapon;
+using Deforestation.Inputs;
 using Deforestation.Events;
 
 namespace Deforestation.UI
@@ -20,15 +21,11 @@ namespace Deforestation.UI
 		#endregion
 
 		#region Fields
-		private Inventory _inventory => GameController.Instance.Inventory;		
-		private InteractionSystem _interactionSystem => GameController.Instance.InteractionSystem;
-		[SerializeField] private InputSystem _intputSystem;
-		[SerializeField] private GameMenuManager _gameMenuManager;
-		[SerializeField] private WinEvent _winEvent;
-		[SerializeField] private ForestEvent _forestEvent;
-        private HealthSystem _healthSystemPlayer => GameController.Instance.HealthSystem;
-        private HealthSystem _healthSystemMachine => GameController.Instance.MachineController.HealthSystem;
-        private VillageEventTrigger _distanceEvents => GameController.Instance.VillageEvents;
+		private Inventory _inventory => GameController.Instance?.Inventory;		
+		private InteractionSystem _interactionSystem => GameController.Instance?.InteractionSystem;
+        private HealthSystem _healthSystemPlayer => GameController.Instance?.HealthSystem;
+        private HealthSystem _healthSystemMachine => GameController.Instance?.MachineController.HealthSystem;
+        private VillageEventTrigger _distanceEvents => GameController.Instance?.VillageEvents;
 
         [Header("Settings")]
 		[SerializeField] private AudioMixer _mixer;
@@ -53,6 +50,10 @@ namespace Deforestation.UI
         [SerializeField] private GameObject _diePanel;
         [SerializeField] private GameObject _pausePanel;
         [SerializeField] private GameObject _settingsPanel;
+        [SerializeField] private GameInputController _intputSystem;
+        [SerializeField] private GameMenuManager _gameMenuManager;
+        [SerializeField] private WinEvent _winEvent;
+        [SerializeField] private ForestEvent _forestEvent;
         [SerializeField] private FirstPersonController FirstPersonController;
         private bool _settingsOn = false;
         public CanvasGroup canvasGroupDie;
@@ -79,10 +80,14 @@ namespace Deforestation.UI
                 _healthSystemPlayer.OnDeath += ShowDiePanel;
                 _healthSystemMachine.OnDeath += ShowDiePanel;
             }
-                //Health events
+            //Health events
+           if(_inventory==null)
+                return;
                 _inventory.OnInventoryUpdated += UpdateUIInventory;
-			_interactionSystem.OnShowInteraction += ShowInteraction;
-			_interactionSystem.OnHideInteraction += HideInteraction;
+
+                _interactionSystem.OnShowInteraction += ShowInteraction;
+                _interactionSystem.OnHideInteraction += HideInteraction;
+
 
             //Settings events
             _musicSlider.onValueChanged.AddListener(MusicVolumeChange);
@@ -194,7 +199,7 @@ namespace Deforestation.UI
 			if (_settingsPanel.active == false)
 			{
                 Time.timeScale = 0f; // Pausa el juego
-                FirstPersonController.enabled = false; // Desactiva el input provider de Cinemachine
+               FirstPersonController.enabled = false; // Desactiva el input provider de Cinemachine
                 Cursor.visible = true; // Muestra el cursor
                 Cursor.lockState = CursorLockMode.None; // Desbloquea el cursor
                 _pausePanel.SetActive(true);
@@ -204,7 +209,7 @@ namespace Deforestation.UI
         public void HidePausePanel()
         {
             Time.timeScale = 1f; // Continúa el juego
-            FirstPersonController.enabled = true;
+           // FirstPersonController.enabled = true;
             _pausePanel.SetActive(false);
             if (GameController.Instance.MachineMovement.enabled==false)
             {

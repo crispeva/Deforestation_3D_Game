@@ -239,6 +239,21 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 961936965280365798, guid: ee2ee13d82bdd1542a1def10278c5ea3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.22699928
+      objectReference: {fileID: 0}
+    - target: {fileID: 1281887282168017854, guid: ee2ee13d82bdd1542a1def10278c5ea3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -5.0001526
+      objectReference: {fileID: 0}
+    - target: {fileID: 1957703794715341820, guid: ee2ee13d82bdd1542a1def10278c5ea3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -8.387146
+      objectReference: {fileID: 0}
     - target: {fileID: 3643551959551620858, guid: ee2ee13d82bdd1542a1def10278c5ea3,
         type: 3}
       propertyPath: m_Pivot.x
@@ -753,6 +768,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -5.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 5317616696564432724, guid: e9e196dfa1e0173499568269feea41a5,
+        type: 3}
+      propertyPath: m_Drag
+      value: 9.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5317616696564432724, guid: e9e196dfa1e0173499568269feea41a5,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 20.94
       objectReference: {fileID: 0}
     - target: {fileID: 6501388576243615661, guid: e9e196dfa1e0173499568269feea41a5,
         type: 3}

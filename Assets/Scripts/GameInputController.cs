@@ -7,8 +7,8 @@ using Deforestation.Machine;
 using Deforestation.Recolectables;
 using StarterAssets;
 using UnityEngine;
-
-public class InputSystem : MonoBehaviour
+namespace Deforestation.Inputs{ 
+public class GameInputController : MonoBehaviour
 {
     #region Properties
     #endregion
@@ -42,7 +42,7 @@ public class InputSystem : MonoBehaviour
  
     private void PauseGame()
     {
-        if (Input.GetKeyUp(KeyCode.Escape) & GameController.Instance.HealthSystem.CurrentHealth >0)
+        if (Input.GetKeyUp(KeyCode.Escape) && GameController.Instance.HealthSystem.CurrentHealth >0)
         {
             _onActiveMenu?.Invoke();
             
@@ -50,7 +50,7 @@ public class InputSystem : MonoBehaviour
     }
     private void ShootBullet()
     {
-        if (Input.GetMouseButtonUp(0) && GameController.Instance.MachineModeOn && GameController.Instance.Inventory.UseResource(Deforestation.Recolectables.RecolectableType.SuperCrystal)&&GameController.Instance.UIGameController.Ispaused==false)
+        if (Input.GetMouseButtonUp(0) && GameController.Instance.MachineModeOn && GameController.Instance.Inventory.UseResource(Deforestation.Recolectables.RecolectableType.SuperCrystal) && GameController.Instance.UIGameController.Ispaused == false)
         {
             _onShootMachine?.Invoke();
         }
@@ -64,4 +64,5 @@ public class InputSystem : MonoBehaviour
         }
     }
     #endregion
+}
 }
