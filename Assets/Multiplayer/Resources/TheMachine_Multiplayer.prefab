@@ -15311,7 +15311,8 @@ MonoBehaviour:
   _jumpForce: 600000
   _jumpMovement: {x: 0, y: 0, z: 0}
   _speedRotation: 30
-  _playerTransform: {fileID: 0}
+  _playerTransform: {fileID: 4654916247014994996, guid: 476eb7ff31f5fa44bb4b6358b28721ef,
+    type: 3}
   _targetSpawn: {fileID: 8589635165409070353}
   energyDecayRate: 20
   driving: 0

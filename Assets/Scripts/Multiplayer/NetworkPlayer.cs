@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using Deforestation;
+using Deforestation.Inputs;
 using Deforestation.Interaction;
 using Deforestation.Network;
 using Deforestation.Recolectables;
@@ -8,7 +10,6 @@ using Photon.Pun;
 using StarterAssets;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Deforestation.Inputs;
 namespace Deforestation.Multiplayer
 {
 
@@ -49,7 +50,12 @@ public class NetworkPlayer : MonoBehaviourPun
             _fps.enabled = true;
             _controller.enabled = true;
             _inputs.enabled = true;
-
+                var vcam = FindObjectOfType<CinemachineVirtualCamera>();
+                if (vcam != null && _playerFollow != null)
+                {
+                    vcam.Follow = _playerFollow;
+                    vcam.LookAt = _playerFollow;
+                }
                 Invoke(nameof(AddInitialCrystals), 1);
 
         }
