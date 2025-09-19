@@ -74,7 +74,7 @@ namespace Deforestation
 
         #region Unity Callbacks
         // Start is called before the first frame update
-        void Start()
+        protected virtual void Start()
 		{
 			//UI Update
 			_playerHealth.OnHealthChanged += _uiController.UpdatePlayerHealth;

@@ -63,9 +63,8 @@ namespace Deforestation.UI
         #endregion
 
         #region Unity Callbacks
-        // Start is called before the first frame update
         void Start()
-		{
+        {
             isMultiplayer = GetComponent<UINetwork>() != null;
             //My Events 
             if (!isMultiplayer)
@@ -80,26 +79,19 @@ namespace Deforestation.UI
                 _healthSystemPlayer.OnDeath += ShowDiePanel;
                 _healthSystemMachine.OnDeath += ShowDiePanel;
             }
-            //Health events
-           if(_inventory==null)
-                return;
-                _inventory.OnInventoryUpdated += UpdateUIInventory;
-
-                _interactionSystem.OnShowInteraction += ShowInteraction;
-                _interactionSystem.OnHideInteraction += HideInteraction;
 
 
             //Settings events
             _musicSlider.onValueChanged.AddListener(MusicVolumeChange);
-			_fxSlider.onValueChanged.AddListener(FXVolumeChange);
+            _fxSlider.onValueChanged.AddListener(FXVolumeChange);
             _lowQuality.onClick.AddListener(() => SetQuality(0));
             _mediumQuality.onClick.AddListener(() => SetQuality(1));
             _highQuality.onClick.AddListener(() => SetQuality(2));
             _closeButton.onClick.AddListener(CloseSettings);
             _intputSystem._onActiveMenu += ShowPausePanel;
             _gameMenuManager._onActivePauseMenu += HidePausePanel;
-			_gameMenuManager._onActiveSettingsMenu += ShowSettingsPanel;
-        
+            _gameMenuManager._onActiveSettingsMenu += ShowSettingsPanel;
+
             Cursor.visible = true; // Muestra el cursor
             Cursor.lockState = CursorLockMode.None; // Desbloquea el cursor
             FirstPersonController.enabled = false;
@@ -147,6 +139,14 @@ namespace Deforestation.UI
         public void ShowEventDialog(CanvasGroup canvasGroup)
         {
                 StartCoroutine(FadeIn(canvasGroup, Duration));
+        }
+        public void inizialiceinventory()
+        {
+            //Health events
+            _inventory.OnInventoryUpdated += UpdateUIInventory;
+
+            _interactionSystem.OnShowInteraction += ShowInteraction;
+            _interactionSystem.OnHideInteraction += HideInteraction;
         }
         public void HideEventDialog(CanvasGroup canvasGroup)
         {

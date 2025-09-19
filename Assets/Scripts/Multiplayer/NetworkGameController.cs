@@ -6,20 +6,28 @@ using Deforestation.Machine;
 using Deforestation.Recolectables;
 using Deforestation.Inputs; 
 using UnityEngine;
+using Deforestation.UI;
 namespace Deforestation.Network
 {
 public class NetworkGameController : GameController
 {
-     #region Properties
-    #endregion
+        #region Properties
+        #endregion
 
-    #region Fields
-    #endregion
+        #region Fields
+        private bool _isMultiplayer = false;
+        #endregion
 
-    #region Unity Callbacks
-    void Start()
+        #region Unity Callbacks
+        protected override void Start()
     {
-        
+            if (_isMultiplayer==true)
+            {
+                Debug.LogWarning("NetworkGameController started in single player mode. Use GameController for single player.");
+                base.Start();
+            }
+
+
     }
 
     // Update is called once per frame
@@ -38,6 +46,8 @@ public class NetworkGameController : GameController
             _interactionSystem = interaction;
             _playerFollow = playerFollow;
             _inputSystem = inputSystem;
+            _isMultiplayer=true;
+            _uiController.inizialiceinventory();
         }
         public void InitializeMachine(Transform follow, MachineController machine)
         {
