@@ -78,23 +78,23 @@ namespace Deforestation.UI
                 //Die Panels
                 _healthSystemPlayer.OnDeath += ShowDiePanel;
                 _healthSystemMachine.OnDeath += ShowDiePanel;
+                _intputSystem._onActiveMenu += ShowPausePanel;
+                //Settings events
+                _musicSlider.onValueChanged.AddListener(MusicVolumeChange);
+                _fxSlider.onValueChanged.AddListener(FXVolumeChange);
+                _lowQuality.onClick.AddListener(() => SetQuality(0));
+                _mediumQuality.onClick.AddListener(() => SetQuality(1));
+                _highQuality.onClick.AddListener(() => SetQuality(2));
+                _closeButton.onClick.AddListener(CloseSettings);
+                _gameMenuManager._onActivePauseMenu += HidePausePanel;
+                _gameMenuManager._onActiveSettingsMenu += ShowSettingsPanel;
+
+
+                Cursor.visible = true; // Muestra el cursor
+                Cursor.lockState = CursorLockMode.None; // Desbloquea el cursor
+                FirstPersonController.enabled = false;
             }
 
-
-            //Settings events
-            _musicSlider.onValueChanged.AddListener(MusicVolumeChange);
-            _fxSlider.onValueChanged.AddListener(FXVolumeChange);
-            _lowQuality.onClick.AddListener(() => SetQuality(0));
-            _mediumQuality.onClick.AddListener(() => SetQuality(1));
-            _highQuality.onClick.AddListener(() => SetQuality(2));
-            _closeButton.onClick.AddListener(CloseSettings);
-            _intputSystem._onActiveMenu += ShowPausePanel;
-            _gameMenuManager._onActivePauseMenu += HidePausePanel;
-            _gameMenuManager._onActiveSettingsMenu += ShowSettingsPanel;
-
-            Cursor.visible = true; // Muestra el cursor
-            Cursor.lockState = CursorLockMode.None; // Desbloquea el cursor
-            FirstPersonController.enabled = false;
         }
 
         private void CloseSettings()

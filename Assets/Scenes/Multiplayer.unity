@@ -539,6 +539,7 @@ GameObject:
   - component: {fileID: 1505100056}
   - component: {fileID: 1505100057}
   - component: {fileID: 1505100058}
+  - component: {fileID: 1505100059}
   m_Layer: 0
   m_Name: Network_Controller
   m_TagString: Untagged
@@ -598,10 +599,27 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 1505100059}
   sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &1505100059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505100055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &1551193030
 GameObject:
   m_ObjectHideFlags: 0
@@ -897,7 +915,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1868032868}
   m_Layer: 0
-  m_Name: SpawnPoint1
+  m_Name: SpawnPointPlayer1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -912,7 +930,7 @@ Transform:
   m_GameObject: {fileID: 1868032867}
   serializedVersion: 2
   m_LocalRotation: {x: 0.04442572, y: 0.4513158, z: -0.022478517, w: 0.8909743}
-  m_LocalPosition: {x: 62.900146, y: 81.37698, z: 139.48566}
+  m_LocalPosition: {x: 79.9, y: 93.76, z: 99.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -926,6 +944,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 200167362810472632, guid: 11121c341e25b90408a6473e31b35e43,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.8410187
+      objectReference: {fileID: 0}
     - target: {fileID: 585182084679022122, guid: 11121c341e25b90408a6473e31b35e43,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -939,7 +962,7 @@ PrefabInstance:
     - target: {fileID: 961936965280365798, guid: 11121c341e25b90408a6473e31b35e43,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.22699928
+      value: -0.2269988
       objectReference: {fileID: 0}
     - target: {fileID: 1281887282168017854, guid: 11121c341e25b90408a6473e31b35e43,
         type: 3}
@@ -949,12 +972,12 @@ PrefabInstance:
     - target: {fileID: 1957703794715341820, guid: 11121c341e25b90408a6473e31b35e43,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -8.387207
+      value: -8.3871765
       objectReference: {fileID: 0}
     - target: {fileID: 2101159349579968037, guid: 11121c341e25b90408a6473e31b35e43,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.22699928
+      value: -0.2269988
       objectReference: {fileID: 0}
     - target: {fileID: 2205231697922270225, guid: 11121c341e25b90408a6473e31b35e43,
         type: 3}
@@ -970,6 +993,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -5.000038
+      objectReference: {fileID: 0}
+    - target: {fileID: 2681345447885650333, guid: 11121c341e25b90408a6473e31b35e43,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.12548828
       objectReference: {fileID: 0}
     - target: {fileID: 3030162144047271740, guid: 11121c341e25b90408a6473e31b35e43,
         type: 3}
@@ -1094,7 +1122,22 @@ PrefabInstance:
     - target: {fileID: 4167153064711300868, guid: 11121c341e25b90408a6473e31b35e43,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -5.386963
+      value: -5.3869934
+      objectReference: {fileID: 0}
+    - target: {fileID: 4167153064711300868, guid: 11121c341e25b90408a6473e31b35e43,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -7.3547974
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718251911762236139, guid: 11121c341e25b90408a6473e31b35e43,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -13.343994
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029814658930376293, guid: 11121c341e25b90408a6473e31b35e43,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -3.5863037
       objectReference: {fileID: 0}
     - target: {fileID: 6297390045529249880, guid: 11121c341e25b90408a6473e31b35e43,
         type: 3}
@@ -1259,7 +1302,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2034160280}
   m_Layer: 0
-  m_Name: SpawnPoint2
+  m_Name: SpawnPointMachine1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

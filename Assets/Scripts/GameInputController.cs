@@ -42,7 +42,7 @@ public class GameInputController : MonoBehaviour
  
     private void PauseGame()
     {
-        if (Input.GetKeyUp(KeyCode.Escape) && GameController.Instance.HealthSystem.CurrentHealth >0)
+        if (Input.GetKeyUp(KeyCode.Escape) && GameController.Instance.HealthSystem.CurrentHealth >0 )
         {
             _onActiveMenu?.Invoke();
             
