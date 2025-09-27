@@ -1,35 +1,43 @@
-using UnityEngine;
 using System;
+using System.Diagnostics.Tracing;
+using System.Runtime.CompilerServices;
+using Photon.Pun;
+using UnityEngine;
 namespace Deforestation.Machine.Weapon
 {
 
-	public class WeaponController : MonoBehaviour
-	{
-		#region Properties
-		public Action OnMachineShoot;
-		#endregion
+    public class WeaponController : MonoBehaviour
+    {
+        #region Properties
+        public Action OnMachineShoot;
+        public Transform TowerWeapon => _towerWeapon;
+        public Action _onShootMachine;
+        #endregion
 
-		#region Fields
-		[SerializeField] private Transform _towerWeapon;
-		[SerializeField] private Transform _spawnPoint;
-		[SerializeField] private float _speedRotation = 1f;
-		[SerializeField] private Bullet _bulletPrefab;
-		[SerializeField] private GameObject _smokeShoot1;
-		[SerializeField] private GameObject _smokeShoot2;
-		#endregion
+        #region Fields
+        [SerializeField] private Transform _towerWeapon;
+        [SerializeField] private Transform _spawnPoint;
+        [SerializeField] private float _speedRotation = 1f;
+        [SerializeField] private Bullet _bulletPrefab;
+        [SerializeField] private GameObject _smokeShoot1;
+        [SerializeField] private GameObject _smokeShoot2;
+        private PhotonView _photonView;
+        #endregion
 
-		#region Unity Callbacks
-		private void Awake()
+        #region Unity Callbacks
+        private void Awake()
 		{
-
+            _photonView = GetComponentInParent<PhotonView>();
         }
         private void Start()
         {
 
-           // GameController.Instance.GameInputController._onShootMachine += Shoot;
+           //GameController.Instance.InputSystem._onShootMachine += Shoot;
         }
         void Update()
 		{
+            if (_photonView != null && !_photonView.IsMine)
+                return;
             //Si no estamos conduciendo no controlamos esto. 
             if (!GameController.Instance.MachineModeOn)
                 return;
@@ -46,11 +54,10 @@ namespace Deforestation.Machine.Weapon
                 _towerWeapon.rotation = Quaternion.Slerp(transform.rotation, rotacionObjetivo, _speedRotation * Time.deltaTime);
             }
 
-            if (Input.GetMouseButtonUp(0) && GameController.Instance.MachineModeOn && GameController.Instance.Inventory.UseResource(Recolectables.RecolectableType.SuperCrystal))
+            if (Input.GetMouseButtonUp(0) && GameController.Instance.MachineModeOn && GameController.Instance.Inventory.UseResource(Deforestation.Recolectables.RecolectableType.SuperCrystal) && GameController.Instance.UIGameController.Ispaused == false)
             {
                 Shoot(hit.point);
             }
-
 
         }
 

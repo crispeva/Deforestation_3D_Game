@@ -4867,6 +4867,7 @@ GameObject:
   m_Component:
   - component: {fileID: 614397858284443550}
   - component: {fileID: 5447073772722675354}
+  - component: {fileID: 1770790188747679770}
   m_Layer: 0
   m_Name: Top Weapons
   m_TagString: Untagged
@@ -4915,6 +4916,28 @@ MonoBehaviour:
     type: 3}
   _smokeShoot1: {fileID: 2950228777618055993}
   _smokeShoot2: {fileID: 5130221857757968199}
+--- !u!114 &1770790188747679770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2345717363802347831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2356484456272807169
 GameObject:
   m_ObjectHideFlags: 0
@@ -15269,6 +15292,7 @@ GameObject:
   - component: {fileID: 2427194173163157568}
   - component: {fileID: 414080469103470506}
   - component: {fileID: 8812140660524101631}
+  - component: {fileID: 7287983429109837693}
   m_Layer: 0
   m_Name: TheMachine_Multiplayer
   m_TagString: Machine
@@ -15302,7 +15326,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6501388576243615661}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb4bf88a35773c949bce3eb21802579c, type: 3}
   m_Name: 
@@ -15444,9 +15468,12 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 2
+  observableSearch: 0
   ObservedComponents:
+  - {fileID: 8840273570965871649}
   - {fileID: 8812140660524101631}
+  - {fileID: 7287983429109837693}
+  - {fileID: 8840273570965871649}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -15466,6 +15493,33 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &7287983429109837693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6501388576243615661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 9
+    SynchronizeType: 1
+    Name: WakeUp
+  - Type: 4
+    SynchronizeType: 1
+    Name: Move
+  - Type: 9
+    SynchronizeType: 1
+    Name: Jump
+  m_SynchronizeLayers:
+  - SynchronizeType: 1
+    LayerIndex: 0
 --- !u!1 &6520873265591127325
 GameObject:
   m_ObjectHideFlags: 0

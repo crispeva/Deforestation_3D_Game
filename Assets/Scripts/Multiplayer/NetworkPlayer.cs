@@ -84,7 +84,9 @@ public class NetworkPlayer : MonoBehaviourPun
                 _anim.SetBool("Run", false);
             }
             if (Input.GetKeyUp(KeyCode.Space))
-                _anim.SetTrigger("Jump");
+                {
+                    _anim.SetTrigger("Jump");
+                }
         }
     }
     #endregion

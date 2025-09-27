@@ -16,7 +16,6 @@ public class GameInputController : MonoBehaviour
     #region Fields
     public Action _onActiveMenu;
     public Action _onExitMachine;
-    public Action _onShootMachine;
     #endregion
 
     #region Unity Callbacks
@@ -29,7 +28,6 @@ public class GameInputController : MonoBehaviour
     {
         ExitMachine();
         PauseGame(); 
-        ShootBullet();
     }
 
     #endregion
@@ -46,13 +44,6 @@ public class GameInputController : MonoBehaviour
         {
             _onActiveMenu?.Invoke();
             
-        }
-    }
-    private void ShootBullet()
-    {
-        if (Input.GetMouseButtonUp(0) && GameController.Instance.MachineModeOn && GameController.Instance.Inventory.UseResource(Deforestation.Recolectables.RecolectableType.SuperCrystal) && GameController.Instance.UIGameController.Ispaused == false)
-        {
-            _onShootMachine?.Invoke();
         }
     }
     private void ExitMachine()

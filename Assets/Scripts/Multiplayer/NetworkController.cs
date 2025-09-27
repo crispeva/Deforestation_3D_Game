@@ -53,7 +53,7 @@ public class NetworkController : MonoBehaviourPunCallbacks //Debe de heredar de 
             {
 
                 SpawnMe(_spawnPoints[0].position);
-                _indexSpawns = 1;
+                _indexSpawns ++;
             }
             else
             {
@@ -79,19 +79,21 @@ public class NetworkController : MonoBehaviourPunCallbacks //Debe de heredar de 
             _machine = PhotonNetwork.Instantiate("TheMachine_Multiplayer", spawnPoint + Vector3.back * 7, Quaternion.identity);
 
             //dead control
-            //_player.GetComponent<HealthSystem>().OnDeath += PlayerDie;
-           // _machine.GetComponent<HealthSystem>().OnDeath += MachineDie;
+            _player.GetComponent<HealthSystem>().OnDeath += PlayerDie;
+           _machine.GetComponent<HealthSystem>().OnDeath += MachineDie;
 
             _uIGameController.enabled = true;
         }
         [PunRPC]
         void RPC_SpawnPoint() //Llamado por los clientes que no son maestros para pedir un punto de spawn
         {
+
+            photonView.RPC("RPC_RecivePont", RpcTarget.Others, _spawnPoints[_indexSpawns].position);
             _indexSpawns++;
             if (_indexSpawns >= _spawnPoints.Count)
+            {
                 _indexSpawns = 0;
-            photonView.RPC("RPC_RecivePont", RpcTarget.Others, _spawnPoints[_indexSpawns].position);
-
+            }
         }
         [PunRPC]
         void RPC_RecivePont(Vector3 spawnPos) //Llamado por el cliente maestro para enviar el punto de spawn al cliente que lo pidio

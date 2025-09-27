@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using Deforestation;
 using Deforestation.Machine;
 using Deforestation.Network;
+using Deforestation.Machine.Weapon;
 using Photon.Pun;
 using UnityEngine;
 
-public class NetworkMachine : MonoBehaviourPun
+public class NetworkMachine : MonoBehaviourPun, IPunObservable
 {
     #region Properties
     #endregion
@@ -15,6 +16,8 @@ public class NetworkMachine : MonoBehaviourPun
     [SerializeField] private MachineController _machine;
     public Transform _machineFollow;
     private NetworkGameController _gameController;
+
+    private Quaternion _lastReceivedTowerRotation;
     #endregion
 
     #region Unity Callbacks
@@ -35,17 +38,41 @@ public class NetworkMachine : MonoBehaviourPun
         }
         else
         {
-            //---
+            // Guardamos la rotación inicial de la torreta
+            _lastReceivedTowerRotation = _machine.WeaponController.TowerWeapon.rotation;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        // Solo los clientes remotos interpolan la rotación de la torreta
+        if (!photonView.IsMine)
+        {
+            // Suaviza la rotación de la torreta en clientes remotos
+            _machine.WeaponController.TowerWeapon.rotation = Quaternion.Slerp(
+                _machine.WeaponController.TowerWeapon.rotation,
+                _lastReceivedTowerRotation,
+                Time.deltaTime * 10f
+            );
+        }
     }
     #endregion
-
+    #region Networking
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            // Solo el dueño envía la rotación de la torreta
+            stream.SendNext(_machine.WeaponController.TowerWeapon.rotation);
+        }
+        else
+        {
+            // Los demás la reciben
+            _lastReceivedTowerRotation = (Quaternion)stream.ReceiveNext();
+        }
+    }
+    #endregion
     #region Public Methods
     #endregion
 
