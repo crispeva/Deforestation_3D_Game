@@ -6,6 +6,7 @@ using Deforestation.Network;
 using Deforestation.Machine.Weapon;
 using Photon.Pun;
 using UnityEngine;
+using System;
 
 public class NetworkMachine : MonoBehaviourPun, IPunObservable
 {
@@ -35,7 +36,8 @@ public class NetworkMachine : MonoBehaviourPun, IPunObservable
             _machine.HealthSystem.OnHealthChanged += SyncHealth;
             //Autoridad de disparos en local
             _machine.WeaponController.OnMachineShoot += SyncShoot;
-            GameController.Instance.InputSystem._onRunMachine += SyncRun;
+            //Autoridad de animaciones en local
+            GameController.Instance.MachineController.OnAnimationSync += SyncAnimation;
         }
         else
         {
@@ -43,6 +45,8 @@ public class NetworkMachine : MonoBehaviourPun, IPunObservable
             _lastReceivedTowerRotation = _machine.WeaponController.TowerWeapon.rotation;
         }
     }
+
+  
 
     // Update is called once per frame
     void Update()
@@ -108,16 +112,15 @@ public class NetworkMachine : MonoBehaviourPun, IPunObservable
     }
 
     // Ejemplo: sincronizar el trigger "Jump"
-    public void SyncRun()
+    void SyncAnimation(string animName)
     {
         if (photonView.IsMine)
-            photonView.RPC("RPC_PlayRun", RpcTarget.All);
+            photonView.RPC("RPC_PlayAnimation", RpcTarget.All, animName);
     }
-
     [PunRPC]
-    void RPC_PlayRun()
+    void RPC_PlayAnimation(string animName)
     {
-        _machine.GetComponent<Animator>().SetTrigger("Run");
+        _machine.GetComponent<Animator>().SetTrigger(animName);
     }
     #endregion
 }

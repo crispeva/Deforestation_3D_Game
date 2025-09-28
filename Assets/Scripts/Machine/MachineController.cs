@@ -15,8 +15,10 @@ namespace Deforestation.Machine
 		public Action OnMachineWalking;
         [Header("Spawn_Player")]
         [SerializeField] Transform _machineSpawn;
-
-
+        // Evento para sincronizar el salto de la maquina
+        public Action OnSyncJump;
+        public Action OnSyncWakeUp;
+        public event Action<string> OnAnimationSync;
         #endregion
 
         #region Fields
@@ -75,13 +77,15 @@ namespace Deforestation.Machine
 			enabled = machineMode;
 			_movement.enabled = machineMode;
 			_anim.SetTrigger("WakeUp");
-			_anim.SetBool("Move", machineMode);
+            OnAnimationSync?.Invoke("WakeUp");
+            _anim.SetBool("Move", machineMode);
 			OnMachineDriveChange?.Invoke(true);
 
         }
         public void StartRunning()
         {
             _anim.SetTrigger("Run");
+            OnAnimationSync?.Invoke("Run");
         }
 		public void StopMoving()
 		{
@@ -92,6 +96,7 @@ namespace Deforestation.Machine
         public void JumpMachine()
         {
             _anim.SetTrigger("Jump");
+            OnAnimationSync?.Invoke("Jump");
         }
         public void PlayerExitMachine()
         {

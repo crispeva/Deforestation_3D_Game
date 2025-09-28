@@ -99,6 +99,7 @@ public class NetworkPlayer : MonoBehaviourPun
     {
         _inventory.AddRecolectable(RecolectableType.SuperCrystal, 5);
         _inventory.AddRecolectable(RecolectableType.HyperCrystal, 5);
+        _inventory.AddRecolectable(RecolectableType.MegaCrystal, 5);
     }
 
     private void DisconectPlayer()
