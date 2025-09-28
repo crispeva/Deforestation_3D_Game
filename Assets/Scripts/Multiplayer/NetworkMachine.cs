@@ -35,6 +35,7 @@ public class NetworkMachine : MonoBehaviourPun, IPunObservable
             _machine.HealthSystem.OnHealthChanged += SyncHealth;
             //Autoridad de disparos en local
             _machine.WeaponController.OnMachineShoot += SyncShoot;
+            GameController.Instance.InputSystem._onRunMachine += SyncRun;
         }
         else
         {
@@ -104,6 +105,19 @@ public class NetworkMachine : MonoBehaviourPun, IPunObservable
     private void RefreshHealth(float value)
     {
         _machine.HealthSystem.SetHealth(value);
+    }
+
+    // Ejemplo: sincronizar el trigger "Jump"
+    public void SyncRun()
+    {
+        if (photonView.IsMine)
+            photonView.RPC("RPC_PlayRun", RpcTarget.All);
+    }
+
+    [PunRPC]
+    void RPC_PlayRun()
+    {
+        _machine.GetComponent<Animator>().SetTrigger("Run");
     }
     #endregion
 }

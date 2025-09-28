@@ -48,6 +48,7 @@ namespace Deforestation.Machine
                 GameController.Instance.InputSystem._onExitMachine += PlayerExitMachine;
                 _movement.enabled = false;
             }
+            GameController.Instance.InputSystem._onRunMachine += StartRunning;
 
 		}
 
@@ -78,7 +79,10 @@ namespace Deforestation.Machine
 			OnMachineDriveChange?.Invoke(true);
 
         }
-
+        public void StartRunning()
+        {
+            _anim.SetTrigger("Run");
+        }
 		public void StopMoving()
 		{
 			_movement.enabled = false;

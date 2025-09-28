@@ -16,6 +16,7 @@ public class GameInputController : MonoBehaviour
     #region Fields
     public Action _onActiveMenu;
     public Action _onExitMachine;
+    public Action _onRunMachine;
     #endregion
 
     #region Unity Callbacks
@@ -27,7 +28,8 @@ public class GameInputController : MonoBehaviour
     void Update()
     {
         ExitMachine();
-        PauseGame(); 
+        PauseGame();
+        RunMachine();
     }
 
     #endregion
@@ -54,6 +56,14 @@ public class GameInputController : MonoBehaviour
             _onExitMachine?.Invoke();
         }
     }
-    #endregion
-}
+        private void RunMachine()
+        {
+            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+            {
+                Debug.Log("Corre que te corre");
+                _onRunMachine?.Invoke();
+            }
+        }
+        #endregion
+    }
 }

@@ -44,6 +44,8 @@ MonoBehaviour:
   - RefreshHealth
   - SyncHealth
   - OthersShoot
+  - RPC_PlayJump
+  - RPC_PlayRun
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

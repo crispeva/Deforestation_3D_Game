@@ -15517,6 +15517,9 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 1
     Name: Jump
+  - Type: 9
+    SynchronizeType: 1
+    Name: Run
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
