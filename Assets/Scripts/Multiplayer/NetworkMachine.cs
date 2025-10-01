@@ -61,6 +61,7 @@ public class NetworkMachine : MonoBehaviourPun, IPunObservable
                 Time.deltaTime * 10f
             );
         }
+        
     }
     #endregion
     #region Networking

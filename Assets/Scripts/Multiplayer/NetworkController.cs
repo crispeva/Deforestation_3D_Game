@@ -27,17 +27,16 @@ public class NetworkController : MonoBehaviourPunCallbacks //Debe de heredar de 
         private GameObject _player;
         [SerializeField] private GameObject _explosionPrefab;
         #endregion
-
         #region Unity Callbacks
         void Start()
     {
             ConnectToServer();
-    }
+            GameController.Instance.OnMachineModeChange += DisableAvatar;
+        }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
     #endregion
 
@@ -123,6 +122,18 @@ public class NetworkController : MonoBehaviourPunCallbacks //Debe de heredar de 
                 Vector3 spawnPosition = centerPoint + randomDirection.normalized * UnityEngine.Random.Range(0f, maxDistance);
                 Instantiate(_explosionPrefab, spawnPosition, Quaternion.identity);
             }
+        }
+        private void DisableAvatar(bool state)
+        {
+            photonView.RPC("RPC_ReciveModeMachine", RpcTarget.Others, state);
+        }
+        [PunRPC]
+        private void RPC_ReciveModeMachine(bool value)
+        {
+            
+  
+                _player.active = value;
+
         }
         private void PlayerDie()
         {

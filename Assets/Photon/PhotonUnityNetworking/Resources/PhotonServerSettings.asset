@@ -46,6 +46,10 @@ MonoBehaviour:
   - OthersShoot
   - RPC_PlayJump
   - RPC_PlayRun
+  - RPC_PlayAwakeUp
+  - RPC_PlayWakeUpp
+  - RPC_PlayAnimation
+  - RPC_ReciveModeMachine
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

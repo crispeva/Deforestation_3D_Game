@@ -26,9 +26,10 @@ namespace Deforestation
 		public WinEvent WinEvent => _winEvent;
         public Camera MainCamera;
 
-		//Events
-		public Action<bool> OnMachineModeChange;
-		public Action OnEventVillage;
+        //Events
+        public Action OnEventVillage;
+        public Action<bool> OnMachineModeChange;
+
 
 		public bool MachineModeOn
 		{
@@ -70,6 +71,7 @@ namespace Deforestation
 		[SerializeField] protected GameObject _objetcsVillageEvent;
 		[SerializeField] protected WinEvent _winEvent;
         private bool _machineModeOn;
+		//Multiplayer Event
         #endregion
 
         #region Unity Callbacks
@@ -106,9 +108,8 @@ namespace Deforestation
 			//Player
 			_player.gameObject.SetActive(!machineMode);
 			_player.enabled = !machineMode;
-
-			//Cursor + UI
-			if (machineMode)
+            //Cursor + UI
+            if (machineMode)
 			{
 				//Start Driving
 				if (Inventory.HasResource(RecolectableType.HyperCrystal))

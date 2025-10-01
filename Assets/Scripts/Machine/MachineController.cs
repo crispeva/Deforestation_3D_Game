@@ -45,11 +45,10 @@ namespace Deforestation.Machine
 		// Start is called before the first frame update
 		void Start()
 		{
-            if (OnMachineDriveChange != null)
-            {
-                GameController.Instance.InputSystem._onExitMachine += PlayerExitMachine;
-                _movement.enabled = false;
-            }
+           
+            GameController.Instance.InputSystem._onExitMachine += PlayerExitMachine;
+            _movement.enabled = false;
+
             GameController.Instance.InputSystem._onRunMachine += StartRunning;
 
 		}
