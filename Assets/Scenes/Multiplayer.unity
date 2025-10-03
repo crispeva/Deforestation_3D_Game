@@ -579,7 +579,7 @@ MonoBehaviour:
   - {fileID: 2034160280}
   _ui: {fileID: 1911671888}
   _uIGameController: {fileID: 1911671886}
-  _explosionPrefab: {fileID: 1007127540951276732, guid: 3ace37360f306cb4aac03640550fa9ef,
+  _explosionPrefab: {fileID: 1620140131458704099, guid: 57e5b83dfee152a47aedf7d83c83e9f5,
     type: 3}
 --- !u!114 &1505100058
 MonoBehaviour:
@@ -962,7 +962,7 @@ PrefabInstance:
     - target: {fileID: 961936965280365798, guid: 11121c341e25b90408a6473e31b35e43,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.22699928
+      value: -0.2269988
       objectReference: {fileID: 0}
     - target: {fileID: 1281887282168017854, guid: 11121c341e25b90408a6473e31b35e43,
         type: 3}
@@ -982,7 +982,7 @@ PrefabInstance:
     - target: {fileID: 2205231697922270225, guid: 11121c341e25b90408a6473e31b35e43,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -2.282074
+      value: -2.2820663
       objectReference: {fileID: 0}
     - target: {fileID: 2279328198225414321, guid: 11121c341e25b90408a6473e31b35e43,
         type: 3}

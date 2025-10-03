@@ -12,6 +12,7 @@ namespace Deforestation
 	{
 		public event Action<float> OnHealthChanged;
 		public event Action OnDeath;
+		public event Action OnDeathMultiplayer;
 		public event Action OnDestroy;
 
 		[SerializeField]
@@ -54,13 +55,14 @@ namespace Deforestation
 		private void Die()
 		{
             if (_isdeath) return;
-            if (gameObject.name== "PlayerFPS" || gameObject.name == "TheMachine"  )
+            if (gameObject.name.Contains( "PlayerFPS") || gameObject.name.Contains("TheMachine"))
 			{
                 _isdeath=true;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
-                OnDeath?.Invoke();
                 Debug.Log("OnDeath invocado en: " + gameObject.name);
+                OnDeath?.Invoke();
+
             }
 			else
 			{
@@ -69,6 +71,7 @@ namespace Deforestation
             }
 
         }
+
+        }
     }
 
-}

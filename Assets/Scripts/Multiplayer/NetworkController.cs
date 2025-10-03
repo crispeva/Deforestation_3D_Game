@@ -80,7 +80,7 @@ public class NetworkController : MonoBehaviourPunCallbacks //Debe de heredar de 
             //dead control
             _player.GetComponent<HealthSystem>().OnDeath += PlayerDie;
            _machine.GetComponent<HealthSystem>().OnDeath += MachineDie;
-
+            //me voy a guardar aqui un array de maquinas y players para cuando muera uno hacer respawn
             _uIGameController.enabled = true;
         }
         [PunRPC]
@@ -110,8 +110,9 @@ public class NetworkController : MonoBehaviourPunCallbacks //Debe de heredar de 
                 GameController.Instance.MachineMode(false);
                 _player.GetComponent<HealthSystem>().TakeDamage(1000);
             }
+            //Aqui resto de la cuenta de maquinas
 
-            DestroyImmediate(_machine);
+            Destroy(_machine);
             SpawnExplosions(_machine.transform.position + Vector3.up * 4, 5, 5);
         }
         public void SpawnExplosions(Vector3 centerPoint, int numberOfExplosions = 4, float maxDistance = 5f)
@@ -130,10 +131,7 @@ public class NetworkController : MonoBehaviourPunCallbacks //Debe de heredar de 
         [PunRPC]
         private void RPC_ReciveModeMachine(bool value)
         {
-            
-  
-                _player.active = value;
-
+            _player.active = value;
         }
         private void PlayerDie()
         {
