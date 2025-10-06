@@ -71,7 +71,7 @@ namespace Deforestation
 		[SerializeField] protected GameObject _objetcsVillageEvent;
 		[SerializeField] protected WinEvent _winEvent;
         private bool _machineModeOn;
-		//Multiplayer Event
+        //Multiplayer Event
         #endregion
 
         #region Unity Callbacks
@@ -125,7 +125,7 @@ namespace Deforestation
 				_machine.WeaponController.enabled = true;
 				_machine.GetComponent<MachineMovement>().enabled = true;
 
-			}
+            }
 			else
 			{
 				_machine.enabled = false;

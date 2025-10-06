@@ -45,25 +45,30 @@ namespace Deforestation.Machine
 		// Start is called before the first frame update
 		void Start()
 		{
-           
-            GameController.Instance.InputSystem._onExitMachine += PlayerExitMachine;
+
+            StartCoroutine(SubscribeWhenReady());
             _movement.enabled = false;
-
-            GameController.Instance.InputSystem._onRunMachine += StartRunning;
-
-		}
+        }
 
 		// Update is called once per frame
 		void Update()
 		{
             FallMachine();
 
-        }		
+        }
 
-		#endregion
+        #endregion
 
-		#region Public Methods
-		public void StopDriving()
+        #region Public Methods
+        IEnumerator SubscribeWhenReady()
+        {
+            while (GameController.Instance.InputSystem == null)
+                yield return null; // espera al siguiente frame
+
+            GameController.Instance.InputSystem._onExitMachine += PlayerExitMachine;
+            GameController.Instance.InputSystem._onRunMachine += StartRunning;
+        }
+        public void StopDriving()
 		{
             StopMoving();
             

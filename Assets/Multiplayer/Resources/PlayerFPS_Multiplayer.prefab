@@ -88,6 +88,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 100
+  _isdeath: 0
   delayDeath: 3
 --- !u!114 &6064248703745186318
 MonoBehaviour:

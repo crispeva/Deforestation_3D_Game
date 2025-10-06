@@ -1,24 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Deforestation;
+using Deforestation.Inputs; 
 using Deforestation.Interaction;
 using Deforestation.Machine;
 using Deforestation.Recolectables;
-using Deforestation.Inputs; 
-using UnityEngine;
 using Deforestation.UI;
-using System;
+using Photon.Pun;
+using UnityEngine;
 namespace Deforestation.Network
 {
 public class NetworkGameController : GameController
 {
         #region Properties
+        public NetworkMachine MachineMultiplayer;
         #endregion
 
         #region Fields
         private bool _isMultiplayer = false;
-        public int machines = 0;
-        public int players = 0;
         public Action _OnVictory;
         #endregion
 
@@ -52,7 +52,6 @@ public class NetworkGameController : GameController
             _inputSystem = inputSystem;
             _isMultiplayer=true;
             _uiController.inizialiceinventory();
-            players++;
         }
         public void InitializeMachine(Transform follow, MachineController machine)
         {
@@ -64,7 +63,7 @@ public class NetworkGameController : GameController
             _machineFollow = follow;
             _machine = machine;
             //Conteo de maquinas instanciadas
-            machines++;
+          
 
             _machine.HealthSystem.OnHealthChanged += _uiController.UpdateMachineHealth;
             //Para refrescar la UI
@@ -72,14 +71,8 @@ public class NetworkGameController : GameController
         }
         #endregion
 
-        private void Victory()
-        {
-            if (machines == 1||players==1)
-            {
-                _OnVictory?.Invoke();
-            }
-        }
         #region Private Methods
+
         #endregion
     }
 }

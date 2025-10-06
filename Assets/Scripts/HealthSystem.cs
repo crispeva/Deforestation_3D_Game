@@ -17,7 +17,7 @@ namespace Deforestation
 
 		[SerializeField]
 		private float _maxHealth = 100f;
-		private bool _isdeath;
+		public bool _isdeath;
 		public float CurrentHealth { get; set; }
 		[SerializeField]private float delayDeath = 1f;
 		
@@ -45,11 +45,12 @@ namespace Deforestation
 			OnHealthChanged?.Invoke(CurrentHealth);
 		}
 
-		public void SetHealth(float value)
+		public void SetHealth(float value, bool triggerEvent = true)
 		{
 			CurrentHealth = value;
 			CurrentHealth = Mathf.Min(CurrentHealth, _maxHealth);
-			OnHealthChanged?.Invoke(CurrentHealth);
+            if (triggerEvent)
+                OnHealthChanged?.Invoke(CurrentHealth);
         }
 
 		private void Die()

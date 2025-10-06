@@ -1,12 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Deforestation;
 using Deforestation.Machine;
-using Deforestation.Network;
 using Deforestation.Machine.Weapon;
+using Deforestation.Network;
 using Photon.Pun;
+using Photon.Pun.Demo.PunBasics;
+using Photon.Realtime;
 using UnityEngine;
-using System;
 
 public class NetworkMachine : MonoBehaviourPun, IPunObservable
 {
@@ -17,8 +19,11 @@ public class NetworkMachine : MonoBehaviourPun, IPunObservable
     [SerializeField] private MachineController _machine;
     public Transform _machineFollow;
     private NetworkGameController _gameController;
-
     private Quaternion _lastReceivedTowerRotation;
+    public bool IsAlive
+    {
+        get { return GameController.Instance.HealthSystem.CurrentHealth > 0; }
+    }
     #endregion
 
     #region Unity Callbacks
@@ -38,6 +43,7 @@ public class NetworkMachine : MonoBehaviourPun, IPunObservable
             _machine.WeaponController.OnMachineShoot += SyncShoot;
             //Autoridad de animaciones en local
             GameController.Instance.MachineController.OnAnimationSync += SyncAnimation;
+
         }
         else
         {
@@ -78,6 +84,8 @@ public class NetworkMachine : MonoBehaviourPun, IPunObservable
             _lastReceivedTowerRotation = (Quaternion)stream.ReceiveNext();
         }
     }
+  
+
     #endregion
     #region Public Methods
     #endregion
@@ -109,7 +117,8 @@ public class NetworkMachine : MonoBehaviourPun, IPunObservable
     [PunRPC]
     private void RefreshHealth(float value)
     {
-        _machine.HealthSystem.SetHealth(value);
+        _machine.HealthSystem.SetHealth(value,false);
+        GameController.Instance.UIGameController.UpdateMachineHealth(value);
     }
 
     // Ejemplo: sincronizar el trigger "Jump"

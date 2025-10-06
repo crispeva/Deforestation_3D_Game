@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using Deforestation;
@@ -10,6 +10,7 @@ using Photon.Pun;
 using StarterAssets;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.DebugUI;
 namespace Deforestation.Multiplayer
 {
 
@@ -47,7 +48,7 @@ public class NetworkPlayer : MonoBehaviourPun
             _health.enabled = true;
             _inventory.enabled = true;
             _interactions.enabled = true;
-            _fps.enabled = true;
+                _fps.enabled = true;
             _controller.enabled = true;
             _inputs.enabled = true;
                 var vcam = FindObjectOfType<CinemachineVirtualCamera>();
@@ -112,18 +113,26 @@ public class NetworkPlayer : MonoBehaviourPun
         Destroy(_inputs);
         Destroy(_inputsPlayer);
     }
-    private void Die()
+        [PunRPC]
+        private void RefreshHealth(float value)
+        {
+            _health.SetHealth(value,false);
+            GameController.Instance.UIGameController.UpdatePlayerHealth(value);
+        }
+        private void Die()
     {
         _anim.SetTrigger("Die");
-        DisconectPlayer();
+       // DisconectPlayer();
         this.enabled = false;
 
     }
 
-    private void Hit(float obj)
+    private void Hit(float value)
     {
         _anim.SetTrigger("Hit");
-    }
+             if (photonView.IsMine)
+         photonView.RPC("RefreshHealth", RpcTarget.All, value);
+        }
 
     #endregion
 }

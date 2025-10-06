@@ -50,6 +50,15 @@ MonoBehaviour:
   - RPC_PlayWakeUpp
   - RPC_PlayAnimation
   - RPC_ReciveModeMachine
+  - RPC_OnDeath
+  - SyncPilot
+  - RequestMount
+  - DeclareDraw
+  - DeclareWinner
+  - NotifyPlayerEliminated
+  - RegisterAlivePlayer
+  - RequestDismount
+  - SyncMountState
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
