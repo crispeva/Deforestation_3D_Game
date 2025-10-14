@@ -15331,7 +15331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb4bf88a35773c949bce3eb21802579c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speedForce: 300000
+  _speedForce: 100
   _jumpForce: 600000
   _jumpMovement: {x: 0, y: 0, z: 0}
   _speedRotation: 30
@@ -15392,8 +15392,8 @@ Rigidbody:
   m_GameObject: {fileID: 6501388576243615661}
   serializedVersion: 4
   m_Mass: 10000
-  m_Drag: 5
-  m_AngularDrag: 10
+  m_Drag: 0
+  m_AngularDrag: 75
   m_CenterOfMass: {x: 0, y: -25, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -15468,7 +15468,7 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 2
   observableSearch: 0
   ObservedComponents:
   - {fileID: 8840273570965871649}
@@ -17553,7 +17553,8 @@ GameObject:
   - component: {fileID: 5897958480764064121}
   - component: {fileID: 2223206009887491926}
   - component: {fileID: 6962741464145101690}
-  - component: {fileID: 7623172987233422085}
+  - component: {fileID: 3012171550412372426}
+  - component: {fileID: 6780185831788372571}
   m_Layer: 0
   m_Name: Pantalla Interactable
   m_TagString: Untagged
@@ -17647,7 +17648,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0057395212, y: 0.0076709827, z: 0.0042277784}
   m_Center: {x: 0.004983354, y: -0.00012729374, z: 0.005421363}
---- !u!114 &7623172987233422085
+--- !u!114 &3012171550412372426
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -17656,14 +17657,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 7247290998120879537}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d006c3d1d8b3ef40aa1e50ee6cf1d33, type: 3}
+  m_Script: {fileID: 11500000, guid: 18dc147be35bf7b448f38d54b98c2e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 2
-  _target: {fileID: 0}
+  _target: {fileID: 4559150790852581615}
   _interactableInfo:
-    Action: Drive
+    Action: 
     Type: 
+--- !u!114 &6780185831788372571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7247290998120879537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 2
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &7247955389526559142
 GameObject:
   m_ObjectHideFlags: 0

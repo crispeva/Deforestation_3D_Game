@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Deforestation.Dinosaurus;
 using Deforestation.Recolectables;
+using Photon.Pun;
 using UnityEngine;
 namespace Deforestation.Machine
 {
@@ -23,6 +24,7 @@ namespace Deforestation.Machine
 		[Header("Energy")]
 		[SerializeField] private float energyDecayRate = 20f;
 		private float energyTimer = 0f;
+		PhotonView photonView;
         #endregion
 
         #region Properties
@@ -34,11 +36,14 @@ namespace Deforestation.Machine
 		{
 			_rb = GetComponent<Rigidbody>();
             _isGrounded = false;
+			photonView = GetComponent<PhotonView>();
         }
 
 		private void Update()
 		{
-
+            Debug.Log("Requested ownership of the machine2." + photonView);
+            if (photonView != null && !photonView.IsMine)
+                return;
             if (_inventory.HasResource(RecolectableType.HyperCrystal))
 			{
 				//Movement
@@ -55,8 +60,6 @@ namespace Deforestation.Machine
 					{
                         OnMachineWalking?.Invoke(driving = true);
                     }
-                  
-
 
                     if (energyTimer >= energyDecayRate)
 					{
@@ -94,7 +97,9 @@ namespace Deforestation.Machine
 
 		private void FixedUpdate()
 		{
-			_rb.AddRelativeForce(_movementDirection.normalized * _speedForce, ForceMode.Impulse);
+            if (photonView != null && !photonView.IsMine)
+                return;
+            _rb.AddRelativeForce(_movementDirection.normalized * _speedForce, ForceMode.Acceleration);
 		}
 
 		void CheckGround()

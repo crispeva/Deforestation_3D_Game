@@ -58,9 +58,9 @@ public class GameInputController : MonoBehaviour
     }
         private void RunMachine()
         {
-            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+            if ((Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) && GameController.Instance.MachineModeOn)
             {
-                Debug.Log("Corre que te corre");
+                //Debug.Log("Corre que te corre");
                 _onRunMachine?.Invoke();
             }
         }

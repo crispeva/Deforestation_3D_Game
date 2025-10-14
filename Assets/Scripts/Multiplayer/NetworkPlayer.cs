@@ -122,7 +122,7 @@ public class NetworkPlayer : MonoBehaviourPun
         private void Die()
     {
         _anim.SetTrigger("Die");
-       // DisconectPlayer();
+        DisconectPlayer();
         this.enabled = false;
 
     }

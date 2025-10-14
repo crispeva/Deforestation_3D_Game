@@ -13,6 +13,7 @@ public class MainMenuManager : MonoBehaviour
     #region Fields
     [SerializeField] Button _startGameButton;
     [SerializeField] Button _exitGameButton;
+    [SerializeField] Button _multiplayerGameButton;
 
     #endregion
 
@@ -21,6 +22,7 @@ public class MainMenuManager : MonoBehaviour
     {
         _startGameButton.onClick.AddListener(StartGame);
         _exitGameButton.onClick.AddListener(ExitGame);
+        _multiplayerGameButton.onClick.AddListener(MultiplayerGame);
     }
 
 
@@ -39,6 +41,10 @@ public class MainMenuManager : MonoBehaviour
     private void StartGame()
     {
         SceneManager.LoadScene("Main Scene");
+    }
+    private void MultiplayerGame()
+    {
+        SceneManager.LoadScene("Multiplayer");
     }
 
     private void ExitGame()

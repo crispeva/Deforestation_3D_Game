@@ -10,7 +10,7 @@ using Photon.Pun.Demo.PunBasics;
 using Photon.Realtime;
 using Unity.VisualScripting;
 using UnityEngine;
-namespace Deforestation.Multiplayer
+namespace Deforestation.Network
 {
 
 public class NetworkController : MonoBehaviourPunCallbacks //Debe de heredar de MonoBehaviourPunCallbacks para poder usar los callbacks de Photon
@@ -37,7 +37,6 @@ public class NetworkController : MonoBehaviourPunCallbacks //Debe de heredar de 
         private List<Photon.Realtime.Player> mountedPlayers = new List<Photon.Realtime.Player>();
         private List<Photon.Realtime.Player> alivePlayers = new List<Photon.Realtime.Player>();
         private bool gameEnded = false;
-        bool IsDeath = true;
         #endregion
         #region Unity Callbacks
         void Start()
@@ -67,7 +66,6 @@ public class NetworkController : MonoBehaviourPunCallbacks //Debe de heredar de 
             {
 
                 SpawnMe(_spawnPoints[0].position);
-                alivePlayers.Add(PhotonNetwork.LocalPlayer);
                 _indexSpawns ++;
             }
             else
@@ -88,7 +86,8 @@ public class NetworkController : MonoBehaviourPunCallbacks //Debe de heredar de 
             _machine.GetComponent<HealthSystem>().OnDeath += MachineDie;
             _uIGameController.enabled = true;
             photonView.RPC("RegisterAlivePlayer", RpcTarget.AllBuffered); //Registra el jugador como vivo en todos los clientes
-            machines.Add(_machine);
+
+            machines.Add(_machine);//Añade la maquina a la lista de maquinas
         }
         [PunRPC]
         void RegisterAlivePlayer()
@@ -147,7 +146,7 @@ public class NetworkController : MonoBehaviourPunCallbacks //Debe de heredar de 
             }
 
             // sincroniza el estado de pilotaje
-            photonView.RPC("SyncPilot", RpcTarget.All, actorNumber);
+            //photonView.RPC("SyncPilot", RpcTarget.All, actorNumber);
 
         }
 
@@ -188,8 +187,7 @@ public class NetworkController : MonoBehaviourPunCallbacks //Debe de heredar de 
                 GameController.Instance.MachineMode(false);
                 _player.GetComponent<HealthSystem>().TakeDamage(1000);
                 machines.Remove(_machine);
-
-                //photonView.RPC("NotifyPlayerEliminated", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer.ActorNumber);
+                
             }
             photonView.RPC("RPC_OnDeath", RpcTarget.All);
         }
@@ -202,9 +200,11 @@ public class NetworkController : MonoBehaviourPunCallbacks //Debe de heredar de 
         [PunRPC]
         void NotifyPlayerEliminated(int actorNumber)
         {
-            if (!PhotonNetwork.IsMasterClient) return;
+            //if (!PhotonNetwork.IsMasterClient) return;
 
             var player = PhotonNetwork.CurrentRoom.GetPlayer(actorNumber);
+            Debug.Log($". Jugador actual: {player.ActorNumber}");
+            Debug.Log($". Jugadores vivos: {alivePlayers.Count}");
             alivePlayers.Remove(player);
 
             Debug.Log($"Jugador eliminado: {player.NickName}. Jugadores vivos: {alivePlayers.Count}");
@@ -269,6 +269,7 @@ public class NetworkController : MonoBehaviourPunCallbacks //Debe de heredar de 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             _ui.EndGamePanel.SetActive(true);
+            photonView.RPC("NotifyPlayerEliminated", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer.ActorNumber);
         }
         #endregion
     }

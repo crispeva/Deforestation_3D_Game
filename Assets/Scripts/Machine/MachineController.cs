@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Deforestation.Machine.Weapon;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Deforestation.Machine
@@ -82,6 +83,7 @@ namespace Deforestation.Machine
 			_movement.enabled = machineMode;
 			_anim.SetTrigger("WakeUp");
             OnAnimationSync?.Invoke("WakeUp");
+
             _anim.SetBool("Move", machineMode);
 			OnMachineDriveChange?.Invoke(true);
 
@@ -95,15 +97,18 @@ namespace Deforestation.Machine
 		{
 			_movement.enabled = false;
 			_anim.SetBool("Move", false);
-
+            
         }
         public void JumpMachine()
         {
             _anim.SetTrigger("Jump");
             OnAnimationSync?.Invoke("Jump");
         }
+
         public void PlayerExitMachine()
         {
+            if (!GetComponent<PhotonView>().IsMine)
+                return;
             if (_movement.enabled == true)
 			{
                 StartCoroutine(WaitMachineModeChange());

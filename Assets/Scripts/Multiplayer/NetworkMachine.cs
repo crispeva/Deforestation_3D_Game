@@ -9,8 +9,9 @@ using Photon.Pun;
 using Photon.Pun.Demo.PunBasics;
 using Photon.Realtime;
 using UnityEngine;
-
-public class NetworkMachine : MonoBehaviourPun, IPunObservable
+namespace Deforestation.Network
+{
+    public class NetworkMachine : MonoBehaviourPun, IPunObservable
 {
     #region Properties
     #endregion
@@ -43,6 +44,7 @@ public class NetworkMachine : MonoBehaviourPun, IPunObservable
             _machine.WeaponController.OnMachineShoot += SyncShoot;
             //Autoridad de animaciones en local
             GameController.Instance.MachineController.OnAnimationSync += SyncAnimation;
+
 
         }
         else
@@ -133,4 +135,5 @@ public class NetworkMachine : MonoBehaviourPun, IPunObservable
         _machine.GetComponent<Animator>().SetTrigger(animName);
     }
     #endregion
+}
 }

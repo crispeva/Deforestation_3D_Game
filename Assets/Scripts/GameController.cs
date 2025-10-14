@@ -124,7 +124,6 @@ namespace Deforestation
 				_machine.enabled = true;
 				_machine.WeaponController.enabled = true;
 				_machine.GetComponent<MachineMovement>().enabled = true;
-
             }
 			else
 			{
@@ -141,9 +140,7 @@ namespace Deforestation
 		}
 		public void ShowEventVillage()
 		{
-            _objetcsVillageEvent.SetActive(true);
-
-			
+            _objetcsVillageEvent.SetActive(true);	
         }
 
         #endregion
