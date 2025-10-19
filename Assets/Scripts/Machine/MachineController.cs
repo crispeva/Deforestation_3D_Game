@@ -17,8 +17,8 @@ namespace Deforestation.Machine
         [Header("Spawn_Player")]
         [SerializeField] Transform _machineSpawn;
         // Evento para sincronizar el salto de la maquina
-        public Action OnSyncJump;
         public Action OnSyncWakeUp;
+        public Action OnSyncExitMachine;
         public event Action<string> OnAnimationSync;
         #endregion
 
@@ -34,7 +34,7 @@ namespace Deforestation.Machine
 
         private float tiempoVolcado = 0f;
         #endregion
-
+        private PhotonView _photonView;
         #region Unity Callbacks
         private void Awake()
 		{
@@ -42,13 +42,15 @@ namespace Deforestation.Machine
 			_movement = GetComponent<MachineMovement>();
 			_anim = GetComponent<Animator>();
 
-		}
+
+        }
 		// Start is called before the first frame update
 		void Start()
 		{
-
+            
             StartCoroutine(SubscribeWhenReady());
             _movement.enabled = false;
+            
         }
 
 		// Update is called once per frame
@@ -68,6 +70,7 @@ namespace Deforestation.Machine
 
             GameController.Instance.InputSystem._onExitMachine += PlayerExitMachine;
             GameController.Instance.InputSystem._onRunMachine += StartRunning;
+            _photonView = GetComponent<PhotonView>();
         }
         public void StopDriving()
 		{
@@ -86,7 +89,7 @@ namespace Deforestation.Machine
 
             _anim.SetBool("Move", machineMode);
 			OnMachineDriveChange?.Invoke(true);
-
+            
         }
         public void StartRunning()
         {
@@ -97,7 +100,7 @@ namespace Deforestation.Machine
 		{
 			_movement.enabled = false;
 			_anim.SetBool("Move", false);
-            
+           
         }
         public void JumpMachine()
         {
@@ -107,13 +110,14 @@ namespace Deforestation.Machine
 
         public void PlayerExitMachine()
         {
-            if (!GetComponent<PhotonView>().IsMine)
+            if (_photonView != null && !_photonView.IsMine)
                 return;
             if (_movement.enabled == true)
 			{
                 StartCoroutine(WaitMachineModeChange());
-				GameController.Instance.MachineController.StopDriving();
-				_movement.driving = false;
+                GameController.Instance.MachineController.StopDriving();
+                OnSyncExitMachine?.Invoke();
+                _movement.driving = false;
 
             }
 			else
@@ -129,7 +133,8 @@ namespace Deforestation.Machine
             GameController.Instance.TeleportPlayer(_machineSpawn.position);
             GameController.Instance.MachineMode(false);
 
-        }private void FallMachine()
+        }
+        private void FallMachine()
 		{
             // Calcula el ángulo entre el 'arriba' del objeto y el 'arriba' global
             float angulo = Vector3.Angle(transform.up, Vector3.up);

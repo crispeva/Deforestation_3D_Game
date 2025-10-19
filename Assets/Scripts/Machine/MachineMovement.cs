@@ -99,7 +99,7 @@ namespace Deforestation.Machine
 		{
             if (photonView != null && !photonView.IsMine)
                 return;
-            _rb.AddRelativeForce(_movementDirection.normalized * _speedForce, ForceMode.Acceleration);
+            _rb.AddRelativeForce(_movementDirection.normalized * _speedForce, ForceMode.Force);
 		}
 
 		void CheckGround()
@@ -125,7 +125,17 @@ namespace Deforestation.Machine
 			if (other.tag == "Tree")
 			{
 				int index = other.GetComponent<Tree>().Index;
-				GameController.Instance.TerrainController.DestroyTree(index, other.transform.position);
+				// Validar el índice antes de destruir el árbol
+				var terrainController = GameController.Instance.TerrainController;
+				var trees = terrainController.Trees;
+				if (index >= 0 && index < trees.Length)
+				{
+					terrainController.DestroyTree(index, other.transform.position);
+				}
+				else
+				{
+					Debug.LogError($"Índice de árbol fuera de rango: {index}. Total de árboles: {trees.Length}");
+				}
 			}
 
 			

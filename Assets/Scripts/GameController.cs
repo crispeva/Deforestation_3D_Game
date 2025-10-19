@@ -37,7 +37,7 @@ namespace Deforestation
 			{
 				return _machineModeOn;
 			}
-			private set
+			protected set
 			{
 				_machineModeOn = value;
 				OnMachineModeChange?.Invoke(_machineModeOn);
@@ -102,7 +102,7 @@ namespace Deforestation
 			_player.enabled = true;
 		}
 
-		internal void MachineMode(bool machineMode)
+		internal virtual void MachineMode(bool machineMode)
 		{
 			MachineModeOn = machineMode;
 			//Player

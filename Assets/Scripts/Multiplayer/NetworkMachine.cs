@@ -21,10 +21,6 @@ namespace Deforestation.Network
     public Transform _machineFollow;
     private NetworkGameController _gameController;
     private Quaternion _lastReceivedTowerRotation;
-    public bool IsAlive
-    {
-        get { return GameController.Instance.HealthSystem.CurrentHealth > 0; }
-    }
     #endregion
 
     #region Unity Callbacks
@@ -54,12 +50,11 @@ namespace Deforestation.Network
         }
     }
 
-  
 
-    // Update is called once per frame
-    void Update()
+        // Update is called once per frame
+        void Update()
     {
-        // Solo los clientes remotos interpolan la rotación de la torreta
+        //Solo los clientes remotos interpolan la rotación de la torreta
         if (!photonView.IsMine)
         {
             // Suaviza la rotación de la torreta en clientes remotos

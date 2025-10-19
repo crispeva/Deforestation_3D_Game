@@ -12,7 +12,7 @@ using UnityEngine;
 namespace Deforestation.Network
 {
 public class NetworkGameController : GameController
-{
+    {
         #region Properties
         public NetworkMachine MachineMultiplayer;
         #endregion
@@ -69,10 +69,43 @@ public class NetworkGameController : GameController
             //Para refrescar la UI
             _machine.HealthSystem.TakeDamage(0);
         }
+        internal override void MachineMode(bool machineMode)
+        {
+            MachineModeOn = machineMode;
+            //Player
+            //Cursor + UI
+            if (machineMode)
+            {
+                //Start Driving
+                if (Inventory.HasResource(RecolectableType.HyperCrystal))
+                    _machine.StartDriving(machineMode);
+
+                _player.transform.parent = _machineFollow;
+                _uiController.HideInteraction();
+                Cursor.lockState = CursorLockMode.None;
+                //Camera
+                _virtualCamera.Follow = _machineFollow;
+
+                _machine.enabled = true;
+                _machine.WeaponController.enabled = true;
+                _machine.GetComponent<MachineMovement>().enabled = true;
+            }
+            else
+            {
+                _machine.enabled = false;
+                _machine.WeaponController.enabled = false;
+                _machine.GetComponent<MachineMovement>().enabled = false;
+                _player.transform.parent = null;
+
+                //Camera
+                _virtualCamera.Follow = _playerFollow;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            Cursor.visible = machineMode;
+        }
         #endregion
 
         #region Private Methods
-
         #endregion
     }
 }
