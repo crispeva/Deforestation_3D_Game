@@ -62,7 +62,6 @@ public class NetworkController : MonoBehaviourPunCallbacks //Debe de heredar de 
         [PunRPC]
         private void RPC_ReciveModeMachine(bool value)
         {
-            //_player.GetComponentInChildren<GameObject>().SetActive(!value);
             _player.SetActive(value);
         }
         public override void OnConnectedToMaster() //Callback que se llama cuando el cliente se conecta al servidor maestro

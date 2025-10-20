@@ -77,7 +77,6 @@ namespace Deforestation.Machine
             StopMoving();
             
             OnMachineDriveChange?.Invoke(false);
-
         }
 
 		public void StartDriving(bool machineMode)
@@ -112,20 +111,21 @@ namespace Deforestation.Machine
         {
             if (_photonView != null && !_photonView.IsMine)
                 return;
+            
             if (_movement.enabled == true)
 			{
                 StartCoroutine(WaitMachineModeChange());
                 GameController.Instance.MachineController.StopDriving();
                 OnSyncExitMachine?.Invoke();
                 _movement.driving = false;
-
+               
             }
 			else
 			{
                 GameController.Instance.TeleportPlayer(_machineSpawn.position);
                 GameController.Instance.MachineMode(false);
             }
-
+            _photonView.TransferOwnership(0);
         }
         private IEnumerator WaitMachineModeChange()
         {

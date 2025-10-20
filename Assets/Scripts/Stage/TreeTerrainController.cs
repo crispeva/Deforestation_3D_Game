@@ -65,11 +65,10 @@ namespace Deforestation
 		}
 		public void RemoveTreeFromTerrain(int index)
 		{
-			//TODO: Reasignar todos los indices de todos los tree detectors.
 			List<TreeInstance> trees = new List<TreeInstance>(_terrain.terrainData.treeInstances);
             if (index < 0 || index >= trees.Count)
             {
-                Debug.LogError($"Índice de árbol fuera de rango: {index}. Total de árboles: {trees.Count}");
+                //Debug.LogError($"Índice de árbol fuera de rango: {index}. Total de árboles: {trees.Count}");
                 return;
             }
             trees.RemoveAt(index);
