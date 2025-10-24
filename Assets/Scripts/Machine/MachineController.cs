@@ -74,45 +74,59 @@ namespace Deforestation.Machine
         }
         public void StopDriving()
 		{
-            StopMoving();
-            
-            OnMachineDriveChange?.Invoke(false);
+            if (_anim != null)
+            {
+                StopMoving();
+                OnMachineDriveChange?.Invoke(false);
+            }
         }
 
 		public void StartDriving(bool machineMode)
 		{
-			enabled = machineMode;
-			_movement.enabled = machineMode;
-			_anim.SetTrigger("WakeUp");
-            OnAnimationSync?.Invoke("WakeUp");
+            if (_anim != null)
+            {
+                 enabled = machineMode;
+			    _movement.enabled = machineMode;
+			    _anim.SetTrigger("WakeUp");
+                OnAnimationSync?.Invoke("WakeUp");
 
-            _anim.SetBool("Move", machineMode);
-			OnMachineDriveChange?.Invoke(true);
-            
+                _anim.SetBool("Move", machineMode);
+			    OnMachineDriveChange?.Invoke(true);
+            }
         }
         public void StartRunning()
         {
-            _anim.SetTrigger("Run");
-            OnAnimationSync?.Invoke("Run");
+            if (_anim != null)
+            {
+                _anim.SetTrigger("Run");
+                OnAnimationSync?.Invoke("Run");
+            }
         }
 		public void StopMoving()
 		{
-			_movement.enabled = false;
-			_anim.SetBool("Move", false);
-           
+            if (_anim != null)
+            {
+                _movement.enabled = false;
+                _anim.SetBool("Move", false);
+            }
         }
         public void JumpMachine()
         {
-            _anim.SetTrigger("Jump");
-            OnAnimationSync?.Invoke("Jump");
+            if (_anim != null)
+            {
+                _anim.SetTrigger("Jump");
+                OnAnimationSync?.Invoke("Jump");
+            }
         }
 
         public void PlayerExitMachine()
         {
             if (_photonView != null && !_photonView.IsMine)
                 return;
+            if (_movement != null) {
             
-            if (_movement.enabled == true)
+            
+                if (_movement.enabled == true)
 			{
                 StartCoroutine(WaitMachineModeChange());
                 GameController.Instance.MachineController.StopDriving();
@@ -125,7 +139,9 @@ namespace Deforestation.Machine
                 GameController.Instance.TeleportPlayer(_machineSpawn.position);
                 GameController.Instance.MachineMode(false);
             }
+            
             _photonView.TransferOwnership(0);
+            }
         }
         private IEnumerator WaitMachineModeChange()
         {

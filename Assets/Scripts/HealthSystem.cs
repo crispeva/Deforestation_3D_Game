@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using Photon.Pun;
 namespace Deforestation
 {
 
@@ -31,8 +31,10 @@ namespace Deforestation
 		{
 			CurrentHealth -= damage;
 			OnHealthChanged?.Invoke(CurrentHealth);
+            PhotonView pv = GetComponent<PhotonView>();
 
-			if (CurrentHealth <= 0)
+
+            if (CurrentHealth <= 0)
 			{
 				Die();
 			}

@@ -60,6 +60,11 @@ MonoBehaviour:
   - RequestDismount
   - SyncMountState
   - RPC_StopDriving
+  - RPC_RequestDestroy
+  - RPC_DoDestroy
+  - RPC_CreateExplosions
+  - RPC_DestroyMachine
+  - RegisterMachine
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

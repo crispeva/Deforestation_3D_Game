@@ -103,7 +103,7 @@ namespace Deforestation.Network
     [PunRPC]
     private void OthersShoot(Vector3 shootDirection)
     {
-        _machine.WeaponController.Shoot(shootDirection);
+             _machine.WeaponController.Shoot(shootDirection);
     }
 
     private void SyncHealth(float value)
@@ -115,7 +115,8 @@ namespace Deforestation.Network
     private void RefreshHealth(float value)
     {
         _machine.HealthSystem.SetHealth(value,false);
-        GameController.Instance.UIGameController.UpdateMachineHealth(value);
+        if (photonView.IsMine)
+           GameController.Instance.UIGameController.UpdateMachineHealth(value);
     }
 
     // Ejemplo: sincronizar el trigger "Jump"
@@ -127,7 +128,8 @@ namespace Deforestation.Network
     [PunRPC]
     void RPC_PlayAnimation(string animName)
     {
-        _machine.GetComponent<Animator>().SetTrigger(animName);
+            if (photonView.IsMine)
+            _machine.GetComponent<Animator>().SetTrigger(animName);
     }
     #endregion
 }

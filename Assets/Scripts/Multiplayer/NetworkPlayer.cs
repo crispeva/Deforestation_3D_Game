@@ -117,10 +117,12 @@ public class NetworkPlayer : MonoBehaviourPun
         private void RefreshHealth(float value)
         {
             _health.SetHealth(value,false);
-            GameController.Instance.UIGameController.UpdatePlayerHealth(value);
+            if (photonView.IsMine)
+                GameController.Instance.UIGameController.UpdatePlayerHealth(value);
         }
-        private void Die()
+    private void Die()
     {
+        if (photonView.IsMine)
         _anim.SetTrigger("Die");
         DisconectPlayer();
         this.enabled = false;

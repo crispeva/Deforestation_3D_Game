@@ -55,6 +55,7 @@ namespace Deforestation.UI
         [SerializeField] private WinEvent _winEvent;
         [SerializeField] private ForestEvent _forestEvent;
         [SerializeField] private FirstPersonController FirstPersonController;
+
         private bool _settingsOn = false;
         public CanvasGroup canvasGroupDie;
         public float Duration = 1f;
@@ -76,8 +77,8 @@ namespace Deforestation.UI
                 _forestEvent.OnExitForestEvent += HideEventDialog;
                 _winEvent.OnWin += ShowEventDialog;
                 //Die Panels
-                _healthSystemPlayer.OnDeath += ShowDiePanel;
-                _healthSystemMachine.OnDeath += ShowDiePanel;
+                _healthSystemPlayer.OnDeath += ShowPanel;
+                _healthSystemMachine.OnDeath += ShowPanel;
                 _intputSystem._onActiveMenu += ShowPausePanel;
                 //Settings events
                 _musicSlider.onValueChanged.AddListener(MusicVolumeChange);
@@ -93,6 +94,10 @@ namespace Deforestation.UI
                 Cursor.visible = true; // Muestra el cursor
                 Cursor.lockState = CursorLockMode.None; // Desbloquea el cursor
                 FirstPersonController.enabled = false;
+            }
+            else
+            {
+
             }
 
         }
@@ -161,11 +166,11 @@ namespace Deforestation.UI
             Ispaused= true;
         }
 
-        public void ShowDiePanel()
+        public void ShowPanel()
         {
             StartCoroutine(FadeIn(canvasGroupDie, Duration));
         }
-        IEnumerator FadeIn(CanvasGroup group, float duration)
+       public IEnumerator FadeIn(CanvasGroup group, float duration)
         {
             float t = 0f;
             group.interactable = true;
@@ -258,6 +263,8 @@ namespace Deforestation.UI
             QualitySettings.SetQualityLevel(index, true);
             Debug.Log("Nivel de calidad cambiado a: " + QualitySettings.names[index]);
         }
+
+
 
 
         #endregion
