@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Deforestation;
+using Photon.Pun;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,19 +10,16 @@ using UnityEngine.UI;
 public class UINetwork : MonoBehaviour
 {
     #region Properties
+    [Header("Multiplayer")]
     [SerializeField] private GameObject _connectingPanel;
     [SerializeField] private CanvasGroup _winPanel;
     [SerializeField] private CanvasGroup _drawPanel;
-    [Header("Multiplayer")]
     [SerializeField] private TextMeshProUGUI _player_winner;
     [SerializeField] private TextMeshProUGUI _player;
     [SerializeField] private Button _buttonExit;
     [SerializeField] private Button _buttonRetry;
     #endregion
 
-    #region Fields
-    public GameObject EndGamePanel;
-    #endregion
 
     #region Unity Callbacks
     void Start()
@@ -63,10 +61,14 @@ public class UINetwork : MonoBehaviour
     #region Private Methods
     private void Retry()
     {
+        if (PhotonNetwork.IsConnected)
+            PhotonNetwork.Disconnect();
         SceneManager.LoadScene(0);
     }
     private void Exit()
     {
+        Debug.Log("Quit Application");
+
         Application.Quit();
     }
     #endregion

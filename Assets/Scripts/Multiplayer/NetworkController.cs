@@ -14,7 +14,7 @@ using UnityEngine;
 namespace Deforestation.Network
 {
 
-public class NetworkController : MonoBehaviourPunCallbacks //Debe de heredar de MonoBehaviourPunCallbacks para poder usar los callbacks de Photon
+public class NetworkController : MonoBehaviourPunCallbacks 
     {
         #region Properties
         #endregion
@@ -159,11 +159,7 @@ public class NetworkController : MonoBehaviourPunCallbacks //Debe de heredar de 
         #endregion
 
         #region Mount/Dismount Methods
-        [PunRPC]
-        private void RPC_ReciveModeMachine(bool value)
-        {
-            _player.SetActive(value);
-        }
+     
         private void HandleMachineModeChange(bool isDriving)
         {
             Debug.Log("Aqui registro player" + alivePlayers.Count);
@@ -236,6 +232,7 @@ public class NetworkController : MonoBehaviourPunCallbacks //Debe de heredar de 
                 Debug.Log($"Machine eliminadas: {machines.Count}. Jugadores vivos: {alivePlayers.Count}");
                 photonView.RPC("DeclareDraw", RpcTarget.All);
             }
+            _machine.GetComponent<MachineController>().enabled=false;
         }
         [PunRPC]
         void DeclareWinner(int winnerActorNumber)
@@ -371,7 +368,6 @@ public class NetworkController : MonoBehaviourPunCallbacks //Debe de heredar de 
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            _ui.EndGamePanel.SetActive(true);
             photonView.RPC("NotifyPlayerEliminated", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer.ActorNumber);
         }
 
@@ -381,7 +377,11 @@ public class NetworkController : MonoBehaviourPunCallbacks //Debe de heredar de 
             if (photonView.IsMine)
                 photonView.RPC("RPC_ReciveModeMachine", RpcTarget.All, !state);
         }
-
+        [PunRPC]
+        private void RPC_ReciveModeMachine(bool value)
+        {
+            _player.transform.GetChild(0).gameObject.SetActive(value);
+        }
         [PunRPC]
         void NotifyPlayerEliminated(int actorNumber)
         {

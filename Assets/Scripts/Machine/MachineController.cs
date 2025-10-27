@@ -78,6 +78,7 @@ namespace Deforestation.Machine
             {
                 StopMoving();
                 OnMachineDriveChange?.Invoke(false);
+                
             }
         }
 
@@ -87,9 +88,10 @@ namespace Deforestation.Machine
             {
                  enabled = machineMode;
 			    _movement.enabled = machineMode;
+			    WeaponController.enabled = machineMode;
+
 			    _anim.SetTrigger("WakeUp");
                 OnAnimationSync?.Invoke("WakeUp");
-
                 _anim.SetBool("Move", machineMode);
 			    OnMachineDriveChange?.Invoke(true);
             }
@@ -108,7 +110,19 @@ namespace Deforestation.Machine
             {
                 _movement.enabled = false;
                 _anim.SetBool("Move", false);
+                SyncBool("Move", false); // sincroniza el cambio
             }
+        }
+        void SyncBool(string paramName, bool value)
+        {
+           if (_photonView.IsMine)
+                _photonView.RPC("RPC_SetBool", RpcTarget.All, paramName, value);
+        }
+
+        [PunRPC]
+        void RPC_SetBool(string paramName, bool value)
+        {
+            _anim.SetBool(paramName, value);
         }
         public void JumpMachine()
         {
@@ -124,23 +138,11 @@ namespace Deforestation.Machine
             if (_photonView != null && !_photonView.IsMine)
                 return;
             if (_movement != null) {
-            
-            
-                if (_movement.enabled == true)
-			{
                 StartCoroutine(WaitMachineModeChange());
                 GameController.Instance.MachineController.StopDriving();
                 OnSyncExitMachine?.Invoke();
                 _movement.driving = false;
-               
-            }
-			else
-			{
-                GameController.Instance.TeleportPlayer(_machineSpawn.position);
-                GameController.Instance.MachineMode(false);
-            }
-            
-            _photonView.TransferOwnership(0);
+                _photonView.TransferOwnership(0);
             }
         }
         private IEnumerator WaitMachineModeChange()

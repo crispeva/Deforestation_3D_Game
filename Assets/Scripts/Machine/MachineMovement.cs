@@ -11,40 +11,40 @@ namespace Deforestation.Machine
 		#region Fields
 		[SerializeField] private float _speedForce = 50;
 		[SerializeField] private float _jumpForce = 2;
-		[SerializeField] private Vector3 _jumpMovement ;
+		[SerializeField] private Vector3 _jumpMovement;
 		[SerializeField] private float _speedRotation = 15;
-        [SerializeField] private Transform _playerTransform;
-        [SerializeField] private Transform _targetSpawn;
-        private bool _isGrounded;
-        private Rigidbody _rb;
+		[SerializeField] private Transform _playerTransform;
+		[SerializeField] private Transform _targetSpawn;
+		private bool _isGrounded;
+		private Rigidbody _rb;
 		private Vector3 _movementDirection;
-        public Action <bool> OnMachineWalking;
-        private Inventory _inventory => GameController.Instance.Inventory;
+		public Action<bool> OnMachineWalking;
+		private Inventory _inventory => GameController.Instance.Inventory;
 
 		[Header("Energy")]
 		[SerializeField] private float energyDecayRate = 20f;
 		private float energyTimer = 0f;
 		PhotonView photonView;
-        #endregion
+		#endregion
 
-        #region Properties
-        public bool driving = false;
-        #endregion
+		#region Properties
+		public bool driving = false;
+		#endregion
 
-        #region Unity Callbacks	
-        private void Awake()
+		#region Unity Callbacks	
+		private void Awake()
 		{
 			_rb = GetComponent<Rigidbody>();
-            _isGrounded = false;
+			_isGrounded = false;
 			photonView = GetComponent<PhotonView>();
-        }
+		}
 
 		private void Update()
 		{
-            Debug.Log("Requested ownership of the machine2." + photonView);
-            if (photonView != null && !photonView.IsMine)
-                return;
-            if (_inventory.HasResource(RecolectableType.HyperCrystal))
+			Debug.Log("Requested ownership of the machine2." + photonView);
+			if (photonView != null && !photonView.IsMine)
+				return;
+			if (_inventory.HasResource(RecolectableType.HyperCrystal))
 			{
 				//Movement
 				_movementDirection = new Vector3(Input.GetAxis("Vertical"), 0, 0);
@@ -58,48 +58,49 @@ namespace Deforestation.Machine
 
 					if (!driving)
 					{
-                        OnMachineWalking?.Invoke(driving = true);
-                    }
+						OnMachineWalking?.Invoke(driving = true);
+					}
 
-                    if (energyTimer >= energyDecayRate)
+					if (energyTimer >= energyDecayRate)
 					{
-                        energyTimer=0f;
+						energyTimer = 0f;
 						_inventory.UseResource(RecolectableType.HyperCrystal);
 
 					}
-                }
-                else
-                {
+				}
+				else
+				{
 
-                    OnMachineWalking?.Invoke(driving = false);
+					OnMachineWalking?.Invoke(driving = false);
 
-                }
+				}
 
-            }
+			}
 			else
 			{
-                OnMachineWalking?.Invoke(driving = false);
-                GameController.Instance.MachineController.StopMoving();
+				OnMachineWalking?.Invoke(driving = false);
+				GameController.Instance.MachineController.StopMoving();
 			}
-			if (_inventory.HasResource(RecolectableType.MegaCrystal) & _isGrounded==true)
+			if (_inventory.HasResource(RecolectableType.MegaCrystal) & _isGrounded == true)
 			{
-				if (Input.GetKeyDown(KeyCode.Space)){
+				if (Input.GetKeyDown(KeyCode.Space))
+				{
 
-                    _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
-                    _inventory.UseResource(RecolectableType.MegaCrystal);
-                    _isGrounded = false;
+					_rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+					_inventory.UseResource(RecolectableType.MegaCrystal);
+					_isGrounded = false;
 					GameController.Instance.MachineController.JumpMachine();
-                }
+				}
 			}
 
-            CheckGround();
+			CheckGround();
 		}
 
 		private void FixedUpdate()
 		{
-            if (photonView != null && !photonView.IsMine)
-                return;
-            _rb.AddRelativeForce(_movementDirection.normalized * _speedForce, ForceMode.Force);
+			if (photonView != null && !photonView.IsMine)
+				return;
+			_rb.AddRelativeForce(_movementDirection.normalized * _speedForce, ForceMode.Force);
 		}
 
 		void CheckGround()
@@ -108,13 +109,13 @@ namespace Deforestation.Machine
 			float maxDistance = 4f;
 			float force = 100000;
 			Vector3 direction = -transform.up;
-			
+
 			// Dibuja el rayo en el editor
 			Debug.DrawRay(transform.position, direction * maxDistance, Color.red);
 
 			// Calcula la máscara de la capa correctamente
 			int layerMask = 1 << LayerMask.NameToLayer("Terrain");
-			
+
 			// Lanza un rayo hacia abajo desde la posición del objeto
 			if (!Physics.Raycast(transform.position, direction, out hit, maxDistance, layerMask))
 				_rb.AddRelativeForce(direction * force);
@@ -138,7 +139,7 @@ namespace Deforestation.Machine
 				}
 			}
 
-			
+
 		}
 		private void OnCollisionEnter(Collision collision)
 		{
@@ -148,21 +149,14 @@ namespace Deforestation.Machine
 			{
 				target.TakeDamage(10);
 			}
-            // Considera grounded si toca el suelo (ajusta el tag/layer según tu juego)
-            if (collision.gameObject.CompareTag("Terrain"))
-            {
-                _isGrounded = true;
+			// Considera grounded si toca el suelo (ajusta el tag/layer según tu juego)
+			if (collision.gameObject.CompareTag("Terrain"))
+			{
+				_isGrounded = true;
 			}
-        }
+		}
 
-        #endregion
+		#endregion
 
-        #region Private Methods
-        #endregion
-
-        #region Public Methods
-
-        #endregion
-    }
-	
+	}
 }

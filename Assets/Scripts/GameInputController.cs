@@ -54,7 +54,8 @@ public class GameInputController : MonoBehaviour
         {
             Debug.Log("Q detectada en MachineMovement");
             _onExitMachine?.Invoke();
-        }
+            GameController.Instance.MachineController.enabled = false;
+            }
     }
         private void RunMachine()
         {

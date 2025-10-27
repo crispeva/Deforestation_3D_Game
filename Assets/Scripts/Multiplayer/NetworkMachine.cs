@@ -13,8 +13,6 @@ namespace Deforestation.Network
 {
     public class NetworkMachine : MonoBehaviourPun, IPunObservable
 {
-    #region Properties
-    #endregion
 
     #region Fields
     [SerializeField] private MachineController _machine;
@@ -84,9 +82,6 @@ namespace Deforestation.Network
   
 
     #endregion
-    #region Public Methods
-    #endregion
-
     #region Private Methods
     private void SyncShoot()
     {
