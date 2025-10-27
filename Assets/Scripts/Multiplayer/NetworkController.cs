@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Deforestation.Machine;
+using Deforestation.Machine.Weapon;
+using Deforestation.Recolectables;
 using Deforestation.UI;
 using Photon.Pun;
 using Photon.Pun.Demo.PunBasics;
@@ -37,6 +39,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
         public Photon.Realtime.Player currentPilot;
         private List<Photon.Realtime.Player> mountedPlayers = new List<Photon.Realtime.Player>();
         private List<Photon.Realtime.Player> alivePlayers = new List<Photon.Realtime.Player>();
+        public Action <bool>_onActivePauseMenu;
         private bool gameEnded = false;
         //[SerializeField] private TextMeshProUGUI _textVictory;
         #endregion
@@ -217,6 +220,8 @@ public class NetworkController : MonoBehaviourPunCallbacks
         }
         private void CheckForWinner()
         {
+            
+            _player.GetComponent<Inventory>().AddRecolectable(RecolectableType.SuperCrystal, -100);
             if (alivePlayers.Count == 1 && mountedPlayers.Count ==1)
             {
                 var winner = alivePlayers[0];
@@ -232,7 +237,6 @@ public class NetworkController : MonoBehaviourPunCallbacks
                 Debug.Log($"Machine eliminadas: {machines.Count}. Jugadores vivos: {alivePlayers.Count}");
                 photonView.RPC("DeclareDraw", RpcTarget.All);
             }
-            _machine.GetComponent<MachineController>().enabled=false;
         }
         [PunRPC]
         void DeclareWinner(int winnerActorNumber)
