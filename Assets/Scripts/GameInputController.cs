@@ -53,8 +53,8 @@ public class GameInputController : MonoBehaviour
         if (GameController.Instance.MachineModeOn && Input.GetKeyUp(KeyCode.Q))
         {
             Debug.Log("Q detectada en MachineMovement");
-            _onExitMachine?.Invoke();
-            GameController.Instance.MachineController.enabled = false;
+                GameController.Instance.MachineController.enabled = false;
+                _onExitMachine?.Invoke();
             }
     }
         private void RunMachine()

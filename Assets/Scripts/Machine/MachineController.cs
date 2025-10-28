@@ -142,7 +142,7 @@ namespace Deforestation.Machine
                 GameController.Instance.MachineController.StopDriving();
                 OnSyncExitMachine?.Invoke();
                 _movement.driving = false;
-                _photonView.TransferOwnership(0);
+               // _photonView.TransferOwnership(0);
             }
         }
         private IEnumerator WaitMachineModeChange()

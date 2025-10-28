@@ -55,6 +55,7 @@ namespace Deforestation.Network
         //Solo los clientes remotos interpolan la rotación de la torreta
         if (!photonView.IsMine)
         {
+                
             // Suaviza la rotación de la torreta en clientes remotos
             _machine.WeaponController.TowerWeapon.rotation = Quaternion.Slerp(
                 _machine.WeaponController.TowerWeapon.rotation,
